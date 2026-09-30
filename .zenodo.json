@@ -1,0 +1,23 @@
+{
+  "title": "Simple zeros on the critical line for a weighted family of Dirichlet L-functions, from polylogarithmic to polynomial height",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    { "name": "Johns, Nic" }
+  ],
+  "description": "<p>Paper (74 pages), Lean 4 formalisation and verification records.</p><p>Unconditionally, for a weighted family of primitive Dirichlet L-functions, at least 0.9322 &minus; &epsilon; of the zeros at polylogarithmic height are simple and on the critical line (Theorem 1.1), with explicit bounds up to any fixed polynomial height in the conductor (Theorem 1.4; for example 0.8656 &minus; &epsilon; for T &le; Q, and above 2/3 at every polynomial height). Theorems 1.1 and 1.4(a) are machine-checked in Lean 4, with no hypotheses and only the standard axioms.</p><p>Preprint, September 2026; not yet peer-reviewed. The mathematics, proofs, Lean formalisation and text were produced by AI agents (Anthropic's Claude Opus 5.5) under the author's direction; see the paper's AI-use statement and docs/VERIFICATION.md.</p><p>Licences: the paper and documentation are licensed under CC BY 4.0; the code (Lean formalisation, certificate scripts, build and CI) under the Apache License 2.0.</p>",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "analytic number theory",
+    "Dirichlet L-functions",
+    "simple zeros",
+    "critical line",
+    "large sieve",
+    "Lean 4",
+    "formal verification"
+  ],
+  "related_identifiers": [
+    { "identifier": "https://github.com/nic410/dirichlet-critical-zeros", "relation": "isSupplementTo", "resource_type": "software", "scheme": "url" }
+  ]
+}

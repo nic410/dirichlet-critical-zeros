@@ -146,7 +146,7 @@ correspondence rests on reading `STATEMENTS-H.md`.
 - The reading is supported by proved pins in `FamiliesH/StatementCheck.lean`: `pB_two`, `admissibleB_two_iff`,
   `kappaT_rpow`, the `rfl` parsing pins, and `thmMain_of_thmH`.
 - Most objects are reused verbatim from the `Families` library, whose headline statement `thmMain_Statement` was
-  checked in an independent review by a frontier AI model from another developer (not Claude), which found it
+  checked in an independent review by OpenAI's Astra, which found it
   faithful.
 - `thmH_Statement` was checked by two further independent audits (Claude-based agents, i.e. of the same model
   family as the formalisation, working separately from it); both found it faithful. An audit of `thmH_Statement`

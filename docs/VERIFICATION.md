@@ -14,7 +14,7 @@ Paper references are to `paper/main.pdf` (74 pages). Review records are in `revi
 
 | Claim | Lean (kernel-checked) | Certified numerics | Written proof | Independent review | Status |
 |---|---|---|---|---|---|
-| **Theorem 1.1**: weighted proportion of simple zeros on the line ≥ p(1) − ε ≥ 0.9322 − ε; distinct zeros ≥ 0.9661 − ε (polylogarithmic height) | **Yes**: `Families.thmMain`, no hypotheses, standard axioms only; the bound p(1) ≥ 0.932282 is evaluated by the kernel | `paper/anc/certify.py` (exact rational) | §§2–7, App. B | Statement audit by a frontier AI model from another developer, not Claude (record 01); paper review by the same model (record 02, before Lean completion); Claude referees (record 08) | Formally proved. Statement faithfulness audited by AI (a model other than Claude), not by a human. Written proof not yet checked by a human |
+| **Theorem 1.1**: weighted proportion of simple zeros on the line ≥ p(1) − ε ≥ 0.9322 − ε; distinct zeros ≥ 0.9661 − ε (polylogarithmic height) | **Yes**: `Families.thmMain`, no hypotheses, standard axioms only; the bound p(1) ≥ 0.932282 is evaluated by the kernel | `paper/anc/certify.py` (exact rational) | §§2–7, App. B | Statement audit by OpenAI's Astra (record 01); paper review by the same model (record 02, before Lean completion); Claude referees (record 08) | Formally proved. Statement faithfulness audited by AI (a model other than Claude), not by a human. Written proof not yet checked by a human |
 | **Theorem 1.2**: ≥ 0.8859 − ε by the Gauss-transfer route; distinct ≥ 0.9429 − ε | No (stated as a `Prop` only). Some ingredients are proved in Lean: the Gauss transfer (Lemma 6.7), p(1.2688) ≥ 0.885912, ℰ ≥ 0.47914 and hence C_G ≤ 1.2688 | `certify.py`, `certify_constants_arb.py` | §6.1, §7 | Records 02, 08 | Rests on the written proof and certified numerics |
 | **Theorem 1.3**: fixed η; 0.9155 (η = 10⁻³), 0.9241 (η = 10⁻⁴); Gauss route 0.8744, 0.8802, 0.8827 | No (stated as a `Prop` only) | `ctplus_arb.py`, `rw_arb.py`, `certify_ctplus_arb.py` (interval arithmetic, Arb); independent re-implementation `xcheck_*.py` | Prop. 6.23, Lemma 6.11, §7 | Record 02 reran all nine interval computations; record 08 reran two | Rests on the written proofs and certified numerics |
 | **Theorem 1.4(a)**: at polynomial height, ≥ p(λ̄_T; F₁) − ε, with column (a) of the κ-table (0.8656 at T ≤ Q, 0.7641 at T ≤ Q⁵, 0.7274 at T ≤ Q¹⁰) | **Yes**: `Families.Hybrid.thmH`, no hypotheses, standard axioms only; the five constants for κ = 1, 2, 3, 5, 10 are kernel-evaluated | `certify_hybrid.py` (exact rational) | §9 | Statement audits by Claude only (records 06, 03); §9 reviewed by Claude only (records 03, 04, 07) | Formally proved. Statement faithfulness audited by Claude only. Written proof not yet checked by a human |
@@ -35,8 +35,7 @@ Paper references are to `paper/main.pdf` (74 pages). Review records are in `revi
   candidate) are correct.
 - **It does not guarantee** that those Lean statements say the same thing as the theorems printed in the paper. That
   correspondence is a matter of reading the definitions. It is set out definition by definition in
-  `lean/STATEMENTS.md` and `lean/STATEMENTS-H.md`, and it was audited by AI reviewers: by a frontier AI model from
-  another developer (not Claude) for Theorem 1.1 (record 01), and by Claude for Theorem 1.4(a) (records 06 and 03).
+  `lean/STATEMENTS.md` and `lean/STATEMENTS-H.md`, and it was audited by AI reviewers: by OpenAI's Astra for Theorem 1.1 (record 01), and by Claude for Theorem 1.4(a) (records 06 and 03).
   Both audits compiled independent Lean lemmas checking parsing, non-vacuity (for example that N > 0 eventually,
   uniformly in T, and that the zero sets are finite) and the equivalence with the paper's liminf-of-ratios form.
   The non-vacuity checks now ship with the project: `lean/scripts/NonVacuity.lean`, compiled by
@@ -116,7 +115,7 @@ Families.Hybrid.thmH : Families.Hybrid.thmH_Statement
 'Families.Hybrid.thmH' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-Independent rebuilds: the non-Claude reviewer rebuilt all local modules of the `Families` library and reproduced the
+Independent rebuilds: Astra rebuilt all local modules of the `Families` library and reproduced the
 headline check and axioms (record 01); Claude cross-checks rebuilt both libraries, including from a clean copy
 (records 03, 04). Mathlib and `zeta23` were not rebuilt from source in those checks (their pinned build caches were
 reused).
@@ -179,7 +178,7 @@ With other numpy/scipy/BLAS versions the floating-point choice of step function 
 the printed values then remain valid lower bounds, because only the exact rational evaluation is part of the proof.
 
 **Independent reproductions recorded in the review records.** A second implementation of the rational certificates
-written by the non-Claude reviewer, sharing no code, reproduced all seven rows of Prop. 7.3; it also reran all
+written by Astra, sharing no code, reproduced all seven rows of Prop. 7.3; it also reran all
 nine interval computations and all 17 arithmetic-constant inequalities (record 02). Claude referees reproduced
 p(1) = 0.9322826 by an independent solver and the Montgomery–Taylor value 0.6725007 at bandwidth 1 (record 08); two
 independent exact evaluators reproduced the κ-table step functions (records 04, 07). The maxima behind C_T⁺(w) are
@@ -187,7 +186,7 @@ reproduced to ten digits by the shipped independent implementation `xcheck_*.py`
 
 ## 4. Summary of the independent reviews
 
-Reviews by Astra, a frontier AI model from another developer (not Claude), are marked **[X]**; the others were by
+Reviews by OpenAI's Astra are marked **[X]**; the others were by
 separate Claude agents.
 
 **Record 08: internal end-to-end referee** (Claude; 45-page version, before §9). Lead referee plus four section
@@ -266,7 +265,7 @@ Listed for candour; all are documented in the records cited. None changed Theore
 3. **Invalid arguments in superseded notes** (a Bochner shortcut, a positivity claim that fails for the smooth
    weight, a phase-conjugation step). They had been replaced before the paper was assembled; the notes were marked as
    superseded (record 02).
-4. **Six corrections to the paper** from the review by the non-Claude model, including a false intermediate lattice bound and a
+4. **Six corrections to the paper** from Astra's review, including a false intermediate lattice bound and a
    dropped normalisation factor (records 02, 02b).
 5. **Novelty narrowed.** An earlier description of "a new large sieve inequality" was withdrawn once the Toeplitz
    identity was recognised as classical (records 02, 02b; paper §1.3).
@@ -312,7 +311,7 @@ Listed for candour; all are documented in the records cited. None changed Theore
   It is accurate to call Theorems 1.1 and 1.4(a) formally proved; it is not accurate to call the whole paper formally
   verified.
 - **Statement faithfulness is a matter of reading.** The kernel checks the Lean statements, not the printed theorems.
-  The correspondence was audited by AI: by a frontier AI model from another developer (not Claude) for Theorem 1.1,
+  The correspondence was audited by AI: by OpenAI's Astra for Theorem 1.1,
   and by Claude only for Theorem 1.4(a).
 - **Trusted base.** The Lean kernel and toolchain (a release candidate, `v4.33.0-rc2`), Mathlib and `zeta23` at the
   pinned revisions, and the standard axioms. The reviews used cached dependency builds rather than rebuilding Mathlib

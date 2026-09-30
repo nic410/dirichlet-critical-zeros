@@ -11,9 +11,8 @@
 > response. Sections about the arXiv tarball, internal production documents and internal merge-proposal documents
 > have been omitted, as has the full audit transcript in (B); the retained sections are verbatim apart from the
 > removal of commit identifiers, branch names, temporary and internal paths, dates, and the author's name. Both
-> cross-checks were carried out by Claude agents (the same model family as the authoring agents), so they are **not** cross-model checks. "Astra" (mentioned in (B)) is the self-name of the
-> reviewer that audited the Theorem 1.1 statement (record 01), a frontier AI model from a different developer (not
-> Claude).
+> cross-checks were carried out by Claude agents (the same model family as the authoring agents), so they are **not** cross-model checks. "Astra" (mentioned in (B)) is OpenAI's Astra,
+> the reviewer that audited the Theorem 1.1 statement (record 01).
 > At the time of these checks the Lean project still contained ten `sorry` declarations off the headline chain
 > (Theorems 1.2, 1.3 and others; see record 01). In this repository those results are present only as `Prop`
 > definitions marked "Stated only; not proved in this project", and the project contains no `sorry`; statements below about "the

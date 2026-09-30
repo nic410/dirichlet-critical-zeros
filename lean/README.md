@@ -239,8 +239,7 @@ The Lean kernel checks that the proofs prove `thmMain_Statement` and `thmH_State
 statements say what Theorems 1.1 and 1.4(a) say; to check that, read the definitions they unfold to (the tables
 above, `STATEMENTS.md` and `STATEMENTS-H.md`).
 
-* The correspondence between `thmMain_Statement` and Theorem 1.1 was checked in an independent review by a
-  frontier AI model from another developer (not Claude), which found it faithful.
+* The correspondence between `thmMain_Statement` and Theorem 1.1 was checked in an independent review by OpenAI's Astra, which found it faithful.
 * `thmH_Statement` was checked by two further independent audits (Claude-based agents, working separately from
   the formalisation), both of which found it faithful.
 * What they read is pinned: the audit prints every definition the two statements unfold to and requires the output

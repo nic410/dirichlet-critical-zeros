@@ -3,8 +3,7 @@
 > zero `sorry`. The paper has also changed (§9 was added; see `docs/VERIFICATION.md`).
 
 > **Cleaned copy of an internal review record: internal file paths and identifiers removed; content otherwise unchanged.**
-> The reviewer, "Astra" (the reviewing agent's self-name), is a frontier AI model from a different developer (not
-> Claude); Claude produced the paper and the formalisation.
+> The reviewer is OpenAI's Astra; Claude produced the paper and the formalisation.
 > Notes on this copy:
 > - This review was of an **earlier version** of the paper (53 pages), before §9 (polynomial height, Theorem 1.4) was
 >   added and before the Lean proof of Theorem 1.1 was complete. Its statements about the Lean project (27 `sorry`

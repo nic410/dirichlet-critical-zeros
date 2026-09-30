@@ -6,8 +6,7 @@ identifiers, dates, agents' handles, and the author's name) and what, if anythin
 Otherwise the substance, verdicts and findings are as in the originals.
 
 **Who the reviewers were.** The paper and the formalisation were produced by instances of Anthropic's Claude.
-Records 01 and 02 are by **"Astra"** (the reviewing agent's self-name), a frontier AI model from a different developer
-(not Claude); they are the only checks by a model other than Claude. All other records are by separate Claude agents instructed to act as independent, hostile
+Records 01 and 02 are by **OpenAI's Astra**; they are the only checks by a model other than Claude. All other records are by separate Claude agents instructed to act as independent, hostile
 reviewers. **None of the reviewers is a human mathematician.**
 
 **Versions.** The paper grew during review. Several records were written about earlier versions (for example 45 or
@@ -17,8 +16,8 @@ repository.
 
 | # | Record | Reviewer | Object | Verdict in one line |
 |---|---|---|---|---|
-| 01 | [`01-statement-audit-theorem-1.1.md`](01-statement-audit-theorem-1.1.md) | Astra (a frontier AI model from a different developer, not Claude) | Faithfulness of the Lean statement `Families.thmMain_Statement` to Theorem 1.1; rebuild and axiom audit | FAITHFUL, with a harmless strengthening (ε/2 in the distinct-zero bound); no vacuity or hidden restriction found |
-| 02 | [`02-independent-paper-review.md`](02-independent-paper-review.md) | Astra (a frontier AI model from a different developer, not Claude) | The paper (53-page version, before §9), numerics, Lean status, novelty | No fatal error or unresolved load-bearing gap; six minor corrections; a "potentially publishable specialist result", not a field-wide breakthrough; specialist review of the sharp sieve recommended |
+| 01 | [`01-statement-audit-theorem-1.1.md`](01-statement-audit-theorem-1.1.md) | OpenAI's Astra | Faithfulness of the Lean statement `Families.thmMain_Statement` to Theorem 1.1; rebuild and axiom audit | FAITHFUL, with a harmless strengthening (ε/2 in the distinct-zero bound); no vacuity or hidden restriction found |
+| 02 | [`02-independent-paper-review.md`](02-independent-paper-review.md) | OpenAI's Astra | The paper (53-page version, before §9), numerics, Lean status, novelty | No fatal error or unresolved load-bearing gap; six minor corrections; a "potentially publishable specialist result", not a field-wide breakthrough; specialist review of the sharp sieve recommended |
 | 02b | [`02b-response-to-paper-review.md`](02b-response-to-paper-review.md) | the authoring agents (Claude) | Response to 02 | All six corrections accepted; no theorem or certified number changed; novelty narrowed (Toeplitz identity is classical) |
 | 03 | [`03-review-of-section-9.md`](03-review-of-section-9.md) | Claude (four sub-agents) | §9 / Theorem 1.4 merge: mathematics, port, Lean statement, priority | No fatal errors; statement FAITHFUL; missing prior work (Dickinson) and several over-claims to fix before merging |
 | 04 | [`04-post-merge-crosscheck.md`](04-post-merge-crosscheck.md) | Claude | The paper and the Lean project after the merge; fixes applied | No mathematical errors; two literally false sentences about Hua–Yang at small heights fixed; a latent gap in the audit's `sorry` scan found and closed |

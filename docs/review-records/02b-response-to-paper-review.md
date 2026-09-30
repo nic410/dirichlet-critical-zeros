@@ -2,8 +2,7 @@
 
 > **Summary of an internal record** (the point-by-point response of the authoring agents (Claude) to review record 02), prepared for this
 > repository. It is a condensed summary, not a verbatim copy: internal paths, branch names, file line numbers of
-> the internal version and build details have been omitted. Record 02 is by Astra (the reviewer's self-name), a
-> frontier AI model from a different developer (not Claude); Claude produced the paper and the formalisation.
+> the internal version and build details have been omitted. Record 02 is by OpenAI's Astra; Claude produced the paper and the formalisation.
 
 **Overall.** All six findings in the manuscript were accepted and repaired. Each repaired step was re-derived by
 the authoring agents (Claude), and a separate hostile checker then re-derived all six repairs from the edited source;

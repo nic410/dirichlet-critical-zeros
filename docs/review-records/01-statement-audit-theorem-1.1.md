@@ -5,8 +5,7 @@
 > checks of the kind this audit compiled (N > 0 eventually, uniformly in T; the ratio form).
 
 > **Cleaned copy of an internal review record: internal file paths and identifiers removed; content otherwise unchanged.**
-> The reviewer, "Astra" (the reviewing agent's self-name), is a frontier AI model from a different developer (not
-> Claude); Claude produced the paper and the formalisation.
+> The reviewer is OpenAI's Astra; Claude produced the paper and the formalisation.
 > Notes on this copy: the review date, repository paths, branch names and commit identifiers of the audited snapshot
 > have been removed. File references such as `Main.lean:122` are relative to `lean/Families/` and give line numbers
 > in the audited snapshot; the definitions audited are pinned by `lean/scripts/Statements.baseline.txt` and are

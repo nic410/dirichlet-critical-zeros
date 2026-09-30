@@ -131,6 +131,23 @@ paper records that the argument there is due to Claude) and its adaptation to Di
 formalisation of Alpöge–Furman (`zeta23` in <https://github.com/anthropics/formal-math>). See
 [`docs/REFERENCES.md`](docs/REFERENCES.md).
 
+## How to cite
+
+```bibtex
+@misc{Johns2026DirichletCriticalZeros,
+  author       = {Johns, Nic},
+  title        = {Simple zeros on the critical line for a weighted family of {D}irichlet {$L$}-functions,
+                  from polylogarithmic to polynomial height},
+  year         = {2026},
+  month        = sep,
+  howpublished = {Preprint},
+  url          = {https://github.com/nic410/dirichlet-critical-zeros}
+}
+```
+
+GitHub's "Cite this repository" button (generated from [`CITATION.cff`](CITATION.cff)) gives the same reference in
+other formats.
+
 ## Licence
 
 Copyright 2026 Nic Johns.

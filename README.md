@@ -1,6 +1,6 @@
 # Simple zeros on the critical line for a weighted family of Dirichlet L-functions, from polylogarithmic to polynomial height
 
-**Status: pre-publication draft.** Author: Nic Johns. Licensing: the paper and documentation are CC BY 4.0, the Lean
+**Status: preprint, September 2026; not yet peer-reviewed.** Author: Nic Johns. Licensing: the paper and documentation are CC BY 4.0, the Lean
 formalisation and scripts are Apache-2.0 (see [Licence](#licence)).
 
 This repository contains a mathematics research paper (74 pages) in analytic number theory, a machine-checked Lean 4

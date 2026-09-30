@@ -1,5 +1,7 @@
 # Simple zeros on the critical line for a weighted family of Dirichlet L-functions, from polylogarithmic to polynomial height
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23070759.svg)](https://doi.org/10.5281/zenodo.23070759) [![Lean](https://github.com/nic410/dirichlet-critical-zeros/actions/workflows/lean.yml/badge.svg)](https://github.com/nic410/dirichlet-critical-zeros/actions/workflows/lean.yml)
+
 **Status: preprint, September 2026; not yet peer-reviewed.** Author: Nic Johns. Licensing: the paper and documentation are CC BY 4.0, the Lean
 formalisation and scripts are Apache-2.0 (see [Licence](#licence)).
 
@@ -143,11 +145,13 @@ formalisation of Alpöge–Furman (`zeta23` in <https://github.com/anthropics/fo
   year         = {2026},
   month        = sep,
   howpublished = {Preprint},
+  doi          = {10.5281/zenodo.23070759},
   url          = {https://github.com/nic410/dirichlet-critical-zeros}
 }
 ```
 
-GitHub's "Cite this repository" button (generated from [`CITATION.cff`](CITATION.cff)) gives the same reference in
+The DOI above is the concept DOI, which always resolves to the latest archived version; each release also has its
+own version DOI on [Zenodo](https://doi.org/10.5281/zenodo.23070759). GitHub's "Cite this repository" button (generated from [`CITATION.cff`](CITATION.cff)) gives the same reference in
 other formats.
 
 ## Licence

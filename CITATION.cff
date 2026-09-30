@@ -5,6 +5,14 @@ type: software
 authors:
   - family-names: Johns
     given-names: Nic
+doi: "10.5281/zenodo.23070759"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23070759"
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: "10.5281/zenodo.23070760"
+    description: "Version 1.0.1"
 repository-code: "https://github.com/nic410/dirichlet-critical-zeros"
 url: "https://github.com/nic410/dirichlet-critical-zeros"
 license:
@@ -32,4 +40,5 @@ preferred-citation:
       given-names: Nic
   year: 2026
   month: 9
+  doi: "10.5281/zenodo.23070759"
   url: "https://github.com/nic410/dirichlet-critical-zeros"

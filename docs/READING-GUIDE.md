@@ -21,7 +21,7 @@ yet checked the proofs line by line. See `VERIFICATION.md` for what has been che
 | 7 | The variational problem and the certified constants | 43 | p(C), Lipschitz bound (Lemma 7.1), realisation by windows (Lemma 7.2), rational certificates (Prop. 7.3, p. 43), assembly and order of limits (§7.3) |
 | 8 | Remarks | 45 | Limits of the method, which ingredient gives what, the ζ barrier, individual L-functions and the weights, higher zeros, relation to Alpöge–Furman Remark 7.2 (§8.6), "Is 93% plausible?" (§8.7), comparison with GRH results |
 | 9 | Zeros at polynomial height | 47 | Setup at height T (§9.1), zero side (§9.2), prime side (§9.3; Lemma 9.13 tails by dyadic shells, Prop. 9.18 sharp majorant at height T, p. 57), variational problem at support λ̄ and proofs (§9.4; certificates Prop. 9.24, p. 60), a sharp hybrid large sieve and the ceiling (§9.5, not used in proofs), remarks (§9.6) |
-| – | AI-use statement | 64 | How the paper was produced; the human-responsibility statement is still to be added |
+| – | AI-use statement | 64 | How the paper was produced, and the author's verification and responsibility statement |
 | A | Numerical computations | 64 | Certificates (A.1), Farey and Toeplitz constants (A.2), sanity checks (A.3), **what has been checked by machine (A.4, p. 66)**, numerical constants (A.5) |
 | B | Proofs of the ported lemmas | 71 | The explicit formula (B.1), the rank–trace inequality (B.2); with §§2–4 these make the paper independent of the cited sources for correctness |
 | – | References | 73 | |

@@ -192,7 +192,7 @@ separate Claude agents.
 
 **Record 08: internal end-to-end referee** (Claude; 45-page version, before §9). Lead referee plus four section
 referees; five independent readings. Verdict: no mathematical error found; "ready for arXiv after the three major
-fixes, all editorial": author placeholders (resolved) and the human responsibility statement (still open); Theorem 1.3's
+fixes, all editorial": author placeholders (resolved) and the human responsibility statement (now written); Theorem 1.3's
 certification not visible in the text (the text cited double-precision scripts, and an argument used by the R_w
 certificate was missing; both fixed); and an unsupported claim that a figure announced in Alpöge–Furman Remark 7.2
 was not achieved, resting on uncertified numerics (now worded neutrally, §8.6). About 40 minor items. Its §8 lists
@@ -305,8 +305,8 @@ Listed for candour; all are documented in the records cited. None changed Theore
 ## 6. Limitations
 
 - **No human verification.** No human mathematician has checked the written proofs line by line, or audited the
-  correspondence between the Lean statements and the paper. The human-verification and responsibility statement in
-  the paper's AI-use section is still to be added by the author.
+  correspondence between the Lean statements and the paper. The author's verification and responsibility statement
+  is in the paper's AI-use section.
 - **Scope of the formal proof.** Only Theorem 1.1 and Theorem 1.4(a) (with five κ-table constants) are formally
   proved. Theorems 1.2, 1.3, 1.4(b), 1.4(c) and Corollary 1.5 rest on the written proofs and certified numerics only.
   It is accurate to call Theorems 1.1 and 1.4(a) formally proved; it is not accurate to call the whole paper formally

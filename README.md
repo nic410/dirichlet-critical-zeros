@@ -96,6 +96,8 @@ including errors found and corrected along the way, is in [`docs/VERIFICATION.md
 | Path | Contents |
 |---|---|
 | `README.md` | this overview |
+| `LICENSE`, `LICENSE-CC-BY-4.0` | Apache-2.0 (code) and CC BY 4.0 (paper and documentation); see [Licence](#licence) |
+| `CITATION.cff` | citation metadata (GitHub's "Cite this repository"; also read by Zenodo) |
 | `paper/main.tex`, `paper/macros.tex`, `paper/refs.bib` | the paper's LaTeX sources |
 | `paper/lemmas/` | the section files that `main.tex` inputs: `lemma-B-majorant.tex` (§§5.7–5.8), `lemma-A.tex` (§6.1), `lemma-toeplitz-C.tex` (§6.2), `polyheight.tex` (§9), `constants.tex` (App. A.5) |
 | `paper/main.pdf` | the compiled paper (74 pages) |

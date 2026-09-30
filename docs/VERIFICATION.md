@@ -35,7 +35,7 @@ Paper references are to `paper/main.pdf` (74 pages). Review records are in `revi
   candidate) are correct.
 - **It does not guarantee** that those Lean statements say the same thing as the theorems printed in the paper. That
   correspondence is a matter of reading the definitions. It is set out definition by definition in
-  `lean/STATEMENTS.md` and `lean/STATEMENTS-H.md`, and it was audited by AI reviewers: by OpenAI's Astra for Theorem 1.1 (record 01), and by Claude for Theorem 1.4(a) (records 06 and 03).
+  `lean/STATEMENTS.md` and `lean/STATEMENTS-H.md`, and it was audited by AI reviewers: by Astra for Theorem 1.1 (record 01), and by Claude for Theorem 1.4(a) (records 06 and 03).
   Both audits compiled independent Lean lemmas checking parsing, non-vacuity (for example that N > 0 eventually,
   uniformly in T, and that the zero sets are finite) and the equivalence with the paper's liminf-of-ratios form.
   The non-vacuity checks now ship with the project: `lean/scripts/NonVacuity.lean`, compiled by
@@ -186,7 +186,7 @@ reproduced to ten digits by the shipped independent implementation `xcheck_*.py`
 
 ## 4. Summary of the independent reviews
 
-Reviews by OpenAI's Astra are marked **[X]**; the others were by
+Reviews by Astra are marked **[X]**; the others were by
 separate Claude agents.
 
 **Record 08: internal end-to-end referee** (Claude; 45-page version, before §9). Lead referee plus four section
@@ -311,7 +311,7 @@ Listed for candour; all are documented in the records cited. None changed Theore
   It is accurate to call Theorems 1.1 and 1.4(a) formally proved; it is not accurate to call the whole paper formally
   verified.
 - **Statement faithfulness is a matter of reading.** The kernel checks the Lean statements, not the printed theorems.
-  The correspondence was audited by AI: by OpenAI's Astra for Theorem 1.1,
+  The correspondence was audited by AI: by Astra for Theorem 1.1,
   and by Claude only for Theorem 1.4(a).
 - **Trusted base.** The Lean kernel and toolchain (a release candidate, `v4.33.0-rc2`), Mathlib and `zeta23` at the
   pinned revisions, and the standard axioms. The reviews used cached dependency builds rather than rebuilding Mathlib

@@ -82,11 +82,11 @@ separates it from the classical ingredients), which lets an existing
 | **Lean 4 proof, checked by the Lean kernel** | Theorem 1.1 (`Families.thmMain`) and Theorem 1.4(a) (`Families.Hybrid.thmH`): no hypotheses, only Lean's three standard axioms, no `sorry` or `native_decide` anywhere in the project | `lean/`, `lean/scripts/audit.sh` |
 | **Certified numerics** (exact rational or interval arithmetic) | every numerical constant used in a proof | `paper/anc/` |
 | **Written proofs only** | Theorems 1.2, 1.3, 1.4(b), 1.4(c) and Corollary 1.5. Theorems 1.2 and 1.3 (together with the conditional Theorem 5.16, Lemma A and a few lemmas used only on the Gauss route or at fixed η; 10 definitions in all) are stated in Lean as `Prop` definitions only, marked "Stated only; not proved in this project"; Theorems 1.4(b), 1.4(c) and Corollary 1.5 are not stated in Lean | `paper/` |
-| **Independent AI reviews** | the paper (one review by OpenAI's Astra, and several Claude referees), the faithfulness of the Lean statements, the literature | `docs/review-records/`, `docs/VERIFICATION.md` |
+| **Independent AI reviews** | the paper (one review by Astra, and several Claude referees), the faithfulness of the Lean statements, the literature | `docs/review-records/`, `docs/VERIFICATION.md` |
 
 What the Lean kernel guarantees is that the **Lean statements** follow from the axioms. Whether those Lean
 statements say the same thing as the theorems printed in the paper is a separate question. It was audited by AI
-reviewers, not by humans: for Theorem 1.1 by OpenAI's Astra, and for
+reviewers, not by humans: for Theorem 1.1 by Astra, and for
 Theorem 1.4(a) by two Claude audits only (an audit of that statement by a model other than Claude has not been done).
 The project also proves that the headlines are not vacuous (`lean/scripts/NonVacuity.lean`, run by the audit). The full list of what was and was not checked,
 including errors found and corrected along the way, is in [`docs/VERIFICATION.md`](docs/VERIFICATION.md).

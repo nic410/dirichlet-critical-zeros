@@ -1,0 +1,22 @@
+# Lean build products and downloaded dependencies
+.lake/
+
+# LaTeX auxiliary files and build artefacts
+paper/build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log.tmp
+*.out
+*.toc
+*.synctex.gz
+paper/main.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Compiled helper of paper/anc
+paper/anc/omega_check

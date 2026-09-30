@@ -1,0 +1,592 @@
+%% =====================================================================
+%% polyheight.tex -- Section 9: zeros at height polynomial in the conductor
+%%   (Theorem 1.4 = thm:poly, Corollary 1.5 = cor:dyadic).  Input from main.tex after Section 8.
+%%
+%% Labels DEFINED here: sec:poly and H:* (all new labels carry the prefix H: to avoid collisions).
+%% Labels USED from main.tex and lemmas/*.tex: see the list of results used unchanged in \S\ref{H:sec:unchanged}.
+%% =====================================================================
+
+\section{Zeros at polynomial height}\label{sec:poly}
+
+This section proves Theorem~\ref{thm:poly} and Corollary~\ref{cor:dyadic}. The argument is that of Sections~\ref{sec:setup}--\ref{sec:variational}, with the three changes described at the end of \S\ref{sec:method}: the log-conductor $\lstar=\log(QT)$ replaces $\ell=\log Q$ wherever $\ell$ measures the density of zeros, the bandwidth or the flattening; the time localisation is at scale $T^{-1+\eps_5}$ instead of $T^{-1/2}$; and the tails of the localisation are bounded by Lemma~\ref{H:lem:M3prime} instead of the crude bound $\Lmult(\Yc)\le2\wmax Q^2$, which needs $\Yc\le Q^2$. On the zero side nothing new is needed. Subsection~\ref{H:sec:SH}, which contains a sharp hybrid large sieve and the example showing that $\bet_T$ is the limit of worst-case large sieve bounds, is not used in the proofs.
+
+\emph{Notation.} In this section $\kappa$ (with subscripts $1$, $\mathrm c$ or superscripts $(j)$) always denotes a height exponent, $T=Q^\kappa$. The parameter of Lemma~\ref{lem:M3}(i) and of \eqref{eqC:seminorm}, called $\kappa$ there, is written $\varkappa$ here; the quantity $\kappa_T=T^{-1/4}$ of Proposition~\ref{prop:TIsharp} does not occur, and its role is played by $\kloc=T^{-\eps_5/2}$ \eqref{H:eq:loc}. The Toeplitz form $T^\Wnat$ of \S\ref{ssec:toeplitz} is unrelated to the height $T$. Without subscript, $\delta$ denotes a localisation scale; $\delta_\rho=\Re\rho-\frac12$ and $\delta_0$ (\S\ref{sec:exterior}) are unrelated. We write $\bet_T$, $\bet(\kappa)$ and $\lstar$ as in \eqref{eq:bet}, and $\pC(\bet;F)$ as in \eqref{eq:pbeta}.
+
+%----------------------------------------------------------------------
+\subsection{Setup at height \texorpdfstring{$T$}{T}}\label{H:sec:setup}
+
+\subsubsection*{What is used unchanged}\label{H:sec:unchanged}
+We keep all notation of Sections~\ref{sec:setup}--\ref{sec:variational}; the objects of \S\S\ref{sec:setup}--\ref{sec:certificate} are formed with the bandwidth $L=\lambda\lstar$ of \eqref{H:eq:basic} below. The following results are used at height $T$ without change. Each is a statement about a single character, about linear algebra, about the family at a fixed height, or about intervals of at most $Q^{2-\eps}$ integers, and none of their proofs uses an upper bound for $T$; the second column gives the reason.
+\begin{center}\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.4cm}>{\raggedright\arraybackslash}p{9.4cm}@{}}
+\toprule
+Result & Why it holds verbatim at height $T\le Q^{\kappa_1}$\\
+\midrule
+\eqref{eq:HW}, \eqref{eq:masses}, Lemma~\ref{lem:WH} & masses of the family; no $T$.\\
+Lemmas~\ref{lem:envelope}, \ref{lem:gabor} & statements for every $L$ and every lattice offset.\\
+\eqref{eq:mu}, \eqref{eq:an}, \eqref{eq:Gdef}, Lemma~\ref{lem:explicit}, Proposition~\ref{prop:weil} & for every $\chi\in\cF$ and every $L$; the prime sum is over $n<e^L$.\\
+\eqref{eq:Delta}--\eqref{eq:Kdiag}, Lemma~\ref{lem:M1} & for every bounded interval $J$.\\
+Lemmas~\ref{lem:blocks}, \ref{lem:ranktrace}, Proposition~\ref{prop:perchi} & finite-dimensional linear algebra in any dimension $d$ (here $d\asymp T\lstar$ may be a power of $Q$).\\
+Lemma~\ref{lem:firstmoment} & no $T$.\\
+Lemma~\ref{lem:bad} & the bad set depends only on $Q$; \eqref{eq:Montuniform} is used only at heights $T_j\le e^{1/2}Q^{1/4}$.\\
+Lemma~\ref{lem:poisson}, \eqref{eqB:derivs} & one smooth function; the proof of \eqref{eqB:derivs} uses only $\delta^{-1}\le T$ and $|t|\le3T$.\\
+Lemma~\ref{lem:M2} & no $T$; independent of the position of the interval.\\
+Lemma~\ref{lem:M3}(i)--(iii) & for every $\delta\in(0,\frac14]$ and $\varkappa\in(0,1]$ ((iv) holds but is not used).\\
+Hypothesis~\ref{hyp:LS}, Corollary~\ref{cor:LmultA}, \eqref{eq:MVLS} & statements about the family form on intervals of at most $Q^{2-\eps}$ (resp.\ $K$) integers; no $T$.\\
+Lemma~\ref{lem:Rwlog} & a statement about the Farey constant $\Rw$; no $T$.\\
+Lemmas~\ref{lem:toeplitz}, \ref{lem:Omega}, \ref{lem:S}, \ref{lem:C}, \ref{lem:CTlimit}, Proposition~\ref{prop:sharpLS}, \eqref{eqC:seminorm}, \eqref{eqC:nu} & statements about $\Delta$ on $Q$-rough vectors, the measure $\mu^\Wnat$, and intervals of at most $Q^{2-\eps}$ integers; no $T$.\\
+\eqref{eqC:Ssharp} & an identity (expansion of $x_\sharp^s$), valid for every $T$ and $\delta$.\\
+Lemma~\ref{lem:windows}, Proposition~\ref{prop:cert}, Remark~\ref{rem:optimal} & the variational problem at support $2$; generalised in \S\ref{H:sec:assembly}.\\
+\bottomrule
+\end{tabular}
+\end{center}
+The proofs of Lemmas~\ref{lem:RvM}--\ref{lem:tails}, \ref{lem:mumu}, \ref{lem:muLambda}, \ref{lem:ss}, \ref{lem:B1}, \ref{lem:B2} and of Propositions~\ref{prop:zero}, \ref{prop:finitecentre}, \ref{prop:trace}, \ref{prop:tail}, \ref{prop:TI}, \ref{prop:second}, \ref{prop:TIsharp} and Theorem~\ref{thm:conditional} are used with the changes stated in \S\S\ref{H:sec:zero}--\ref{H:sec:assembly}; so are \eqref{eqB:Rj}, \eqref{eqB:Mrat} and \eqref{eqB:norms}, which are redone at height $T$ in Lemma~\ref{H:lem:sizes}(S3), Lemma~\ref{H:lem:B1} and \eqref{H:eq:norms}, respectively. We use the weighted form of \eqref{eq:MVLS}: for $x$ supported on $K$ consecutive integers,
+\begin{equation}\label{H:eq:MVLSw}
+x^*\Delta x=\sum_{\chi\in\cF}\omega_\chi\Big|\sum_nx_n\chi(n)\Big|^2\le\wmax\sum_{q\le Q}\frac q{\varphi(q)}\sumst_{\chi\bmod q}\Big|\sum_nx_n\chi(n)\Big|^2\le\wmax(Q^2+K)\|x\|^2 .
+\end{equation}
+
+\subsubsection*{Heights and cells}
+Fix $a_0>0$ and $\kappa_1>0$. Heights range over $\ell^{a_0}\le T\le Q^{\kappa_1}$; thus $\ell\le\lstar\le(1+\kappa_1)\ell$, and $\bet_T$ decreases from $2$ towards $\bet(\kappa_1)>1$ as $T$ increases. Uniformity in $T$ is obtained on finitely many \emph{cells} $[\kappa^{(j)},\kappa^{(j+1)}]\subset[0,\kappa_1]$ (\S\ref{H:sec:cells}). Throughout \S\S\ref{H:sec:setup}--\ref{H:sec:prime} we fix a cell top $\kc\in(0,\kappa_1]$ and prove all statements uniformly for
+\begin{equation}\label{H:eq:Trange}
+\ell^{a_0}\le T\le Q^{\kc}.
+\end{equation}
+
+\subsubsection*{Parameters and order of limits}\label{H:sec:parameters}
+We fix, in this order:
+\begin{enumerate}[label=(P\arabic*),leftmargin=*]
+\item $a_0,\kappa_1>0$; $\eta$ and an admissible $w$; a cell top $\kc\in(0,\kappa_1]$;
+\item a bandwidth $\lambda\in(0,\bet(\kc))$ and a real even window $\psi\in C_c^\infty((-\frac12,\frac12))$, $\psi\not\equiv0$;
+\item $\eps_1\in(0,\frac14)$ with $\lambda(1+\eps_1)\le\bet(\kc)-\eps_1$; then $\theta\in(0,\frac14)$ and $\eps_3\in(0,\frac14)$;
+\item the band parameter $\eps\in(0,\eps_{\max}]$, where $\eps_{\max}:=\frac1{8(1+\kappa_1)}$;
+\item \emph{only then} the localisation exponent
+\begin{equation}\label{H:eq:eps5}
+\eps_5:=\frac{\min(\eps,\eps_1)}{4(1+\kappa_1)} ;
+\end{equation}
+\item the constants $B_1$ and $B$ of \S\ref{sec:exterior}, and the smooth cut-offs $\Ups_0$ (depending on $\eps_1$), the dyadic partition of unity $(\psi_j)$ with its derivative bounds $(c_i)$, and the localisation cut-off $\rho$, as in \S\ref{sec:parameters}, which we take even.
+\end{enumerate}
+All of these are fixed while $Q\to\infty$, and $T$ varies in \eqref{H:eq:Trange}; all $o(1)$ terms are uniform in $T$, and implied constants may depend on the fixed data (including $\kappa_1$). The choice of $\eps_5$ \emph{after} $\eps$ matters: it guarantees that the region where the family form has constant $1$ reaches $\alpha=1-\frac32\eps$ (Lemma~\ref{H:lem:sizes}(S2)). The final order of limits is: first $Q\to\infty$; then $\theta,\eps,\eps_3\to0$ (with $\eps_5$ following $\eps$); then $\lambda\to\bet(\kc)$ and $\psi$ tending to an optimiser, with $\eps_1=\eps_1(\lambda)$; then the cells are refined; and only at the very end $\eta\to0$ (Theorem~\ref{thm:poly}(a), (b)). The precise choices are made in \S\ref{H:sec:proofs}. We put
+\begin{equation}\label{H:eq:basic}
+L=\lambda\lstar,\quad X=e^L=(QT)^\lambda,\quad \Yc=X^{1+\eps_1},\quad I=(T,2T],\quad J=[(1+\theta)T,(2-\theta)T],
+\end{equation}
+\begin{equation}\label{H:eq:loc}
+\delta:=T^{-1+\eps_5},\qquad \kloc:=T^{-\eps_5/2},\qquad K(u):=5\delta e^u+1 .
+\end{equation}
+Since $T\ge\ell^{a_0}\to\infty$ we have $\delta\le\frac14$ and $\kloc\le1$ for $Q$ large. With this $L$, $d=|J|L/(2\pi)+O(1)\asymp T\lstar$, which may be a power of $Q$.
+
+\subsubsection*{Size facts}
+\begin{lemma}\label{H:lem:sizes}
+Uniformly for $T$ in \eqref{H:eq:Trange} and $Q\ge Q_0$ (depending on the fixed data):
+\begin{enumerate}
+\item[(S1)] $\Yc\le Q^2T(QT)^{-\eps_1}=Q^{2-\eps_1}T^{1-\eps_1}$; in particular $\Yc/Q^2\le T(QT)^{-\eps_1}$ and $2\Yc<(QT)^2$.
+\item[(S2)] For $u<L$ (the support of $g$), $K(u)\le Q^{1-\eps/2}$ if $u\le(1-\eps)\lstar$; $K(u)\le Q^{5/4}$ if $(1-\eps)\lstar<u\le(1+\eps)\lstar$; and $K(u)\le Q^{2-\eps_1/2}$ always.
+\item[(S3)] $R_{\max}:=\max\{R_j:N_j\le2\Yc\}\le2\Yc/(QT)\le2Q(QT)^{-\eps_1}$, and $R_j\le N_j^{1/2-\eps_3}$ for every $j$ with $N_j\le2\Yc$.
+\item[(S4)] $1+\kloc^{-1}\le2T^{\eps_5/2}\le2Q^{\eps_1/8}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(S1) Write $\kappa:=\log T/\log Q\le\kc$. Then $\log\Yc/\ell=\lambda(1+\eps_1)(1+\kappa)\le(\bet(\kc)-\eps_1)(1+\kappa)$, and $\bet(\kc)(1+\kappa)\le\bet(\kappa)(1+\kappa)=2+\kappa$ because $\bet$ is decreasing. Hence $\log\Yc/\ell\le2+\kappa-\eps_1(1+\kappa)$, which is the claim. Since $\eps_1>0$, $2\Yc<(QT)^2$ for $Q$ large.
+
+(S2) As $u<L$, $e^u<X\le\Yc$. If $u\le(1-\eps)\lstar$, then $5\delta e^u\le5T^{-1+\eps_5}(QT)^{1-\eps}=5Q^{1-\eps}T^{\eps_5-\eps}\le5Q^{1-\eps}$ because $\eps_5\le\eps$. On the band, $5\delta e^u\le5Q^{1+\eps}T^{\eps+\eps_5}\le5Q^{1+\eps(1+\kappa_1)+\kappa_1\eps_5}$, and $\eps(1+\kappa_1)\le\frac18$, $\kappa_1\eps_5\le\frac\eps4\le\frac1{32}$. Always, $5\delta e^u\le5\delta\Yc\le5Q^{2-\eps_1}T^{\eps_5-\eps_1}\le5Q^{2-\eps_1}$ by (S1) and $\eps_5<\eps_1$.
+
+(S3) $R_j=\lfloor N_j^{1-\eps_3}/(QT)\rfloor\le2\Yc/(QT)$ for $N_j\le2\Yc$, and $2\Yc/(QT)\le2Q(QT)^{-\eps_1}$ by (S1). For the second claim, $R_j\le N_j^{1/2-\eps_3}\cdot N_j^{1/2}/(QT)\le N_j^{1/2-\eps_3}$ as $N_j\le2\Yc<(QT)^2$.
+
+(S4) $T^{\eps_5/2}\le Q^{\kappa_1\eps_5/2}$ and $\kappa_1\eps_5\le\eps_1/4$.
+\end{proof}
+
+%----------------------------------------------------------------------
+\subsection{The zero side at polynomial height}\label{H:sec:zero}
+
+The per-character certificate of Proposition~\ref{prop:perchi} holds for every $\chi\in\cF$ and every window, in any dimension $d$. With $A_\chi$, $E_\chi$, $\hA_\chi$, $\hE_\chi$ and $\mathcal M_\chi=4\tr\hA_\chi-\|\hA_\chi\|_\Fro^2$ as in \S\ref{sec:certificate}, now formed with $I=(T,2T]$ and the bandwidth \eqref{H:eq:basic}, it gives for every $\chi\in\cF$
+\begin{equation}\label{H:eq:perchi}
+N^s_{0,\chi}\ge\mathcal M_\chi-2N_\chi,\qquad N^*_{0,\chi}\ge\mathcal M_\chi-2N_\chi,\qquad N_{d,\chi}\ge\tfrac12(\mathcal M_\chi-N_\chi).
+\end{equation}
+What changes at polynomial height is the analysis of the family sums: the normalisation, the pointwise bound, the trace and the exterior zeros. We follow the order of \S\ref{sec:zero}. Put
+\[
+\LsT(t):=\log\big(Q(|t|+3)\big)\qquad(t\in\RR),
+\]
+so that $\#\{\rho:|\gamma-t|\le1\}\ll\LsT(t)$ for every $\chi\in\cF$ by \eqref{eq:localcount}, and $\LsT(t)\le\lstar+O(1)$ for $|t|\le3T$.
+
+\subsubsection*{Weighted Riemann--von Mangoldt}
+\begin{lemma}\label{H:lem:RvM}
+Uniformly for $T$ in \eqref{H:eq:Trange},
+\[
+N=\frac{HT\lstar}{2\pi}\Big(1+O\Big(\frac{1+\log(1/\eta)}{\lstar}+\frac1T\Big)\Big).
+\]
+\end{lemma}
+\begin{proof}
+As in the proof of Lemma~\ref{lem:RvM}: with $N^{\rm sym}(t,\chi)=\frac t\pi\log\frac{qt}{2\pi e}+O(\log q(t+2))$ \cite[Ch.~16]{Dav}, and since $\cF$ is closed under conjugation with $\omega_{\overline\chi}=\omega_\chi$, the identity $N=\frac12\sum_\chi\omega_\chi(N^{\rm sym}(2T,\chi)-N^{\rm sym}(T,\chi))$ is exact and gives
+$N=\frac T{2\pi}\sum_\chi\omega_\chi\big(\log\frac{qT}{2\pi e}+2\log2\big)+O(H\lstar)$. On $\cF$, $\log(qT)=\lstar+O(\log\frac1\eta)$.
+\end{proof}
+The terms $\log T$ now belong to $\lstar$; in Lemma~\ref{lem:RvM} they had to be $o(\ell)$.
+
+\subsubsection*{The pointwise bound and finite centres}
+\begin{lemma}\label{H:lem:pointwise}
+Let $\Fl(t)^2:=\sum_{\chi\in\cF}\omega_\chi\nu_\chi(t)^2$. Then, for all real $t$,
+\[
+\Fl(t)\ll_wH^{1/2}\Big(\LsT(t)+\big(1+\Yc/Q^2\big)^{1/2}L\Big).
+\]
+\end{lemma}
+\begin{proof}
+By the digamma asymptotic, $|\mu_\chi(t)|\ll\log(q(|t|+2))\le\LsT(t)$. Since $|P_\chi|\le|S_\chi[a]|/\pi$, twisting by $n^{-it}$ does not change $|a_n|$, and $a$ is supported on $[1,\Yc]$, \eqref{H:eq:MVLSw} gives $\sum_\chi\omega_\chi|P_\chi(t)|^2\le\pi^{-2}\wmax(Q^2+\Yc)\sum_na_n^2\ll\wmax Q^2(1+\Yc/Q^2)L^2$, because $\sum_{n\le\Yc}\Lambda(n)^2/n\le\log\Yc(\log\Yc+O(1))\ll L^2$. As $H\asymp_wQ^2$, the claim follows.
+\end{proof}
+Compared with Lemma~\ref{lem:pointwise}, the bound has lost the factor $(1+\Yc/Q^2)^{1/2}\le(1+T)^{1/2}$ (Lemma~\ref{H:lem:sizes}(S1)). It enters only the endpoint errors below, which carry a factor $1/T$ that absorbs this loss. As in \S\ref{sec:finitecentre} we use the envelope $\varpi_A(x):=C_AL(1+L|x|)^{-A}$ of Lemma~\ref{lem:envelope}, so that $|p_k(t)|\le\varpi_A(t-\tau_k)$ for real $t$, and put $\Xi_k(U):=\int_U\varpi_A(t-\tau_k)\Fl(t)\dd t$ for measurable $U\subset\RR$.
+
+\begin{lemma}\label{H:lem:tails}
+Let $A>5/2$. Uniformly in $T$ and in the lattice offset $\tau_0$,
+\[
+\sum_{k\notin\Kset}\Xi_k(J)^2+\sum_{k\in\Kset}\big(\Xi_k(\RR)\Xi_k(J^c)+\Xi_k(J^c)^2\big)\ll_AH\big(\lstar^2+(1+\Yc/Q^2)L^2\big),
+\]
+and
+\[
+\int_J\sum_{k\notin\Kset}\varpi_A(t-\tau_k)^2\,\LsT(t)\dd t+\int_{J^c}\sum_{k\in\Kset}\varpi_A(t-\tau_k)^2\,\LsT(t)\dd t\ll_AL\lstar,
+\]
+and the same with $\LsT$ replaced by $1$ and the bound $L\lstar$ by $L$.
+\end{lemma}
+\begin{proof}
+This is the proof of Lemma~\ref{lem:tails} with $\mathcal L(t)=\ell+\log(|t|+2)$ replaced by $\mathcal L^\flat(t):=\LsT(t)+(1+\Yc/Q^2)^{1/2}L$, so that $\Fl(t)\ll H^{1/2}\mathcal L^\flat(t)$ by Lemma~\ref{H:lem:pointwise}. The added term is constant in $t$ and passes unchanged through the lattice sums. The two properties of $\mathcal L$ used there hold for $\LsT$: for $t\in J$, $\LsT(t)\le\log(Q(2T+3))\ll\lstar$; and for $k\in\Kset$ we have $|\tau_k|\le2T$, so $\LsT(\tau_k+x/L)\le\lstar+\log(3+|x|)+O(1)\ll\lstar(1+|x|)^{1/2}$. The lattice sums $\sum_{k\notin\Kset}(1+D_k)^{-\sigma}+\sum_{k\in\Kset}(1+E_k)^{-\sigma}\ll_\sigma1$ ($\sigma>1$) do not depend on $T$. The first claim follows with $\ell^2$ replaced by $(\lstar+(1+\Yc/Q^2)^{1/2}L)^2\ll\lstar^2+(1+\Yc/Q^2)L^2$, and the second with $\ell$ replaced by $\lstar$.
+\end{proof}
+
+\begin{proposition}[Finite-centre replacement at height $T$]\label{H:prop:fc}
+Uniformly in $T$,
+\begin{align}
+\sum_{\chi\in\cF}\omega_\chi\tr\hG_\chi&=\sum_{\chi\in\cF}\omega_\chi\int_J\nu_\chi(t)\dd t+O\big(H(1+\Yc/Q^2)^{1/2}\big),\label{H:eq:fc1}\\
+\sum_{\chi\in\cF}\omega_\chi\tr\big((G_\chi/L)^2\big)&=\sum_{\chi\in\cF}\omega_\chi\iint_{J^2}\Phi(t-t')^2\nu_\chi(t)\nu_\chi(t')\dd t\dd t'+O\big(H(\lstar^2+(1+\Yc/Q^2)L^2)\big).\label{H:eq:fc2}
+\end{align}
+The error in \eqref{H:eq:fc1} is $O(NT^{-1/2}/\lstar)$, and the error in \eqref{H:eq:fc2}, divided by $a^2L^2$, is $O(N(T^{-1}+(QT)^{-\eps_1})/\lstar)$; both are $o(N)$.
+\end{proposition}
+\begin{proof}
+The proof of Proposition~\ref{prop:finitecentre}, with $A=3$ and Lemmas~\ref{H:lem:pointwise} and~\ref{H:lem:tails} in place of Lemmas~\ref{lem:pointwise} and~\ref{lem:tails}. For \eqref{H:eq:fc1}: $\sum_\chi\omega_\chi|\int e_J\nu_\chi|\le\int|e_J|H^{1/2}\Fl\ll H\int|e_J|(\LsT+(1+\Yc/Q^2)^{1/2}L)\ll H(L\lstar+(1+\Yc/Q^2)^{1/2}L^2)$ by Lemma~\ref{H:lem:tails}; divide by $aL^2$ and use $\lstar/L=1/\lambda\ll1$. For \eqref{H:eq:fc2}, the difference is at most $2a\sum_{k\notin\Kset}\Xi_k(J)^2+2a\sum_{k\in\Kset}(\Xi_k(\RR)\Xi_k(J^c)+\Xi_k(J^c)^2)$, and Lemma~\ref{H:lem:tails} applies. For the last sentence: by Lemma~\ref{H:lem:RvM}, $N\asymp HT\lstar$, and by Lemma~\ref{H:lem:sizes}(S1), $\Yc/Q^2\le T(QT)^{-\eps_1}$; so the first error (already normalised, since $\tr\hG_\chi=\tr G_\chi/(aL^2)$) is $O(N(1+T)^{1/2}/(T\lstar))=O(NT^{-1/2}/\lstar)$, and the second divided by $a^2L^2$ is $O(H(1+\Yc/Q^2))=O(N(T^{-1}+(QT)^{-\eps_1})/\lstar)$.
+\end{proof}
+
+\subsubsection*{The trace}
+\begin{proposition}\label{H:prop:trace}
+Uniformly in $T$, $\sum_{\chi\in\cF}\omega_\chi\tr\hG_\chi=(1-2\theta)N+o(N)$.
+\end{proposition}
+\begin{proof}
+\emph{Gamma part.} By Stirling, $\mu_\chi(t)=\frac1{2\pi}\log\frac{qt}{2\pi}+O(1/t)$ for $t\ge1$, and on $J$ this is $\frac{\lstar}{2\pi}+O(1+\log\frac1\eta)$ uniformly in $\chi\in\cF$. Hence $\sum_\chi\omega_\chi\int_J\mu_\chi=\frac{H|J|\lstar}{2\pi}(1+O(\frac{1+\log(1/\eta)}{\lstar}))=(1-2\theta)N(1+o(1))$ by Lemma~\ref{H:lem:RvM}, since $|J|=(1-2\theta)T$. The terms $\log T$ are part of $\lstar$ on both sides.
+\emph{Prime part.} As in the proof of Proposition~\ref{prop:trace}, $|\int_Jn^{\mp it}\dd t|\le2/\log n$ and the family first moment (Lemma~\ref{lem:firstmoment}), which does not involve $T$, bound it by $\ll\wmax Q\Yc^{1/2}\log\Yc$. Relative to $N\asymp Q^2T\lstar$ this is $\ll\Yc^{1/2}\log\Yc/(QT\lstar)\ll T^{-1/2}(QT)^{-\eps_1/2}$ by Lemma~\ref{H:lem:sizes}(S1).
+\emph{Finite centres.} Apply \eqref{H:eq:fc1}.
+\end{proof}
+
+\subsubsection*{Exterior zeros}\label{H:sec:exterior}
+We keep the exceptional characters of \S\ref{sec:exterior}: with $\delta_0:=B_1\log\ell/\ell$ and $B_1$ as there, a character $\chi\in\cF$ is \emph{bad} if $L(s,\chi)$ has a zero $\rho=\frac12+\delta_\rho+i\gamma$ with $|\delta_\rho|\ge\delta_0$ and $|\gamma|\le Q^{|\delta_\rho|/2}$, and \emph{good} otherwise. This definition involves only $Q$. By Lemma~\ref{lem:bad},
+\begin{equation}\label{H:eq:bad}
+\#\{\chi\in\cF\text{ bad}\}\ll Q^2\ell^{-52},\qquad\sum_{\chi\text{ bad}}\omega_\chi\ll_wQ^2\ell^{-51};
+\end{equation}
+its proof applies Montgomery's zero-density theorem \cite[Thm.~1]{Mon69}, in the form \eqref{eq:Montuniform}, only at the heights $T_j=Q^{\delta_{j+1}/2}\le e^{1/2}Q^{1/4}$. In particular \eqref{H:eq:bad} holds for every $T$, and no zero-density estimate at height $T$ is needed.
+
+\begin{proposition}[Exterior tail for good characters at height $T$]\label{H:prop:tail}
+For every $B>0$, uniformly for good $\chi\in\cF$ and $T$ in \eqref{H:eq:Trange}, $\|\hE_\chi\|_1\ll_B\ell^{-B}$.
+\end{proposition}
+\begin{proof}
+As in the proof of Proposition~\ref{prop:tail}, $\|E_\chi\|_1\le\sum_{\gamma\notin I}m_\rho\|u(z_\rho)\|\|u(\overline{z_\rho})\|$. We first bound $e^{L|\delta_\rho|}$ for every zero $\rho=\frac12+\delta_\rho+i\gamma$ of a good $\chi$. Recall $L=\lambda\lstar$ with $\lambda<2$. If $|\delta_\rho|<\delta_0$, then $e^{L|\delta_\rho|}\le(QT)^{2\delta_0}=\ell^{2B_1(1+\kappa)}\le\ell^{c}$ with $\kappa=\log T/\log Q$ and $c:=2B_1(1+\kappa_1)$. If $|\delta_\rho|\ge\delta_0$, then $|\gamma|>Q^{|\delta_\rho|/2}\ge\ell^{B_1/2}>1$ because $\chi$ is good, so
+\[
+e^{L|\delta_\rho|}=Q^{\lambda|\delta_\rho|}T^{\lambda|\delta_\rho|}<|\gamma|^{2\lambda}T^{\lambda/2}\le|\gamma|^4T,
+\]
+using $|\delta_\rho|<\frac12$. Hence $e^{L|\delta_\rho|}\le\ell^c(1+|\gamma|)^4T$ for every zero of a good $\chi$. By the second claim of Lemma~\ref{lem:envelope} (any $A>\frac12$),
+\[
+\|\hE_\chi\|_1\ll_A\ell^cT\sum_{\gamma\notin I}m_\rho(1+|\gamma|)^4\big(1+L\operatorname{dist}(\gamma,J)\big)^{1-2A}.
+\]
+For $\gamma\notin I$ we have $\operatorname{dist}(\gamma,J)\ge\theta T$, and $\operatorname{dist}(\gamma,J)\ge|\gamma|/2$ if $|\gamma|>4T+1$. The zeros with $|\gamma|\le4T+1$ number $\ll T\lstar$ and contribute $\ll\ell^cT\cdot T\lstar\cdot(5T)^4(\theta TL)^{1-2A}$. The zeros with $|\gamma|>4T+1$ contribute $\ll\ell^cT\sum_{n\ge4T}\LsT(n)(n+2)^4(1+Ln/2)^{1-2A}$. Both are $\ll(1+\kappa_1)\ell^{c+1}\theta^{1-2A}T^{7-2A}$, which is $O(\ell^{-B})$ once $A=A(B,a_0,\kappa_1)$ is large, since $T\ge\ell^{a_0}$.
+\end{proof}
+
+\begin{remark}\label{H:rem:nodeletion}
+(1) Off-line zeros with ordinate in $I$ are never bounded individually: they are handled by the inertia argument of Lemma~\ref{lem:blocks}, and their size enters only through $\tr\hG_\chi$ and $\|\hG_\chi\|_\Fro$, which the prime side bounds from above. Deleting characters with an off-line zero in $I$ would fail at $T=Q^\kappa$, since density bounds cannot exclude one in each window. (2) If $T\ge Q^{\kappa_0}$ for a fixed $\kappa_0>0$, the proof of Proposition~\ref{H:prop:tail} works for every $\chi$, good or bad: $e^{L|\delta_\rho|}<(QT)^{\lambda/2}\le T^{1+1/\kappa_0}$, and $A\ge5+1/\kappa_0+B$ suffices. On that range Montgomery's theorem is not used at all. (3) The single window $J$ of length $\asymp T$ is essential for Proposition~\ref{H:prop:tail}: it keeps every exterior zero at distance $\ge\theta T$. A partition of $I$ into short sub-windows would require deleting pairs (character, sub-window) by a zero-density estimate at height $T$.
+\end{remark}
+
+\subsubsection*{The zero-side reduction}
+\begin{proposition}\label{H:prop:zero}
+For every $B>0$, uniformly for $T$ in \eqref{H:eq:Trange},
+\begin{align*}
+N^s_0,\ N^*_0&\ \ge\ (2-8\theta)N-\mathfrak M-o(N)-O_B\big(\ell^{-B}(H\mathfrak M)^{1/2}\big),\\
+N_d&\ \ge\ \tfrac12\big((3-8\theta)N-\mathfrak M\big)-o(N)-O_B\big(\ell^{-B}(H\mathfrak M)^{1/2}\big).
+\end{align*}
+\end{proposition}
+\begin{proof}
+The proof of Proposition~\ref{prop:zero} (given at the end of \S\ref{sec:zero}), with Propositions~\ref{H:prop:trace} and~\ref{H:prop:tail} and \eqref{H:eq:bad} in place of Propositions~\ref{prop:trace}, \ref{prop:tail} and Lemma~\ref{lem:bad}. Each eigenvalue $x$ of $\hG_\chi$ satisfies $4x-x^2\le4$, so $4\tr\hG_\chi-\|\hG_\chi\|_\Fro^2\le4d$ for every $\chi$. For good $\chi$ replace $\hA_\chi$ by $\hG_\chi$ at the cost of $\|\hE_\chi\|_1$ (Proposition~\ref{H:prop:tail}); for bad $\chi$ use $N^s_{0,\chi}\ge0$. The deletion costs $4d\sum_{\rm bad}\omega_\chi\ll T\lstar\cdot Q^2\ell^{-51}=o(N)$ by \eqref{H:eq:bad} and Lemma~\ref{H:lem:RvM}. The replacement costs $\ll\ell^{-B}(H+(H\mathfrak M)^{1/2})$ by Cauchy--Schwarz, and $H=o(N)$. Proposition~\ref{H:prop:trace} gives the main term $4(1-2\theta)N-\mathfrak M-2N$. The same argument with the caps $4d$ and $2d$ gives $N^*_0$ and $N_d$.
+\end{proof}
+
+%----------------------------------------------------------------------
+\subsection{The prime side at polynomial height}\label{H:sec:prime}
+
+\subsubsection*{Decomposition and the non-ratio terms}
+By \eqref{H:eq:fc2}, $\mathfrak M=(a^2L^2)^{-1}(\mathcal M+O(H(\lstar^2+(1+\Yc/Q^2)L^2)))$ with $\mathcal M:=\sum_\chi\omega_\chi\iint_{J^2}\Phi(t-t')^2\nu_\chi(t)\nu_\chi(t')\dd t\dd t'$, and the error divided by $a^2L^2$ is $o(N)$. As in \eqref{eq:split}, \eqref{eq:Mrat},
+\[
+\mathcal M=M_{\mu\mu}+2M_{\mu\Lambda}+M^{\rm rat}_{\Lambda\Lambda}+M^{\rm ss}_{\Lambda\Lambda},\qquad M^{\rm rat}_{\Lambda\Lambda}=\frac1{2\pi^2}\sum_{n,m}a_na_m\Delta(n,m)\cK(n,m).
+\]
+
+\begin{lemma}\label{H:lem:arch}
+Uniformly for $T$ in \eqref{H:eq:Trange}:
+\begin{enumerate}
+\item[(a)] $M_{\mu\mu}=\dfrac{H|J|bL\lstar^2}{2\pi}\Big(1+O\Big(\dfrac{1+\log(1/\eta)}{\lstar}\Big)\Big)+O(H\lstar^2)$;
+\item[(b)] $M_{\mu\Lambda}\ll\wmax QL\lstar\Yc^{1/2}\log\Yc$, which is $O(H|J|L\lstar^2\cdot T^{-1/2}(QT)^{-\eps_1/2})$;
+\item[(c)] $M^{\rm ss}_{\Lambda\Lambda}\ll\wmax(Q^2+\Yc)L^2$, which is $O(H|J|L\lstar^2\cdot(T^{-1}+(QT)^{-\eps_1})/\lstar)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) On $J$, $\mu_\chi(t)=\lstar/(2\pi)+O(1+\log\frac1\eta)$ uniformly in $\chi\in\cF$, and $\iint_{J^2}\Phi(t-t')^2=2\pi bL|J|+O_\psi(1)$ (proof of Lemma~\ref{lem:mumu}).
+(b) Write $\mu_\chi=A_q(t)+\chi(-1)B(t)$ as in the proof of Lemma~\ref{lem:muLambda}; on $J$, $A_q\ll\lstar$, $B\ll1$ and $A_q',B'\ll1/T$. For $m_q(t'):=\int_J\Phi(t-t')^2A_q(t)\dd t$ we have $\sup|m_q|\ll L\lstar$, and one integration by parts in $t$ gives $\int_J|m_q'|\ll L\lstar+\|A_q'\|_\infty L|J|\ll L\lstar$. Hence $|\int_Jm_q(t')n^{\mp it'}\dd t'|\ll L\lstar/\log n$, and similarly for $B$. Lemma~\ref{lem:firstmoment} gives the bound, and $\Yc^{1/2}\log\Yc/(QT\lstar)\ll T^{-1/2}(QT)^{-\eps_1/2}$ by Lemma~\ref{H:lem:sizes}(S1).
+(c) The proof of Lemma~\ref{lem:ss} gives $\wmax(Q^2+\Yc)L^2$ verbatim (it uses \eqref{H:eq:MVLSw} on $[1,\Yc]$ and carries no factor $|J|$). Relative to $H|J|L\lstar^2\asymp_wQ^2TL\lstar^2$ this is $\ll(1+\Yc/Q^2)/(T\lstar)$, and (S1) applies.
+\end{proof}
+
+\subsubsection*{Flattening}
+The flattening of \S\ref{ssec:lemmaB} is used with the same levels,
+\begin{gather*}
+R_j:=\big\lfloor N_j^{1-\eps_3}/(QT)\big\rfloor,\qquad \LamR(n)=\sum_{r\le R}\frac{\mu(r)}{\varphi(r)}c_r(n),\\
+\ash_n:=\sum_{j:\,R_j\ge1}\psi_j(n)\Ups(n)n^{-1/2}\Lambda_{R_j}(n),\qquad b:=a-\ash,
+\end{gather*}
+where $N_j=2^j$ and $(\psi_j)$ is the dyadic partition of unity of \S\ref{ssec:lemmaB}. Lemma~\ref{lem:poisson} is a statement about one smooth function and does not involve $T$. The derivative bounds \eqref{eqB:derivs}, $|F_{j,t}^{(k)}(y)|+|F_{j,t,u}^{(k)}(y)|\le B_kN_j^{-1/2-k}T^k$ for $|t|\le3T$, hold verbatim for $\delta=T^{-1+\eps_5}$, since their proof only uses $\delta^{-1}\le T$.
+
+\begin{lemma}[Invisibility at height $T$]\label{H:lem:B1}
+For every $\chi\in\cF$, every $|t|\le3T$ and every $A>0$, $S_\chi[\ash](t)\ll_AQ^{-A}$, uniformly for $T$ in \eqref{H:eq:Trange}. Consequently
+\[
+M^{\rm rat}_{\Lambda\Lambda}=\frac1{2\pi^2}\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)+O(Q^{-1}).
+\]
+\end{lemma}
+\begin{proof}
+The proof of Lemma~\ref{lem:B1} applies verbatim: $n\mapsto c_r(n)\chi(n)$ has mean zero and period $[q,r]\le QR_j\le N_j^{1-\eps_3}/T$, and Lemma~\ref{lem:poisson}(b) with $\Theta=T$ gives $|S_\chi[\ash](t)|\le B_i(2+\log_2\Yc)(QT)^{5/2-i\eps_3}$, which is $\ll Q^{-A}$ for $i\ge(A+3)/\eps_3$ because $QT\ge Q$ and $\log\Yc\ll\lstar\ll\ell$. For the second claim we need a polynomial bound for $\sum_n|b_n|$, which in the derivation of \eqref{eqB:Mrat} was $\ll Q^3$. Here $\ash$ is supported on all $n\le\Yc$. For squarefree $r$, $|c_r(n)|/\varphi(r)=1/\varphi(r/(r,n))$, so $|\LamR(n)|\le\sum_{d\mid n}\sum_{s\le R}\mu^2(s)/\varphi(s)\le1.95\,\tau(n)(1+\log R)$, and hence $\sum_n|b_n|\le\sum_n|a_n|+\sum_n|\ash_n|\ll\Yc^{1/2}\log^2\Yc\le Q^{3+\kappa_1}$. With $\iint_{J^2}\Phi^2\le2\pi bL|J|\ll Q^{\kappa_1+1}$ and $H\asymp_wQ^2$ \eqref{eq:masses}, the difference between the two forms is $\ll Q^{2\kappa_1+7-A}$; take $A=2\kappa_1+8$.
+\end{proof}
+
+\begin{lemma}[Flattened norm at height $T$]\label{H:lem:B2}
+Let $h:\RR\to[0,\infty)$ be smooth with $\|h^{(k)}\|_\infty\le C_k\|h\|_\infty$ for all $k\ge1$. Then, uniformly for $T$ in \eqref{H:eq:Trange},
+\[
+\sum_n|b_n|^2h(\log n)\le\int_\RR\lstar F_b(s/\lstar)\,h(s)\dd s+O(\|h\|_\infty\lstar),\qquad F_b(\alpha):=\min(\alpha^+,1+\eps_4),\quad\eps_4:=2\eps_3 .
+\]
+\end{lemma}
+\begin{proof}
+Steps (1)--(5) of the proof of Lemma~\ref{lem:B2} apply verbatim with the following remarks. Step (4) needs $R_j\le N_j^{1/2-\eps_3}$, which is Lemma~\ref{H:lem:sizes}(S3). In step (3), $|\LamR(p^k)|\le3G(R)$ and $G(R)\le1.95(1+\log R)\ll\lstar$, and in step (5) $G(R_j)\ll\lstar$, so the total error is $\sum_j|\mathcal E_j|\ll\|h\|_\infty\lstar$. Only step (6), the density, changes. Recall that the density of the convexity majorant at $y$ is $\Ups(y)^2$ times a $\psi_j$-weighted average of $\log y-G(R_j)$ over the blocks containing $y$, and that $G(R)\ge\log(R+1)$.
+If $R_j\ge1$, then $R_j\ge N_j^{1-\eps_3}/(2QT)$, and for $y\le2N_j$, using $\log N_j\le\log(2\Yc)\le2\lstar$ (Lemma~\ref{H:lem:sizes}(S1)),
+\[
+\log y-G(R_j)\le\log y-\log R_j\le\lstar+\eps_3\log N_j+2\log2\le(1+2\eps_3)\lstar+2 .
+\]
+If $R_j=0$, then $N_j^{1-\eps_3}<QT$, so for $y\le2N_j$, $\log y\le\log2+\lstar/(1-\eps_3)\le(1+2\eps_3)\lstar+1$. In all cases the density is at most $\min(\log^+y,(1+\eps_4)\lstar+2)$. Summing over $j$ as in step (7), $\sum_n|b_n|^2h(\log n)\le\int_0^{\log\Yc}\min(s,(1+\eps_4)\lstar+2)h(s)\dd s+O(\|h\|_\infty\lstar)$, and the additive $2$ contributes at most $2\|h\|_\infty\log\Yc\ll\|h\|_\infty\lstar$.
+\end{proof}
+The factor $1+(2\log T+2)/\ell$ of Lemma~\ref{lem:B2} has disappeared into $\lstar$: in units of the log-conductor, the flattened diagonal density is exactly $\min(\alpha,1)$, up to $\eps_4$. We also record, as in \eqref{eqB:norms},
+\begin{equation}\label{H:eq:norms}
+\|a\|^2+\|\ash\|^2+\|b\|^2\ll L^2,
+\end{equation}
+since $\|a\|^2\le\sum_{n\le\Yc}\Lambda(n)^2/n\ll L^2$ and $\|\ash\|^2\le\sum_{j:R_j\ge1}(G(R_j)\int\psi_j\Ups^2\frac{\dd y}y+O(N_j^{-1}))\ll L\lstar$ by step (4) of the proof of Lemma~\ref{lem:B2} with $h\equiv1$.
+
+\subsubsection*{Time localisation at scale \texorpdfstring{$T^{-1+\eps_5}$}{T\^{}(-1+eps5)}}\label{H:sec:loc}
+Let $\hJ(\xi):=\int_Je^{it\xi}\dd t$, so $|\hJ(\xi)|\le\min(|J|,2/|\xi|)$, and for a finitely supported $y$ and $u\in\RR$ put $x_y(u)_n:=y_n\hJ(u-\log n)$. The factorisation of Lemma~\ref{lem:M1},
+\begin{equation}\label{H:eq:M1}
+\sum_{n,m}y_n\overline{y_m}\Delta(n,m)\cK(n,m)=\int_\RR g(u)\,x_y(u)^*\Delta x_y(u)\dd u,
+\end{equation}
+is an exact identity for every bounded interval $J$. The short-interval bound of Lemma~\ref{lem:M2},
+\begin{equation}\label{H:eq:M2}
+x^*\Delta x\le\big(H+4\wmax QK(1+\log K)\big)\|x\|^2\qquad(x\text{ supported on }K\text{ consecutive integers}),
+\end{equation}
+does not involve $T$ and does not depend on the position of the interval. Lemma~\ref{lem:M3} holds for every $\delta\in(0,\frac14]$ and every value $\varkappa\in(0,1]$ of its parameter: with $x^s_n:=x_n\rho((\log n-u)/\delta)$ and $x^t:=x-x^s$, (i) $x^*\Delta x\le(1+\varkappa)x^{s*}\Delta x^s+(1+\varkappa^{-1})x^{t*}\Delta x^t$; (ii) $x^s(u)$ is supported in an interval of length $\le5\delta e^u$, hence on at most $K(u)=5\delta e^u+1$ integers; (iii) $\int g(u)\|x^s(u)\|^2c(u)\dd u\le\sum_n|y_n|^2\cK(n,n)\sup\{c(u):|u-\log n|<2\delta\}$ for bounded measurable $c\ge0$. We use it with $\delta=T^{-1+\eps_5}$ and $\varkappa=\kloc=T^{-\eps_5/2}$ from \eqref{H:eq:loc}. Part (iv) of Lemma~\ref{lem:M3}, $\int g\|x^t\|^2\le8bL\|y\|^2/\delta$, is still true, but it was combined in Propositions~\ref{prop:TI} and~\ref{prop:TIsharp} with $\Lmult(\Yc)\le2\wmax Q^2$, which is false once $\Yc\gg Q^2$. We replace this step by the following lemma.
+
+\begin{lemma}[Tails by dyadic shells]\label{H:lem:M3prime}
+Let $y$ be supported in $[1,\Yc]$ with $\Yc\ge1$, let $\delta\in(0,\frac14]$ and $k_0:=\lceil\log_2(1/\delta)\rceil$. For every measurable $g_1:\RR\to[0,g_\infty]$,
+\[
+\int_\RR g_1(u)\,x^t(u)^*\Delta x^t(u)\dd u\le48\,g_\infty\wmax(k_0+4)\Big(\frac{Q^2+1}\delta+(k_0+3)\Yc\Big)\|y\|^2 .
+\]
+\end{lemma}
+\begin{proof}
+\emph{Shells.} For $k\ge0$ and each sign put $S_k^\pm(u):=\{n\ge1:2^k\delta\le\pm(\log n-u)<2^{k+1}\delta\}$ and $x^{k,\pm}(u):=x^t(u)\one_{S_k^\pm(u)}$. Since $\rho=1$ on $[-1,1]$, $x^t(u)_n=0$ unless $|\log n-u|>\delta$, so $x^t(u)=\sum_{k,\pm}x^{k,\pm}(u)$, a finite sum. On $S_k^\pm(u)$, $|x^t(u)_n|\le|y_n||\hJ(u-\log n)|\le2|y_n|/(2^k\delta)$, as $0\le1-\rho\le1$.
+
+\emph{Lengths.} $S_k^+(u)\subset[e^{u+2^k\delta},e^{u+2^{k+1}\delta})$, an interval of length $e^{u+2^k\delta}(e^{2^k\delta}-1)\le n(e^{2^k\delta}-1)$ for every $n\in S_k^+(u)$; and $S_k^-(u)\subset(e^{u-2^{k+1}\delta},e^{u-2^k\delta}]$, of length $e^{u-2^k\delta}(1-e^{-2^k\delta})<n(e^{2^k\delta}-1)$ for every $n\in S_k^-(u)$, since $e^{u-2^k\delta}<ne^{2^k\delta}$ there. Intersecting with $[1,\Yc]$, the support of $x^{k,\pm}(u)$ lies in an interval of at most $K_k(n):=\min(\Yc,n(e^{2^k\delta}-1))+1$ integers, for every $n$ in that support. By \eqref{H:eq:MVLSw},
+\[
+x^{k,\pm}(u)^*\Delta x^{k,\pm}(u)\le\wmax\sum_{n\in S_k^\pm(u)}\big(Q^2+K_k(n)\big)\frac{4|y_n|^2}{(2^k\delta)^2}.
+\]
+\emph{Summing the shells.} Put $c_k=1$ for $k\le k_0$ and $c_k=2^{-(k-k_0)/2}$ for $k>k_0$, so that $\sum_{k,\pm}c_k\le2(k_0+1)+2\sum_{j\ge1}2^{-j/2}<2k_0+7$. Since $x\mapsto(x^*\Delta x)^{1/2}$ is a seminorm, Cauchy--Schwarz gives $x^{t*}\Delta x^t\le(2k_0+7)\sum_{k,\pm}c_k^{-1}x^{k,\pm*}\Delta x^{k,\pm}$. For fixed $n$ and $k$, the set of $u$ with $n\in S_k^+(u)\cup S_k^-(u)$ has measure $2\cdot2^k\delta$. Hence
+\[
+\int g_1(u)x^t(u)^*\Delta x^t(u)\dd u\le8g_\infty(2k_0+7)\wmax\sum_n|y_n|^2\sum_{k\ge0}c_k^{-1}\frac{Q^2+K_k(n)}{2^k\delta}.
+\]
+\emph{The sums over $k$.} Recall $2^{k_0-1}\delta<1\le2^{k_0}\delta$. First, $\sum_kc_k^{-1}/(2^k\delta)\le2/\delta+\sum_{j\ge1}2^{-j/2}\le3/\delta$, because $c_k^{-1}/(2^k\delta)=2^{-(k-k_0)/2}/(2^{k_0}\delta)\le2^{-(k-k_0)/2}$ for $k>k_0$ and $\delta\le\frac14$; so the terms $Q^2+1$ contribute at most $3(Q^2+1)/\delta$. Next, the terms $K_k(n)-1\le\min(\Yc,n(e^{2^k\delta}-1))$: if $2^k\delta\le1$ then $k\le k_0$, $c_k=1$ and $e^x-1\le2x$ on $[0,1]$ give $K_k(n)-1\le2\cdot2^k\delta\Yc$, so these $k$ contribute at most $2(k_0+1)\Yc$; if $2^k\delta>1$ then $K_k(n)-1\le\Yc$, and these $k$ contribute at most $\Yc+\sum_{j\ge1}2^{-j/2}\Yc\le3.42\,\Yc$. Altogether
+\[
+\int g_1x^{t*}\Delta x^t\le8g_\infty(2k_0+7)\wmax\big(3(Q^2+1)/\delta+(2k_0+6)\Yc\big)\|y\|^2,
+\]
+which is at most the stated bound, since $24(2k_0+7)\le48(k_0+4)$ and $8(2k_0+7)(2k_0+6)\le48(k_0+4)(k_0+3)$.
+\end{proof}
+
+\begin{corollary}\label{H:cor:tails}
+Let $y\in\{a,b\}$ and let $x^t(u)$ be the tail of $x_y(u)$ at scale $\delta=T^{-1+\eps_5}$. Then, uniformly for $T$ in \eqref{H:eq:Trange},
+\[
+(1+\kloc^{-1})\int_\RR g(u)\,x^t(u)^*\Delta x^t(u)\dd u\ll_w\big(T^{-\eps_5/2}\log T+Q^{-\eps_1/2}\ell^2\big)H|J|L^2\lstar=o\big(H|J|L^2\lstar\big).
+\]
+\end{corollary}
+\begin{proof}
+Apply Lemma~\ref{H:lem:M3prime} with $g_1=g$, $g_\infty=g(0)=bL$, $k_0\le\log_2T+1$ and $\|y\|^2\ll L^2$ \eqref{H:eq:norms}; both $a$ and $b$ are supported in $[1,\Yc]$. The result is $\ll T^{\eps_5/2}\wmax L\log T\,(Q^2T^{1-\eps_5}+\Yc\log T)L^2$. Relative to $H|J|L^2\lstar\asymp_wQ^2TL^2\lstar$ this is $\ll T^{-\eps_5/2}\log T+T^{\eps_5/2}(\log T)^2\Yc/(Q^2T)$, and $\Yc/(Q^2T)\le(QT)^{-\eps_1}$, $T^{\eps_5/2}\le Q^{\eps_1/8}$ by Lemma~\ref{H:lem:sizes}. Since $T\ge\ell^{a_0}$, $T^{-\eps_5/2}\log T\to0$ uniformly.
+\end{proof}
+
+The next lemma is an alternative to Lemma~\ref{H:lem:M3prime} without the logarithms; it uses Gallagher's hybrid large sieve instead of shells. Either suffices for everything below.
+
+\begin{lemma}[Tails by Plancherel and the hybrid large sieve]\label{H:lem:M3G}
+Assume $\rho$ is even, let $y$ be supported in $[1,\Yc]$, $0<\delta\le1$ and $D:=\max(2,1/\delta)$. Then
+\[
+\int_\RR g(u)\,x^t(u)^*\Delta x^t(u)\dd u\ll\wmax\,(\log\log Q)\,bL\Big(\frac{Q^2}\delta+\Yc\Big)\|y\|^2,
+\]
+with an implied constant depending only on $\rho$.
+\end{lemma}
+\begin{proof}
+Let $r$ be the Schwartz function with $\int r(t)e^{it\xi}\dd t=\rho(\xi)$ and $r_\delta(t):=\delta r(\delta t)$, so that $\int r_\delta(t)e^{it\xi}\dd t=\rho(\xi/\delta)$, and put $k:=\one_J-\one_J*r_\delta$, whose Fourier transform is $\hJ(\xi)(1-\rho(\xi/\delta))$. For a finitely supported $c$ and every $u$, $\sum_nc_n\hJ(u-\log n)(1-\rho((u-\log n)/\delta))=\int k(t)e^{itu}\sum_nc_nn^{-it}\dd t$. By Plancherel in $u$, with $\chi$ inserted into $c_n$,
+\[
+\int_\RR\Big|\sum_ny_n\chi(n)\hJ(u-\log n)\big(1-\rho(\tfrac{u-\log n}\delta)\big)\Big|^2\dd u=2\pi\int_\RR|k(t)|^2|S_\chi[y](t)|^2\dd t .
+\]
+Using $g\le bL$, $\omega_\chi\le\wmax q/\varphi(q)\ll\wmax\log\log Q$ and summing over $\chi$,
+$\int gx^{t*}\Delta x^t\le2\pi bL\sum_\chi\omega_\chi\int|k|^2|S_\chi[y]|^2$. For $t\in J$, $|k(t)|=|\int_{\RR\setminus\delta(t-J)}r|$, and for $t\notin J$, $|k(t)|=|\int_{\delta(t-J)}r|$; in both cases $|k(t)|\ll_M(1+\delta\operatorname{dist}(t,\partial J))^{-M}$. Cover $\RR$ by consecutive intervals of length $D$ indexed by their distance $m$ (in units of $D$) from $\partial J$; there are at most four for each $m$, and $|k|^2\ll_M(1+m)^{-2M}$ on them. On each, Gallagher's hybrid large sieve \cite[Theorem~3, (15)]{Gal70}, $\sum_{q\le Q}\sumst_{\chi\bmod q}\int_{t_0}^{t_0+D}|\sum_{n\le\Yc}c_n\chi(n)n^{-it}|^2\dd t\ll(Q^2D+\Yc)\sum|c_n|^2$ (stated on $[-T',T']$ with $T'\ge1$; translate by twisting $c_n$ with $n^{-it_0}$), gives the claim after summing over $m$.
+\end{proof}
+
+\begin{remark}\label{H:rem:tails}
+(1) Lemma~\ref{H:lem:M3G} with $\delta=T^{-1+\eps_5}$ gives the tails as $O(\log\log Q\,(T^{-\eps_5}+(QT)^{-\eps_1}))$ relative to $H|J|L^2\lstar$, without $\log T$. After the factor $1+\kloc^{-1}\le2T^{\eps_5/2}$ of Corollary~\ref{H:cor:tails} this becomes $O(\log\log Q\,(T^{-\eps_5/2}+T^{\eps_5/2}(QT)^{-\eps_1}))$, which is still $o(1)$ uniformly, since $T^{-\eps_5/2}\le\ell^{-a_0\eps_5/2}$ and $T^{\eps_5/2}\le Q^{\eps_1/8}$ (Lemma~\ref{H:lem:sizes}(S4)). Explicit constants for Gallagher's inequality are in \cite[\S6]{Ram16}. (2) The two error sources, $(T\delta)^{-1}$ and $\Yc/(Q^2T)$, are exactly the two ways in which the hybrid large sieve fails to be diagonal. With the crude tail bound of Propositions~\ref{prop:TI} and~\ref{prop:TIsharp}, the optimal scale is $\delta=T^{-1/2}$ and the reach is only $\Yc\le Q^{2-\eps}T^{1/2}$, i.e.\ support $(2+\kappa/2)/(1+\kappa)$ at $T=Q^\kappa$ (cf.\ \S\ref{sec:higherzeros}).
+\end{remark}
+
+\subsubsection*{The majorant with a large sieve constant}
+Hypothesis~\ref{hyp:LS} is a statement about the family form on intervals and does not involve $T$. By \eqref{H:eq:MVLSw} and $H=\Ec\WIw Q^2(1+o(1))$ (Lemma~\ref{lem:WH}), $\mathrm{LS}(\Ccl(w))$ holds with $\Ccl(w)=\wmax/(\Ec\WIw)$, and $\mathrm{LS}(\CG\Rw)$ holds by Corollary~\ref{cor:LmultA}.
+
+\begin{proposition}[Time-integrated majorant at height $T$]\label{H:prop:TI}
+Assume $\mathrm{LS}(C)$. For $\eps\in(0,\eps_{\max}]$ let $\widetilde C_\eps:\RR\to[1,C]$ be smooth with $\widetilde C_\eps=1$ on $(-\infty,1-2\eps]$ and $\widetilde C_\eps=C$ on $[1-\frac32\eps,\infty)$. Then, uniformly for $T$ in \eqref{H:eq:Trange},
+\[
+\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+o(1))\,H\sum_n|b_n|^2\,\widetilde C_\eps\Big(\frac{\log n}{\lstar}\Big)\cK(n,n)+o\big(H|J|L^2\lstar\big).
+\]
+\end{proposition}
+\begin{proof}
+By \eqref{H:eq:M1} the left side is $\int g(u)x_b(u)^*\Delta x_b(u)\dd u$. At each $u$ apply Lemma~\ref{lem:M3}(i) with $\delta$ and $\varkappa=\kloc$. The tails contribute $o(H|J|L^2\lstar)$ by Corollary~\ref{H:cor:tails}. If $u\le(1-\eps)\lstar$, the short part lies on at most $K(u)\le Q^{1-\eps/2}$ integers (Lemma~\ref{H:lem:sizes}(S2)), and \eqref{H:eq:M2} gives the constant $1+4\wmax H^{-1}Q^{2-\eps/2}(1+\ell)=1+o(1)$, with no condition on $T$. If $u>(1-\eps)\lstar$, it lies on at most $Q^{2-\eps_1/2}$ integers, and $\mathrm{LS}(C)$ (with $\eps_1/2$ in place of $\eps$) gives $C+o(1)$. If $(x^s(u))_n\ne0$ then $|u-\log n|<2\delta$; since $2\delta<\frac12\eps\lstar$ for $Q$ large, $\log n/\lstar<1-\frac32\eps$ forces $u<(1-\eps)\lstar$. Hence the constant is at most $(1+o(1))\widetilde C_\eps(\log n/\lstar)$ for every $n$ in the support, and Lemma~\ref{lem:M3}(iii) gives the main term, with the factor $1+\kloc=1+o(1)$.
+\end{proof}
+
+\subsubsection*{The sharp majorant: the band device at polynomial height}
+We now adapt Proposition~\ref{prop:TIsharp}. The objects of \S\ref{ssec:toeplitz} are used without change: the Toeplitz identity for $Q$-rough vectors (Lemma~\ref{lem:toeplitz}), the positive measure $\mu^\Wnat=\sum_{e\le Q}\nu(e)\sumst_{c\bmod e}\delta_{c/e}$ with $0\le\nu(e)\le6\|\widetilde w\|_\infty\eta^{-2}$ \eqref{eqC:nu}, the positive semidefinite Toeplitz form $T^\Wnat$ with $y^*\Delta y\le y^*T^\Wnat y$ for $y$ supported on $Q$-rough integers (Lemma~\ref{lem:S}), and the sharp bound of Proposition~\ref{prop:sharpLS},
+\begin{equation}\label{H:eq:sharpLS}
+\lambda_{\max}(T^\Wnat_I)\le(\CTp(w)+\vartheta'_Q)H\qquad(\text{intervals }I\text{ of }K\le Q^{2-\eps'}\text{ integers},\ \eps'\in(0,1)),
+\end{equation}
+with $\vartheta'_Q\to0$ depending only on $(\eps',w)$. None of them involves $T$. We write $\|x\|_P^2:=x^*Px$ for positive semidefinite $P$, so that $\|x+x'\|_P^2\le(1+\varkappa)\|x\|_P^2+(1+\varkappa^{-1})\|x'\|_P^2$ for $0<\varkappa\le1$ \eqref{eqC:seminorm}.
+
+\emph{The band constant and the profile.} Let $\Cband\ge1$ be a constant with $\Lmult(Q^{5/4})\le(\Cband+o(1))H$; by \eqref{H:eq:MVLSw}, $\Cband=2\wmax/(\Ec\WIw)$ is admissible. Put $C_{\max}:=\max(\Cband,\CTp(w))$ and let $\widetilde C_\eps:\RR\to[1,C_{\max}]$ be smooth with $\widetilde C_\eps=1$ on $(-\infty,1-2\eps]$, $\widetilde C_\eps\ge\Cband$ on $[1-\frac32\eps,1+\frac32\eps]$, $\widetilde C_\eps\ge\CTp(w)$ on $[1+\frac12\eps,\infty)$ and $\widetilde C_\eps=\CTp(w)$ on $[1+2\eps,\infty)$, exactly as before Proposition~\ref{prop:TIsharp}.
+
+\begin{proposition}[Sharp time-integrated majorant at height $T$]\label{H:prop:TIsharp}
+For each fixed $\eps\in(0,\eps_{\max}]$ there is $\vartheta^*_Q\to0$, depending on the fixed data but not on $T$, such that uniformly for $T$ in \eqref{H:eq:Trange}
+\[
+\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+\vartheta^*_Q)(1+\kloc)^3\,H\sum_n|b_n|^2\,\widetilde C_\eps\Big(\frac{\log n}{\lstar}\Big)\cK(n,n)+\mathcal E^{H}_{\rm TI},
+\]
+where
+\[
+\mathcal E^{H}_{\rm TI}\ll\Big(T^{-\eps_5/2}\log T+Q^{-\eps_1/2}\ell^2+\eta^{-2}T^{\eps_5/2}Q^{-\eps_1/2}+T^{\eps_5/2}Q^{-1/2}\Big)H|J|L^2\lstar+Q^{-1}=o\big(H|J|L^2\lstar\big).
+\]
+\end{proposition}
+
+\begin{proof}
+We follow the five steps of the proof of Proposition~\ref{prop:TIsharp}, with $\ell$ replaced by $\lstar$ in the regime boundaries, $\delta=T^{-1+\eps_5}$, $\varkappa=\kloc=T^{-\eps_5/2}$ in place of $\kappa_T$, and the tails bounded by Corollary~\ref{H:cor:tails}. Throughout, $u$ ranges over $\supp g\subset(-L,L)$, so $e^u<X$.
+
+\emph{Step 0 (invisibility before localisation).} For $\chi\in\cF$ and every $u$, $\sum_nx_\sharp(u)_n\chi(n)=\int_Je^{itu}S_\chi[\ash](t)\dd t\ll_A|J|Q^{-A}$ by Lemma~\ref{H:lem:B1} ($J\subset[0,2T]$), where $x_\sharp:=x_{\ash}$; and $|\sum_nx_a(u)_n\chi(n)|\le|J|\sum_n|a_n|\le Q^{3+2\kappa_1}$. Since $x_a=x_b+x_\sharp$, expanding the square and summing with the weights $\omega_\chi$ gives, for $A=A(\kappa_1)$ large,
+\begin{equation}\label{H:eq:step0}
+x_b(u)^*\Delta x_b(u)\le x_a(u)^*\Delta x_a(u)+Q^{-3}\qquad(\text{all }u,\ Q\ge Q_0).
+\end{equation}
+For each $u$ we localise $y(u):=b$ if $u\le(1+\eps)\lstar$ and $y(u):=a$ if $u>(1+\eps)\lstar$. By Lemma~\ref{H:lem:sizes}(S2), every $x^s_y(u)$ lies on at most $K(u)\le Q^{2-\eps_1/2}$ integers of $[1,\Yc]$.
+
+\emph{Step 1 (localisation).} By Lemma~\ref{lem:M3}(i) with $\varkappa=\kloc$, $x_y^*\Delta x_y\le(1+\kloc)x_y^{s*}\Delta x^s_y+(1+\kloc^{-1})x_y^{t*}\Delta x_y^t$ for $y=y(u)$.
+
+\emph{Step 2 (tails).} The tail integrands are nonnegative, so $\int g\,x_{y(u)}^{t*}\Delta x^t_{y(u)}\le\int g\,(x_a^{t*}\Delta x_a^t+x_b^{t*}\Delta x_b^t)$, and Corollary~\ref{H:cor:tails} bounds the tails, with the factor $1+\kloc^{-1}$, by $\ll(T^{-\eps_5/2}\log T+Q^{-\eps_1/2}\ell^2)H|J|L^2\lstar$.
+
+\emph{Step 3 (regimes (i) and (ii); $u\le(1+\eps)\lstar$, $y=b$).} (i) If $u\le(1-\eps)\lstar$ then $K(u)\le Q^{1-\eps/2}$ and \eqref{H:eq:M2} gives $x_b^{s*}\Delta x_b^s\le c_{\rm i}H\|x_b^s\|^2$ with $c_{\rm i}=1+O_w(Q^{-\eps/2}\ell)$. (ii) If $(1-\eps)\lstar<u\le(1+\eps)\lstar$ then $K(u)\le Q^{5/4}$, and $x_b^{s*}\Delta x_b^s\le c_{\rm ii}H\|x_b^s\|^2$ with $c_{\rm ii}=\Cband+o(1)$.
+
+\emph{Step 4 (regime (iii); $u>(1+\eps)\lstar$, $y=a$).} If $(x_a^s(u))_n\ne0$ then $n$ is a prime power with $\log n>u-2\delta$, so $n>(QT)^{1+\eps}e^{-2\delta}>Q^{1+\eps}/2>Q$. Split $x_a^s=x_{\rm r}+x_{\rm pp}$, where $x_{\rm r}$ is the restriction to $Q$-rough $n$ and $x_{\rm pp}$ the restriction to $n=p^k$ with $p\le Q$, $k\ge2$ (a prime $p\le Q$ is $<Q^{1+\eps}/2$). Exactly as in Step~4 of the proof of Proposition~\ref{prop:TIsharp}, the seminorm inequality for $\Delta$ with $\varkappa=\kloc$, Lemma~\ref{lem:S} for the $Q$-rough vector $x_{\rm r}$, the identity $x_{\rm r}=x_b^s+(x_\sharp^s-x_{\rm pp})$ and the seminorm inequality for $T^\Wnat$ (with $\varkappa=\kloc$, then with $\varkappa=1$) give
+\[
+x_a^{s*}\Delta x_a^s\le(1+\kloc)^2\|x_b^s\|^2_{T^\Wnat}+4(1+\kloc^{-1})\big(\|x_\sharp^s\|^2_{T^\Wnat}+\|x_{\rm pp}\|^2_{T^\Wnat}+x_{\rm pp}^*\Delta x_{\rm pp}\big).
+\]
+(a) \emph{Main term.} $x_b^s(u)$ lies on at most $K(u)\le Q^{2-\eps_1/2}$ integers, so \eqref{H:eq:sharpLS} with $\eps'=\min(\eps_1/2,\frac12)$ gives $\|x_b^s\|^2_{T^\Wnat}\le c_{\rm iii}H\|x_b^s\|^2$, $c_{\rm iii}:=\CTp(w)+\vartheta'_Q$. The vector $x_b^s$ is not supported on $Q$-rough integers; this is harmless since $T^\Wnat\succeq0$ is defined on all vectors.
+
+(b) \emph{The subtracted part.} By \eqref{eqC:Ssharp}, for $(c,e)=1$,
+\[
+S_{x_\sharp^s(u)}\Big(\frac ce\Big)=\int_Je^{itu}\sum_{j:R_j\ge1}\ \sum_{r\le R_j}\frac{\mu(r)}{\varphi(r)}\sumst_{h\bmod r}\ \sum_nF_{j,t,u}(n)\,e\Big(n\Big(\frac hr+\frac ce\Big)\Big)\dd t .
+\]
+\emph{Levels $R_{\max}<e\le Q$.} For $r\le R_j<e$ and $(h,r)=1$, $\xi_{h,c}:=\frac hr+\frac ce\notin\ZZ$ and $\|\xi_{h,c}\|\ge1/(R_jQ)$, exactly as in the proof of Proposition~\ref{prop:TIsharp}. By \eqref{eqB:derivs} with $|t|\le2T$ and Lemma~\ref{lem:poisson}(a) with $\Theta=T$, using $TR_jQ\le N_j^{1-\eps_3}$,
+$|\sum_nF_{j,t,u}(n)e(n\xi_{h,c})|\le B_iN_j^{1/2-i\eps_3}$. Summing over $h$, $r$ (total weight $\le R_j\le N_j$), over the $\le2+\log_2\Yc$ blocks with $R_j\ge1$ (so $N_j\ge QT$), and integrating over $J$,
+$|S_{x_\sharp^s(u)}(c/e)|\le B_i|J|(2+\log_2\Yc)(QT)^{3/2-i\eps_3}\le Q^{-4}$ for $i\ge8/\eps_3$ and $Q\ge Q_0$ (as $|J|\le QT$), uniformly in $u$, $e\in(R_{\max},Q]$ and $c$. These levels contribute at most $6\|\widetilde w\|_\infty\eta^{-2}Q^2\cdot Q^{-8}$ to $\|x_\sharp^s\|^2_{T^\Wnat}$.
+\emph{Levels $e\le R_{\max}$.} By the additive large sieve $\sum_{e\le E}\sumst_{c\bmod e}|S_x(c/e)|^2\le(K+E^2)\|x\|^2$ \cite[Thm.~7.7]{IK04} for $x$ on $K$ consecutive integers, and Lemma~\ref{H:lem:sizes}(S2), (S3),
+\[
+\sum_{e\le R_{\max}}\nu(e)\sumst_{c\bmod e}\Big|S_{x_\sharp^s}\Big(\frac ce\Big)\Big|^2\le6\|\widetilde w\|_\infty\eta^{-2}\big(K(u)+R_{\max}^2\big)\|x_\sharp^s\|^2\le30\|\widetilde w\|_\infty\eta^{-2}Q^{2-\eps_1/2}\|x_\sharp^s\|^2 .
+\]
+By Lemma~\ref{lem:M3}(iii) with $c\equiv1$, $\cK(n,n)\le2\pi|J|bL+O(1)$ and \eqref{H:eq:norms}, $\int g\|x_\sharp^s\|^2\le\sum_n|\ash_n|^2\cK(n,n)\ll|J|L\cdot L\lstar$. With the factor $(1+\kloc)\cdot4(1+\kloc^{-1})\le16T^{\eps_5/2}$ from Steps 1 and 4 and $Q^2\ll_wH$, the contribution of (b) is $\ll\eta^{-2}T^{\eps_5/2}Q^{-\eps_1/2}H|J|L^2\lstar+Q^{-1}$, and $T^{\eps_5/2}Q^{-\eps_1/2}\le Q^{-3\eps_1/8}$ by (S4).
+
+(c) \emph{Prime powers $p^k$, $p\le Q$, $k\ge2$.} By partial summation $\sum_{n=p^k>Q^{1+\eps}/2,\,k\ge2}\Lambda(n)^2/n\ll Q^{-1/2}\ell^2$. As $x_{\rm pp}(u)$ lies on at most $K(u)\le Q^{2-\eps_1/2}$ integers, $\|x_{\rm pp}\|^2_{T^\Wnat}\le c_{\rm iii}H\|x_{\rm pp}\|^2$ and $x_{\rm pp}^*\Delta x_{\rm pp}\le2\wmax Q^2\|x_{\rm pp}\|^2$, and $\int g\|x_{\rm pp}\|^2\ll|J|LQ^{-1/2}\ell^2$. With the factor $16T^{\eps_5/2}$ the contribution is $\ll T^{\eps_5/2}Q^{-1/2}\ell^2H|J|L\ll T^{\eps_5/2}Q^{-1/2}H|J|L^2\lstar$.
+
+\emph{Step 5 (integration in $u$).} Combining \eqref{H:eq:step0} and Steps 1--4, for $u$ in regime (i), (ii) or (iii),
+$x_b(u)^*\Delta x_b(u)\le(1+\kloc)^3c(u)H\|x_b^s(u)\|^2+(\text{tail, (b), (c) terms at }u)+Q^{-3}$, with $c(u)=c_{\rm i},c_{\rm ii},c_{\rm iii}$ respectively. If $\rho((\log n-u)/\delta)\ne0$ then $|u-\log n|<2\delta<\frac12\eps\lstar$ for $Q$ large; with $\alpha:=\log n/\lstar$, the case analysis of Step~5 of the proof of Proposition~\ref{prop:TIsharp} applies verbatim with $\ell$ replaced by $\lstar$: if $\alpha\le1-\frac32\eps$ only (i) occurs; if $1-\frac32\eps<\alpha<1+\frac12\eps$ only (i) or (ii); if $1+\frac12\eps\le\alpha\le1+\frac32\eps$ only (ii) or (iii); if $\alpha>1+\frac32\eps$ only (iii). Comparing with the defining properties of $\widetilde C_\eps$, $c(u)\le(1+\vartheta^*_Q)\widetilde C_\eps(\alpha)$ with $\vartheta^*_Q:=\max(c_{\rm i}-1,c_{\rm ii}-\Cband,\vartheta'_Q)^+\to0$, and Lemma~\ref{lem:M3}(iii) gives the main term. Adding Step 2, (b), (c) and $\int g\cdot Q^{-3}\ll L^2Q^{-3}\le Q^{-1}$ proves the proposition; each error is $o(H|J|L^2\lstar)$ uniformly in $T$ by Lemma~\ref{H:lem:sizes}(S4) and $T\ge\ell^{a_0}$.
+\end{proof}
+
+\subsubsection*{The second moment}
+\begin{proposition}\label{H:prop:second}
+Let $c:\RR\to[1,\infty)$ be smooth, and suppose that, uniformly for $T$ in \eqref{H:eq:Trange},
+\begin{equation}\label{H:eq:profile}
+\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+o(1))\,H\sum_nb_n^2\,c\Big(\frac{\log n}{\lstar}\Big)\cK(n,n)+o\big(H|J|L^2\lstar\big).
+\end{equation}
+Put $F(\alpha)=c(\alpha)\min(\alpha,1+\eps_4)$ and $f_v(x)=v(x/\lambda)/(\lambda a)$, which is supported in $[-\frac\lambda2,\frac\lambda2]$. Then, uniformly for $T$ in \eqref{H:eq:Trange}, $\mathfrak M\le(1-2\theta)\Qf_F(f_v)N+o(N)$.
+\end{proposition}
+\begin{proof}
+The proof of Proposition~\ref{prop:second} with $\ell$ replaced by $\lstar$. By \eqref{eq:Kdiag}, $\cK(n,n)\le2\pi|J|g(\log n)+O(1)$; Lemma~\ref{H:lem:B2} with $h(s)=c(s/\lstar)g(s)$ (supported in $|s|<L$; $\|h^{(i)}\|_\infty\ll_i\|h\|_\infty$ since $g^{(i)}\ll_iL^{1-i}$) and the substitution $s=L\sigma$, $g(L\sigma)=L(v*v)(\sigma)$, give with Lemma~\ref{H:lem:B1}
+\[
+M^{\rm rat}_{\Lambda\Lambda}\le\frac{H|J|L^2\lstar}\pi(1+o(1))\int_0^1F(\lambda\sigma)(v*v)(\sigma)\dd\sigma+o(H|J|L^2\lstar).
+\]
+Adding Lemma~\ref{H:lem:arch},
+$\mathcal M\le\frac{H|J|L\lstar^2}{2\pi}\big(b+2\lambda\int_0^1F(\lambda\sigma)(v*v)(\sigma)\dd\sigma\big)+o(H|J|L\lstar^2)$. Divide by $a^2L^2$ and use Proposition~\ref{H:prop:fc}, $L=\lambda\lstar$, $|J|=(1-2\theta)T$ and $N=(1+o(1))HT\lstar/(2\pi)$ (Lemma~\ref{H:lem:RvM}): $\mathfrak M\le(1-2\theta)Na^{-2}\big(b/\lambda+2\int_0^1F(\lambda\sigma)(v*v)(\sigma)\dd\sigma\big)+o(N)$, and the bracket divided by $a^2$ is $\Qf_F(f_v)$, as in the proof of Proposition~\ref{prop:second}.
+\end{proof}
+
+\begin{theorem}[Conditional form at polynomial height]\label{H:thm:cond}
+Let $w$ be admissible and suppose $\mathrm{LS}(C)$ holds for $\cF(Q,w)$ for some $C\ge1$. Then, for fixed $a_0,\kappa_1>0$,
+\[
+\liminf_{Q\to\infty}\ \inf_{\ell^{a_0}\le T\le Q^{\kappa_1}}\Big(\frac{N^s_0}N-\pC(\bet_T;F_C)\Big)\ge0,
+\]
+likewise for $N^*_0$, and for $N_d$ with $\frac12(1+\pC(\bet_T;F_C))$.
+\end{theorem}
+The proof is given in \S\ref{H:sec:proofs}.
+
+%----------------------------------------------------------------------
+\subsection{The variational problem at support \texorpdfstring{$\bet$}{lambda-bar}, and the proofs}\label{H:sec:assembly}
+
+Throughout this subsection $F=F_C$ with $C\ge1$ (restricted to $[0,\bet]$), so that $F$ is nondecreasing and $0\le F\le C$.
+
+\begin{lemma}[Monotonicity and continuity in $\bet$]\label{H:lem:Mbeta}
+For $1\le\bet'\le\bet\le2$, $\pC(\bet';F)\le\pC(\bet;F)\le\pC(\bet';F)+2(\bet/\bet'-1)$.
+\end{lemma}
+\begin{proof}
+The first inequality holds because the admissible classes in \eqref{eq:pbeta} are nested. For the second, note $\pC(\bet;F)\ge\pC(1;F)=\pC(1;F_1)>0$, because $F_C(\alpha)=\alpha$ on $[0,1]$. Given $0<\eta'<\pC(\bet;F)$ take $f$ admissible at support $\bet$ with $\Qf_F(f)\le2-\pC(\bet;F)+\eta'\le2$, put $s=\bet'/\bet\le1$ and $f_s(x)=s^{-1}f(x/s)$, which is admissible at support $\bet'$. Then $\int f_s^2=s^{-1}\int f^2$ and $\iint f_s(x)f_s(y)F(|x-y|)=\iint f(x)f(y)F(s|x-y|)\le\iint f(x)f(y)F(|x-y|)$, since $F$ is nondecreasing. As $F\ge0$, $\int f^2\le\Qf_F(f)\le2$, so $\Qf_F(f_s)\le\Qf_F(f)+2(s^{-1}-1)$. Let $\eta'\to0$.
+\end{proof}
+
+\begin{lemma}\label{H:lem:pLip}
+For $C'\ge C\ge1$ and $\bet\in[1,2]$, $\pC(\bet;F_{C'})\ge\pC(\bet;F_C)-(C'-C)$.
+\end{lemma}
+\begin{proof}
+$F_{C'}-F_C=(C'-C)\one_{(1,\bet]}$ on $[0,\bet]$, and $\iint_{|x-y|>1}f(x)f(y)\le(\int f)^2=1$ for admissible $f$.
+\end{proof}
+
+\begin{lemma}[Realisation by windows at support $\bet$]\label{H:lem:windows}
+Let $\bet\in(1,2]$, let $f\ge0$ be even, in $L^2$, with $\int f=1$ and $\supp f\subset[-\frac\bet2,\frac\bet2]$, and let $\eta'>0$. There are $\lambda<\bet$ and a real even $\psi\in C_c^\infty((-\frac12,\frac12))$, $\psi\not\equiv0$, with $\Qf_{F_C}(f_v)\le\Qf_{F_C}(f)+\eta'$, where $v=\psi^2$ and $f_v(x)=v(x/\lambda)/(\lambda\int v)$.
+\end{lemma}
+\begin{proof}
+First rescale: with $s=\lambda/\bet<1$, $f_s(x)=s^{-1}f(x/s)$ is supported in $[-\frac\lambda2,\frac\lambda2]$, and the computation in the proof of Lemma~\ref{H:lem:Mbeta} gives $\Qf_{F_C}(f_s)\le\Qf_{F_C}(f)+(s^{-1}-1)\int f^2$, which tends to $\Qf_{F_C}(f)$ as $\lambda\uparrow\bet$. Then dilate slightly, mollify and take a square root exactly as in the proof of Lemma~\ref{lem:windows}; $\Qf_{F_C}$ is continuous on $L^1\cap L^2$ since $0\le F_C\le C$.
+\end{proof}
+
+\subsubsection*{Cells}\label{H:sec:cells}
+Given $\eta'>0$, choose $0=\kappa^{(0)}<\kappa^{(1)}<\dots<\kappa^{(m)}=\kappa_1$ with
+\begin{equation}\label{H:eq:cells}
+2\Big(\frac{\bet(\kappa^{(j)})}{\bet(\kappa^{(j+1)})}-1\Big)\le\eta'\qquad(0\le j<m),
+\end{equation}
+which is possible because $\bet$ is continuous and decreasing on $[0,\kappa_1]$. If $\log T/\log Q\in[\kappa^{(j)},\kappa^{(j+1)}]$ then $\bet(\kappa^{(j+1)})\le\bet_T\le\bet(\kappa^{(j)})$, so by monotonicity and Lemma~\ref{H:lem:Mbeta}
+\begin{equation}\label{H:eq:cellcompare}
+\pC\big(\bet_T;F\big)\le\pC\big(\bet(\kappa^{(j)});F\big)\le\pC\big(\bet(\kappa^{(j+1)});F\big)+\eta' .
+\end{equation}
+For $T\le\ell^{A_0}$ we have $\log T/\log Q\to0$, so the polylogarithmic range lies in the first cell.
+
+\subsubsection*{Proofs}\label{H:sec:proofs}
+\begin{proof}[Proof of Theorem~\ref{H:thm:cond}]
+Fix $\eta'>0$ and cells as in \eqref{H:eq:cells}. Fix a cell $[\kappa^{(j)},\kappa^{(j+1)}]$ and apply \S\S\ref{H:sec:setup}--\ref{H:sec:prime} with $\kc:=\kappa^{(j+1)}$; write $\bet_c:=\bet(\kc)$. Choose, in this order:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item an even admissible $f$ at support $\bet_c$ with $2-\Qf_{F_C}(f)\ge\pC(\bet_c;F_C)-\eta'$;
+\item $\lambda<\bet_c$ and $\psi$ by Lemma~\ref{H:lem:windows}, so that $\Qf_{F_C}(f_v)\le\Qf_{F_C}(f)+\eta'$;
+\item $\eps_1$ with $\lambda(1+\eps_1)\le\bet_c-\eps_1$;
+\item $\theta$, $\eps\le\eps_{\max}$ and $\eps_3$ (hence $\eps_4=2\eps_3$) so small that $8\theta+|\Qf_{F_\eps}(f_v)-\Qf_{F_C}(f_v)|\le\eta'$, where $F_\eps:=\widetilde C_\eps\min(\cdot,1+\eps_4)$ with $\widetilde C_\eps$ as in Proposition~\ref{H:prop:TI}; this is possible by dominated convergence for the fixed $v$, since $F_\eps\to F_C$ off $\{1\}$ and $0\le F_\eps\le2C$;
+\item only then $\eps_5$ by \eqref{H:eq:eps5}.
+\end{enumerate}
+Note that $F_\eps$ does not depend on $\eps_5$, and for each fixed $\eps_5>0$ every error term in \S\S\ref{H:sec:zero}--\ref{H:sec:prime} tends to $0$ as $Q\to\infty$, uniformly for $\ell^{a_0}\le T\le Q^{\kc}$. By Proposition~\ref{H:prop:TI}, hypothesis \eqref{H:eq:profile} holds with $c=\widetilde C_\eps$, so Proposition~\ref{H:prop:second} gives $\mathfrak M\le(1-2\theta)\Qf_{F_\eps}(f_v)N+o(N)$. In particular $\mathfrak M=O(N)$, so $\ell^{-B}(H\mathfrak M)^{1/2}=o(N)$, and Proposition~\ref{H:prop:zero} gives, uniformly in $T$,
+\[
+\frac{N^s_0}N\ge2-8\theta-(1-2\theta)\Qf_{F_\eps}(f_v)-o(1)\ge2-\Qf_{F_C}(f_v)-\eta'-o(1)\ge\pC(\bet_c;F_C)-3\eta'-o(1).
+\]
+By \eqref{H:eq:cellcompare}, $N^s_0/N-\pC(\bet_T;F_C)\ge-4\eta'-o(1)$ uniformly for $\log T/\log Q\in[\kappa^{(j)},\kappa^{(j+1)}]$, $T\ge\ell^{a_0}$. There are finitely many cells; let $Q\to\infty$ and then $\eta'\to0$. The same choices give $N^*_0$, and $N_d$ from the second inequality of Proposition~\ref{H:prop:zero}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:poly}(b), (c)]
+$\mathrm{LS}(\Ccl(w))$ holds by \eqref{H:eq:MVLSw} and Lemma~\ref{lem:WH}, and $\mathrm{LS}(\CG\Rw)$ by Corollary~\ref{cor:LmultA}; apply Theorem~\ref{H:thm:cond}. For the log-wide weights, $\Rw\to1$ (Lemma~\ref{lem:Rwlog}) and Lemma~\ref{H:lem:pLip} give $\pC(\bet;F_{\CG\Rw})\ge\pC(\bet;F_{\CG})-\CG(\Rw-1)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:poly}(a)]
+Fix $\eps>0$. By Lemma~\ref{lem:CTlimit}, $\CTp(\wsharp)\le1+42/\log(1/\eta)$ and $\CTp(\wsmooth)\le1+83/\log(1/\eta)$ for $\eta\le e^{-3}$; choose $\eta_0$ with $\CTp(w)\le1+\eps/3$ for $\eta\le\eta_0$, and fix $\eta\le\eta_0$. This choice involves neither $T$ nor $\kappa_1$ (it is the choice made in the proof of Theorem~\ref{thm:main}). Here $\eps$ is the accuracy in the statement; we write $\eps'$ for the band parameter of (P4) and Proposition~\ref{H:prop:TIsharp} (so $\eps_5=\min(\eps',\eps_1)/(4(1+\kappa_1))$). Run the proof of Theorem~\ref{H:thm:cond} with Proposition~\ref{H:prop:TIsharp} in place of Proposition~\ref{H:prop:TI}, $C=\CTp(w)$ and the profile $\widetilde C_{\eps'}$ of Proposition~\ref{H:prop:TIsharp} (with band constant $\Cband=2\wmax/(\Ec\WIw)$): hypothesis \eqref{H:eq:profile} holds, since $(1+\vartheta^*_Q)(1+\kloc)^3=1+o(1)$ uniformly in $T$ and $\mathcal E^H_{\rm TI}=o(H|J|L^2\lstar)$; and $\Qf_{F_{\eps'}}(f_v)\to\Qf_{F_{\CTp(w)}}(f_v)$ as $\eps',\eps_4\to0$ by dominated convergence, where $F_{\eps'}:=\widetilde C_{\eps'}\min(\cdot,1+\eps_4)\to F_{\CTp(w)}$ off $\{1\}$ and $0\le F_{\eps'}\le2C_{\max}$. This gives the conclusion of Theorem~\ref{H:thm:cond} with $C=\CTp(w)$, and Lemma~\ref{H:lem:pLip} gives $\pC(\bet;F_{\CTp(w)})\ge\pC(\bet;F_1)-\eps/3$. The same argument gives $N^*_0$ and $N_d$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:dyadic}]
+Theorem~\ref{thm:poly}(c) with $w=\one_{[1/2,1]}$ (admissible with any $\eta<\frac12$), $\Ccl(w)=8/(3\Ec)\le5.5657$ by the certified bound $\Ec\ge0.47914533$ (Table~\ref{tab:numerics}), the monotonicity of $\pC(\bet;F_C)$ in $C$ and $\bet$, and the dyadic column of the table after Theorem~\ref{thm:poly}.
+\end{proof}
+
+\begin{proposition}[Certified values]\label{H:prop:cert}
+For each entry of the table after Theorem~\ref{thm:poly} there is an explicit even step function $f\ge0$ on $n$ equal cells of $[-\frac\bet2,\frac\bet2]$, $\bet=\bet(\kappa)$ ($n=400$), with $\int f=1$, generated deterministically by the ancillary file \texttt{certify\_hybrid.py} (\texttt{certify\_dyadic.py} for the dyadic column), such that $2-\Qf_{F_C}(f)$ is at least the tabulated value. The value $\Qf_{F_C}(f)$ is computed in exact rational arithmetic. Hence the tabulated values are lower bounds for $\pC(\bet;F_C)$, and $(3-\Qf_{F_C}(f))/2$ for $\frac12(1+\pC(\bet;F_C))$.
+\end{proposition}
+\begin{proof}
+As in the proof of Proposition~\ref{prop:cert}, with cells of width $h=\bet/n$: $\Qf_{F_C}(f)=h\sum_if_i^2+\sum_{i,j}f_if_j\Gamma_{i-j}$ with $\Gamma_m=G(mh+h)-2G(mh)+G(mh-h)$, where $G$ is the even function with $G''=F_C(|\cdot|)$ and $G(0)=G'(0)=0$: $G(x)=|x|^3/6$ for $|x|\le1$ and $G(x)=\frac16+\frac{|x|-1}2+\frac C2(|x|-1)^2$ for $1<|x|\le\bet$. The script solves the discretised problem in floating point (by the KKT system, or by a nonnegative quadratic program when the unconstrained solution is not positive), symmetrises, rounds the heights to integers, renormalises exactly, and evaluates $\Qf_{F_C}$ exactly; it prints $\lfloor10^6(2-\Qf)\rfloor/10^6$. Any admissible $f$ gives $\pC(\bet;F_C)\ge2-\Qf_{F_C}(f)$. For the columns (a)--(c) the same script with $n=800$ gives values larger by at most $9\cdot10^{-6}$ (log \texttt{certify\_hybrid\_n800.log}). As checks that are not part of the proof, an independent exact evaluator, which computes $\Qf_{F_C}(f)$ from the autocorrelation of $f$ instead of the second differences of $G$, gives the same rationals for all step functions of the table, and two independent optimisers with $n=600$ cells give values larger by at most $6\cdot10^{-6}$.
+\end{proof}
+
+%----------------------------------------------------------------------
+\subsection{A sharp hybrid large sieve and the ceiling}\label{H:sec:SH}
+
+This subsection is not used in the proofs of Theorem~\ref{thm:poly} and Corollary~\ref{cor:dyadic}. It isolates the mechanism of Proposition~\ref{H:prop:TIsharp} for the simplest time weight, and shows that $\bet_T$ is the limit of worst-case bounds. For a bounded interval $J$ and a finitely supported $y$ put $x(u)_n:=y_n\hJ(u-\log n)$.
+
+\begin{lemma}\label{H:lem:P0}
+$\displaystyle\sum_{\chi\in\cF}\omega_\chi\int_J|S_\chi[y](t)|^2\dd t=\frac1{2\pi}\int_\RR x(u)^*\Delta x(u)\dd u$.
+\end{lemma}
+\begin{proof}
+For fixed $\chi$ the function $\one_J(t)S_\chi[y](t)$ has Fourier transform $\sum_ny_n\chi(n)\hJ(u-\log n)$; apply Plancherel, multiply by $\omega_\chi$ and sum.
+\end{proof}
+
+\begin{theorem}[Sharp hybrid large sieve on $Q$-rough vectors]\label{H:thm:SH}
+Fix $\eps\in(0,1)$ and an admissible $w$. There is $Q_1(\eps,w)$ such that for $Q\ge Q_1$, every bounded interval $J$, every $\delta\in(0,\frac14]$, every $\varkappa\in(0,1]$ and every $y$ supported on $Q$-rough integers of $[1,\Yc]$ with $9\delta\Yc+1\le Q^{2-\eps}$,
+\begin{multline*}
+\sum_{\chi\in\cF}\omega_\chi\int_J|S_\chi[y](t)|^2\dd t\le(1+\varkappa)\big(\CTp(w)+\vartheta'_Q\big)H|J|\|y\|^2\\
++(1+\varkappa^{-1})\frac{24}\pi\wmax(k_0+4)\Big(\frac{Q^2+1}\delta+(k_0+3)\Yc\Big)\|y\|^2,
+\end{multline*}
+where $k_0=\lceil\log_2(1/\delta)\rceil$ and $\vartheta'_Q\to0$ is the error term of Proposition~\ref{prop:sharpLS} with $\eps$ there.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{H:lem:P0} and Lemma~\ref{lem:M3}(i), the left side is at most $(2\pi)^{-1}\int((1+\varkappa)x^{s*}\Delta x^s+(1+\varkappa^{-1})x^{t*}\Delta x^t)\dd u$. Only $\delta\le\frac14$ is used below. The vector $x^s(u)$ is supported on the $Q$-rough $n\le\Yc$ with $|\log n-u|<2\delta$. If this set is nonempty then $e^{u-2\delta}<\Yc$, and it lies in an interval of length $\le e^u(e^{2\delta}-e^{-2\delta})\le5\delta e^{1/2}\Yc$, hence on at most $9\delta\Yc+1\le Q^{2-\eps}$ integers. By Lemma~\ref{lem:S} and \eqref{H:eq:sharpLS} (after enlarging the interval to at least $Q$ integers), $x^{s*}\Delta x^s\le(\CTp(w)+\vartheta'_Q)H\|x^s(u)\|^2$, and $(2\pi)^{-1}\int\|x^s(u)\|^2\dd u\le(2\pi)^{-1}\int\|x(u)\|^2\dd u=|J|\|y\|^2$ by Plancherel. The tail is Lemma~\ref{H:lem:M3prime} with $g_1\equiv1/(2\pi)$, which gives the coefficient $48/(2\pi)=24/\pi$.
+\end{proof}
+
+\begin{corollary}\label{H:cor:SH1}
+Fix $\eps\in(0,1)$ and $w$. Uniformly for $|J|\ge16$ and $y$ supported on $Q$-rough integers of $[1,\Yc]$ with $\Yc\le Q^{2-\eps}|J|^{1-\eps}/9$,
+\[
+\sum_{\chi\in\cF}\omega_\chi\int_J|S_\chi[y](t)|^2\dd t\le\big(\CTp(w)+\vartheta'_Q+O_{w,\eps}(|J|^{-\eps/5})\big)H|J|\|y\|^2 .
+\]
+\end{corollary}
+\begin{proof}
+Take $\delta=|J|^{-1+\eps/2}$, which is at most $16^{-1/2}=\frac14$ as $|J|\ge16$ and $\eps<1$, so that $9\delta\Yc+1\le Q^{2-\eps}|J|^{-\eps/2}+1\le Q^{2-\eps}$. Relative to $H|J|\|y\|^2$ the tail term of Theorem~\ref{H:thm:SH} is $\ll_w\log|J|\,(|J|^{-\eps/2}+\log|J|\,Q^{-\eps}|J|^{-\eps})$, using $H\asymp_wQ^2$. Call this quantity $E$ and choose $\varkappa:=\min(\sqrt E,1)$, as Theorem~\ref{H:thm:SH} requires $\varkappa\le1$. If $E\le1$, the right side of Theorem~\ref{H:thm:SH} is $(\CTp(w)+\vartheta'_Q+O_w(\sqrt E))H|J|\|y\|^2$ and $\sqrt E\ll_{w,\eps}|J|^{-\eps/5}$. Since $E\to0$ as $|J|\to\infty$, uniformly in $Q$, $E>1$ only for $|J|$ bounded in terms of $w$ and $\eps$; then $\varkappa=1$ gives a bound $O_w(1)H|J|\|y\|^2$, and the loss is absorbed into $O_{w,\eps}(|J|^{-\eps/5})$.
+\end{proof}
+
+With $J=[(1+\theta)T,(2-\theta)T]$ and $\Yc=(QT)^\alpha$, the condition $\Yc\le Q^{2-\eps}T^{1-\eps}/9$ is $\alpha<\bet_T-O(\eps)$. This is the reach of Theorem~\ref{thm:poly}.
+
+\begin{corollary}[General vectors]\label{H:cor:SH2}
+Without the roughness assumption, the conclusion of Theorem~\ref{H:thm:SH} holds with $(\CTp(w)+\vartheta'_Q)H$ replaced by $\Lmult(Q^{2-\eps})$. In particular, for $\Yc\le Q^{2-\eps}|J|^{1-\eps}/9$ and $|J|\ge16$,
+\[
+\sum_{q\le Q}\frac q{\varphi(q)}\sumst_{\chi\bmod q}\int_J|S_\chi[y](t)|^2\dd t\le\big(1+O(Q^{-\eps}+|J|^{-\eps/5})\big)Q^2|J|\|y\|^2 .
+\]
+\end{corollary}
+\begin{proof}
+In the proof of Theorem~\ref{H:thm:SH} replace Lemma~\ref{lem:S} and \eqref{H:eq:sharpLS} by $\Lmult(9\delta\Yc+1)\le\Lmult(Q^{2-\eps})$; for the second statement use the unweighted form of \eqref{eq:MVLS}, $(Q^2+K)$ with $K\le Q^{2-\eps}$. Lemma~\ref{H:lem:M3prime} and its proof hold verbatim for the form $\sum_{q\le Q}\frac q{\varphi(q)}\sumst_{\chi\bmod q}|\sum_nx_n\chi(n)|^2$ in place of $x^*\Delta x$, with $\wmax=1$, since they use only \eqref{H:eq:MVLSw}; this family (all $q\le Q$) is not of the form $\cF(Q,w)$ with $w$ admissible.
+\end{proof}
+
+The second statement of Corollary~\ref{H:cor:SH2} is a hybrid multiplicative large sieve with leading constant $1+o(1)$ in the restricted range $N\le Q^{2-\eps}T^{1-\eps}$. It follows in a few lines from localisation, and we regard it as standard; we claim no novelty for it. Gallagher's inequality \cite[Theorem~3]{Gal70} holds for all $N$ with an unspecified absolute constant, and Ramar\'e \cite[\S6]{Ram16} gives explicit constants (the $Q^2$-coefficient per unit length in $t$ is about $2.06$ there). Displays of the form $\le(Q^2T+N)\|a\|^2$ for $\int_{-T}^T$ in the literature must be read as $\ll$; the statement above uses the true length $|J|$ and is consistent at $Q=1$, $y=\delta_1$.
+
+\begin{remark}\label{H:rem:SH}
+(1) A tail-free proof of Theorem~\ref{H:thm:SH} and Corollary~\ref{H:cor:SH2} (for the $\int_J$ form) takes a nonnegative majorant $M=|G|^2\ge\one_J$ with $\widehat G$ supported in $[-\frac\delta2,\frac\delta2]$ and $\int M=|J|(1+o(1))$; by Plancherel $\sum_\chi\omega_\chi\int M|S_\chi[y]|^2$ is exactly an average of the family form over vectors supported on intervals of about $\delta N$ integers. Lemma~\ref{H:lem:M3prime} is still needed for the second moment of \S\ref{H:sec:prime}, whose time weight $\Phi(t-t')^2\one_J(t)\one_J(t')$ is not monotone in the window.
+(2) Averaging over heights does not increase the constant $\CTp(w)$; this is Theorem~\ref{H:thm:SH}. We expect that it does not decrease it either: $\CTp(w)$ is a supremum of local densities near $\theta\in\ZZ$ which vary on the scale $1/Q$, much coarser than the smoothing scale $T/N\le Q^{-1-\eps'}$ in the band above $\alpha=1$. This is heuristic and is not used.
+\end{remark}
+
+\begin{proposition}[The ceiling]\label{H:prop:ceiling}
+Let $w$ be admissible. There are $c_w>0$ and, for $Q$ large, a prime $q_0\in[\eta Q,Q]$ with $w(q_0/Q)\ge c_w$. Let $0<c\le\frac1{10}$, let $J$ be an interval with $|J|\ge2/c$ and midpoint $t_0$, let $N\ge1$ and let $I\subset[N,2N]$ be an interval of $K:=\lceil2N/(c|J|)\rceil$ integers, with $K\ge2q_0$. For $y_n:=n^{it_0}\one[n\equiv1\bmod q_0]\one_I(n)$,
+\[
+\sum_{\chi\in\cF}\omega_\chi\int_J|S_\chi[y](t)|^2\dd t\ \gg_{w,c}\ \frac N{Q^2|J|}\cdot H|J|\|y\|^2 .
+\]
+\end{proposition}
+\begin{proof}
+Since $w$ has bounded variation and $\int uw>0$, there is an interval $[a',b']\subset[\eta,1]$ on which $w\ge c_w>0$ (take a point of continuity where $w>0$); by the prime number theorem there is a prime $q_0\in[a'Q,b'Q]$ for $Q$ large. Then $\omega(q_0)\ge c_w$, and every nonprincipal character modulo $q_0$ is primitive, so there are $\varphi^*(q_0)=q_0-2$ of them, each with $\chi(n)=1$ on the progression. For $|t-t_0|\le cN/K$, which lies inside $J$ as $cN/K\le c^2|J|/2$, the phase $(t-t_0)\log n$ varies by at most $|t-t_0|K/N\le c$ over $n\in I$, so $|S_\chi[y](t)|=|\sum_{n\in I,\,n\equiv1}n^{-i(t-t_0)}|\ge(1-c)(K/q_0-1)$. Hence the characters modulo $q_0$ alone contribute $\ge c_w(q_0-2)\cdot2(cN/K)(1-c)^2(K/q_0-1)^2\gg_{w,c}NK/q_0$, and all other terms are nonnegative. Since $\|y\|^2\le K/q_0+1$ and $H\asymp_wQ^2$, the claim follows.
+\end{proof}
+
+A vector at $n\asymp N=(QT)^\alpha$ with $|J|\asymp T$ has $N/(Q^2|J|)\asymp(QT)^{\alpha-\bet_T}$, which is unbounded for $\alpha>\bet_T$. So no bound of the form ``hybrid form $\le C\,H|J|\|y\|^2$ for all $y$'' can hold beyond $\bet_T$. The vector above is not $Q$-rough; Remark~\ref{H:rem:ceilingprimes} gives a prime-supported version. Going beyond $\bet_T$ would therefore require the structure of the prime vector, i.e.\ information on prime pairs; this is the $q$-aspect counterpart of the obstruction at $\alpha=1$ for $\zeta$ (\S\S\ref{sec:limits}, \ref{sec:zetabarrier}).
+
+\begin{remark}[Prime-supported vectors]\label{H:rem:ceilingprimes}
+The threshold persists for vectors supported on primes, hence on $Q$-rough integers, up to a factor $\log(QT)$ in $N$. On a residue class $n\equiv a\bmod q_0$, $(a,q_0)=1$, every character $\chi\bmod q_0$ is constant, $\chi(n)=\chi(a)$, so $|S_\chi[y]|$ is the same as for $\chi(a)=1$. Take $y_n:=n^{it_0}\one[n\text{ prime},\ n\equiv a\bmod q_0]\one_I(n)$. By the prime number theorem and the pigeonhole principle over the $\varphi(q_0)$ classes $a$ and the $\lfloor N/K\rfloor$ disjoint blocks of $K$ consecutive integers in $[N,2N]$, there are $a$ and $I$ with $m\ge(1+o(1))K/(\varphi(q_0)\log N)$ such primes, which exceed $N>Q$ and are therefore $Q$-rough. The proof of Proposition~\ref{H:prop:ceiling}, with the $m$ primes in place of the progression, gives the ratio $\gg q_0Nm/(KQ^2|J|)\gg N/(Q^2|J|\log N)$, provided $m\ge2$. With $N=(QT)^\alpha$ and $|J|\asymp T$ this is unbounded for $\alpha>\bet_T$ (the factor $\log N\asymp\log(QT)$ does not affect the exponent). The fundamental lemma of sieve theory is not needed.
+\end{remark}
+
+%----------------------------------------------------------------------
+\subsection{Remarks on polynomial height}\label{H:sec:remarks}
+
+\subsubsection*{Limits of the method at height $T$}
+Proposition~\ref{H:prop:ceiling} shows that the support $\bet_T$ is the limit of any argument that uses the family second moment only through worst-case large-sieve bounds. Within that limit, $\pC(\bet_T;F_1)$ is the value of the GUE form factor $\min(\alpha,1)$ at support $\bet_T$ in the Montgomery--Taylor problem, and for $C=1$ the extremal problem is strictly convex at every support, by the argument of Remark~\ref{rem:optimal} (which uses only $F_1(|x|)=1-(1-|x|)_+$); so, up to discretisation, the sharp constants in the table after Theorem~\ref{thm:poly} are the best the method gives. For $\zeta$, and for one $L$-function at height $T\to\infty$, the analogue of $\Delta$ is the mean value $\int_T^{2T}|\sum_{n\le N}x_nn^{-it}|^2\dd t=(T+O(N))\|x\|^2$ \cite{MV74}, whose length term dominates for $N\gg T$, i.e.\ beyond $\alpha=1$ (\S\ref{sec:zetabarrier}); this is the limit $\kappa\to\infty$ of $\bet(\kappa)$. As $\kappa\to\infty$ the sharp constant decreases to $\pC(1;F_1)=0.6725\ldots$; for instance $\pC(\bet(50);F_1)\approx0.6856$ and $\pC(\bet(100);F_1)\approx0.6792$ (floating point, ancillary file \texttt{kappa\_curve.log}; not certified). The value $0.6725$ is the one obtained for a single fixed primitive character as $T\to\infty$ by Alp\"oge and Furman \cite[Theorem~B]{AF26}.
+
+\subsubsection*{Super-polynomial heights}\label{H:sec:superpoly}
+(Sketch; not claimed.) The exterior-zero estimate extends to all $T\ge Q^{\kappa_0}$ for fixed $\kappa_0>0$ (Remark~\ref{H:rem:nodeletion}(2), with $e^{L|\delta_\rho|}\le T^{1+1/\kappa_0}$), and below bandwidth $1$ the prime side needs no parameter depending on $\kappa_1$: if $\lambda(1+\eps_1)\le1-\eps_1$, then $\Yc\le(QT)^{1-\eps_1}$, only regime (i) occurs, every $R_j$ vanishes (so $b=a$, and neither Lemma~\ref{H:lem:B1} nor \S\ref{sec:constants} is used), and the tails of Corollary~\ref{H:cor:tails} are uniform in all $T\ge\ell^{a_0}$ once $\eps_5\le2\eps_1$. This suggests that the Montgomery--Taylor value $0.6725$ holds at every height for the weighted family, which would be the family analogue of \cite[Theorem~B]{AF26}. We have not checked the uniformity of the rest of the zero side and of the assembly in that range, and we make no claim.
+
+\subsubsection*{A single modulus}
+(Heuristic; not used.) For the family of characters modulo one prime $q$ at height $T=q^\theta$, the average over heights together with the characters modulo $q$ should give bandwidth $1$ in units of $\log(qT)$ (through Gallagher's single-modulus hybrid sieve \cite[Theorem~2]{Gal70} and exact orthogonality on intervals shorter than $q$), and hence $0.6725$ at every polynomial height. Under GRH, Y{\i}ld{\i}r{\i}m \cite{Yil91} evaluated an average over all pairs of characters modulo $q$ of the pair correlation of their zeros up to height $T$; as quoted in \cite{KLM26}, his asymptotic holds in the corresponding range, i.e.\ up to bandwidth $1$ in units of $\log(qT)$. As we read \cite[Remark~2.4]{HY26b}, its bandwidth $1/(1+\theta)$ comes from orthogonality modulo $q$ alone.
+
+\subsubsection*{Which ingredient gives what}
+Without the Toeplitz route and the Gauss transfer, the classical large sieve alone gives Theorem~\ref{thm:poly}(c): at least $0.738$ for $T\le Q^2$ and $0.714$ for $T\le Q^{10}$ with $w=\one_{[\eta,1]}$, $\eta\le0.0146$ (the table after Theorem~\ref{thm:poly}). Its optimal test function does not use the full support once $C$ is large, which is why this column is nearly constant for $\kappa\le2$. Without flattening as well (i.e.\ with $b$ replaced by $a$, so that the diagonal density is $\alpha$ instead of $\min(\alpha,1)$ and the majorant is $\alpha$ on $[0,1]$ and $C\alpha$ above $1$), the same certificates give $0.7342$ for $\kappa\le2$ and $0.7142$ at $\kappa=10$ with $C=4.175$ (\texttt{certify\_hybrid\_n400\_rerun.log}, shape \texttt{Calpha}). Bandwidth below $1$ alone gives the Montgomery--Taylor value $0.6725$. The discussion of \S\ref{sec:indiv} applies unchanged at polynomial height; already the family $Q/2\le q\le Q$ with the weights $q/\varphi(q)$ gives more than $2/3$ at every polynomial height: more than $0.71$ for $T\le Q^{10}$ by Corollary~\ref{cor:dyadic}, and at least $\pC(\bet_T;F_C)-o(1)\ge\pC(1;F_C)-o(1)=0.6725\ldots-o(1)$ for $T\le Q^{\kappa_1}$ and every fixed $\kappa_1$ by Theorem~\ref{thm:poly}(c) with $C=\Ccl(\one_{[1/2,1]})$, since $\bet\mapsto\pC(\bet;F_C)$ is nondecreasing and $\pC(1;F_C)=\pC(1;F_1)$ ($F_C=F_1$ on $[0,1]$).

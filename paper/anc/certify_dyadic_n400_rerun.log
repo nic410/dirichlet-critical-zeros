@@ -1,0 +1,8 @@
+# C_cl(dyadic) = 8/(3*Ec) with Ec in [0.47914533,0.47914535] => C_cl <= 8/(3*0.47914533) = 5.5654652... <= 5.565466; we use 55657/10000
+   kappa=0 beta=     2 (2.0000) shape=C      C=55657/10000 n=400 [QP]: float p=0.7224181; EXACT p >= 0.722418105 (certified >= 0.722418); distinct >= 0.861209052 (certified >= 0.861209); min f=0.0000
+ kappa=1/2 beta=   5/3 (1.6667) shape=C      C=55657/10000 n=400 [QP]: float p=0.7224226; EXACT p >= 0.722422569 (certified >= 0.722422); distinct >= 0.861211284 (certified >= 0.861211); min f=0.0000
+   kappa=1 beta=   3/2 (1.5000) shape=C      C=55657/10000 n=400 [QP]: float p=0.7224244; EXACT p >= 0.722424423 (certified >= 0.722424); distinct >= 0.861212211 (certified >= 0.861212); min f=0.0000
+   kappa=2 beta=   4/3 (1.3333) shape=C      C=55657/10000 n=400 [QP]: float p=0.7224261; EXACT p >= 0.722426107 (certified >= 0.722426); distinct >= 0.861213053 (certified >= 0.861213); min f=0.0000
+   kappa=3 beta=   5/4 (1.2500) shape=C      C=55657/10000 n=400 [KKT]: float p=0.7224161; EXACT p >= 0.722416111 (certified >= 0.722416); distinct >= 0.861208055 (certified >= 0.861208); min f=0.0509
+   kappa=5 beta=   7/6 (1.1667) shape=C      C=55657/10000 n=400 [KKT]: float p=0.7203105; EXACT p >= 0.720310489 (certified >= 0.720310); distinct >= 0.860155244 (certified >= 0.860155); min f=0.2604
+  kappa=10 beta= 12/11 (1.0909) shape=C      C=55657/10000 n=400 [KKT]: float p=0.7102524; EXACT p >= 0.710252415 (certified >= 0.710252); distinct >= 0.855126207 (certified >= 0.855126); min f=0.4777

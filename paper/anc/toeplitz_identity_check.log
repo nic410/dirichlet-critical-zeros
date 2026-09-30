@@ -1,0 +1,8 @@
+c(q,e) formula max dev: 5.551115123125783e-17
+Omega two forms max dev: 4.440892098500626e-16
+k_omega(h) vs sum_e Omega(e) c_e(h), |h|<=60, max dev: 7.513989430663059e-13
+H = 161.46469215175497  k_omega(0) = 161.46469215175497  sum Omega(e)phi(e) = 161.46469215175497
+Q-rough pairs 784: max |Delta(n,m)-k_omega(n-m)| = 1.5477124247563933e-13  (H=161.465)
+non-rough examples Delta vs k_omega: [(2, 3, np.float64(-8.9325), 7.8016), (6, 1, np.float64(-6.7233), -12.8628), (5, 25, np.float64(-13.2749), -9.9642), (4, 7, np.float64(-13.5663), -13.1359)]
+min eig of T_omega on [1,399]: -896.7251664090601  max: 960.6924905004464
+mu_Omega^- mass: 19.186776244911595

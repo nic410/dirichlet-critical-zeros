@@ -1,0 +1,365 @@
+%% =====================================================================
+%% lemma-A.tex -- Lemma A (sharp weighted Farey large sieve on intervals),
+%%   the masses W and H, and the Gauss-sum transfer.
+%% Input in Section 6.1 of main.tex (amsart).  No preamble.
+%%
+%% Labels DEFINED here:
+%%   ssec:lemmaA, lem:WH, lem:dual, rem:phase, prop:count, lem:A,
+%%   rem:essup, lem:gauss, cor:LmultA, lem:harm, lem:Rwlog, lem:Rwfar, rem:Rwnum, eqA:*
+%% Labels USED: tab:constants, tab:Rw (constants.tex), lem:C, lem:S
+%%   (lemma-toeplitz-C.tex), app:numerics, def:admissible (main.tex).
+%% =====================================================================
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\sumst}{\sideset{}{^*}\sum}
+\providecommand{\Ec}{\mathcal{E}}
+\providecommand{\CG}{C_{\mathrm G}}
+\providecommand{\Pw}{P_w}
+\providecommand{\Rw}{R_w}
+\providecommand{\Cw}{C_w}
+\providecommand{\Lmult}{\Lambda_{\mathrm{mult}}}
+\providecommand{\TT}{\mathbb{T}}
+\providecommand{\Wkd}{k_{\varsigma}}
+\providecommand{\WIw}{I_w}
+
+\subsection{A sharp weighted Farey large sieve on intervals}\label{ssec:lemmaA}
+
+\paragraph{Notation.}
+Throughout this subsection $e(x):=e^{2\pi i x}$, $\TT:=\mathbb R/\mathbb Z$,
+and $\|\xi\|$ is the distance from $\xi$ to the nearest integer.
+For a finitely supported $x\in\mathbb C^{\mathbb Z}$ we write
+$S_x(\theta):=\sum_n x_n e(n\theta)$ and $\|x\|^2=\sum_n|x_n|^2$.
+The weight $w:(0,1]\to[0,\infty)$ is admissible (Definition~\ref{def:admissible}): it has bounded variation,
+$\operatorname{supp}w\subset[\eta,1]$ and $\int_0^1u\,w(u)\,du>0$; we extend it by $0$ to $\mathbb R$ and write $w_{\max}:=\sup w$ and
+$V_w$ for the total variation of the extended function on $\mathbb R$ (so the jumps at the
+end points of the support are included, and $V_w\ge 2w_{\max}$). Put
+\[
+ \WIw:=\int_0^1 u\,w(u)\,du>0,\qquad c_w:=\frac{6}{\pi^2}\WIw,\qquad
+ \widetilde w(u):=u^2w(u).
+\]
+The additive and multiplicative masses are
+\[
+ W:=\sum_{q\ge1}w(q/Q)\varphi(q),\qquad
+ H:=\sum_{\chi\in\cF}\omega_\chi=\sum_{q\ge1}w(q/Q)\frac{q}{\varphi(q)}\varphi^*(q),
+\]
+and the weighted Farey measure is $\mathfrak F_w:=\sum_{q\ge1}w(q/Q)\sumst_{b\bmod q}\delta_{b/q}$ on $\TT$,
+of total mass $W$. The \emph{Farey profile} of $w$ is
+\begin{equation}\label{eqA:Pw}
+ \Pw(t):=\frac{t^2}{c_w}\sum_{k\ge1}\varphi(k)\,w(kt)=\frac1{c_w}\sum_{k\ge1}\frac{\varphi(k)}{k^2}\,\widetilde w(kt)
+ \qquad(t>0),
+\end{equation}
+a finite sum for each $t$ ($\Pw(t)=0$ for $t>1$), and
+\begin{equation}\label{eqA:Rw}
+ \Rw:=\operatorname*{ess\,sup}_{t>0}\Pw(t)\quad\text{(with respect to Lebesgue measure)},\qquad \Cw:=\CG\Rw .
+\end{equation}
+Since $w\le w_{\max}$ and $\sum_{k\le 1/t}\varphi(k)\le t^{-2}$ ($t\le1$), $\Rw\le w_{\max}/c_w<\infty$. Moreover $c_w\Pw(t)=t^2\sum_k\varphi(k)w(kt)$ is $t^2W$ with $Q=1/t$, so Lemma~\ref{lem:WH} below gives $|\Pw(t)-1|\le c_0(V_w/c_w)\,t\log(2/t)$ for $0<t\le\frac12$; hence $\Pw(t)\to1$ as $t\to0^+$, and $\Rw\ge1$.
+For $0<\varsigma<\tfrac12$ let $k_0(\xi):=\varsigma^{-1}(1-|\xi|/\varsigma)_+$ on $\mathbb R$ (so $\int k_0=1$) and let
+$\Wkd(\xi):=\sum_{m\in\mathbb Z}k_0(\xi+m)$ be its periodisation, a function on $\TT$.
+
+\begin{lemma}[the masses $W$ and $H$]\label{lem:WH}
+Let $\Ec=\prod_p(1-p^{-2}-p^{-3})$. There is an absolute constant $c_0$ such that for $Q\ge2$
+\[
+ |W-c_wQ^2|\le c_0V_w\,Q\log(2Q),\qquad |H-\Ec\,\WIw Q^2|\le c_0V_w\,Q^{3/2}.
+\]
+In particular $W/H=\CG+O(V_w\WIw^{-1}Q^{-1/2})$ with $\CG=6/(\pi^2\Ec)=1.268773\ldots$. (The proof applies to every real $Q\ge2$.)
+\end{lemma}
+
+\begin{proof}
+\emph{$W$.} Put $\Phi(x):=\sum_{q\le x}\varphi(q)=\frac{3}{\pi^2}x^2+r(x)$ with $|r(x)|\le c_1x\log(2x)$
+for $x\ge1$ (classical). Abel summation over $1\le q\le Q$ gives
+$W=w(\tfrac{N}Q)\Phi(N)-\sum_{q<N}\Phi(q)\,(w(\tfrac{q+1}Q)-w(\tfrac qQ))$ with $N:=\lfloor Q\rfloor$, and the same identity with
+$\Phi$ replaced by $\Phi_0(x):=\frac3{\pi^2}x^2$. The difference of the two right-hand sides is at most
+$\max_{x\le Q}|r(x)|\,(w_{\max}+V_w)\le 2c_1V_wQ\log(2Q)$. The $\Phi_0$-sum equals
+$\sum_q w(q/Q)\,\frac{3}{\pi^2}(2q-1)=\frac6{\pi^2}\sum_qw(q/Q)q-\frac3{\pi^2}\sum_qw(q/Q)$. For
+$F(x):=x\,w(x/Q)$ on $[0,Q]$ we have $|\sum_{q\in\mathbb Z}F(q)-\int F|\le \operatorname{TV}(F)\le Q(V_w+w_{\max})$
+(the elementary inequality \eqref{eqA:APTV} below with $D=1$), and $\int F=Q^2\WIw$; also $\sum_qw(q/Q)\le Qw_{\max}+V_w$.
+Collecting, $|W-c_wQ^2|\le c_0V_wQ\log(2Q)$.
+
+\emph{$H$.} Let $\psi(q):=\varphi^*(q)/\varphi(q)$. It is multiplicative with $\psi(p)=(p-2)/(p-1)$ and
+$\psi(p^k)=(p-1)/p$ ($k\ge2$), so $\psi=1*g$ with $g$ multiplicative, $g(p)=-1/(p-1)$,
+$g(p^2)=1/(p(p-1))$, $g(p^k)=0$ ($k\ge3$). Hence $B_g:=\sum_d|g(d)|d^{-1/2}<\infty$ and
+$\sum_d g(d)/d=\prod_p(1-\frac1{p(p-1)}+\frac1{p^3(p-1)})=\Ec$. Then
+$\sum_{q\le x}\psi(q)=\sum_{d\le x}g(d)\lfloor x/d\rfloor=\Ec x-x\sum_{d>x}g(d)/d+O(\sum_{d\le x}|g(d)|)
+=\Ec x+O(B_gx^{1/2})$, and by partial summation $\sum_{q\le x}q\psi(q)=\frac{\Ec}2x^2+O(B_gx^{3/2})$.
+Since $H=\sum_qw(q/Q)\,q\,\psi(q)$, the same Abel-summation argument as for $W$ gives the claim.
+\end{proof}
+
+\begin{lemma}[band-limited duality]\label{lem:dual}
+Let $\mu=\sum_{s}a_s\delta_{\theta_s}$ be a finite \emph{positive} measure on $\TT$ ($a_s>0$, the
+$\theta_s$ distinct), let $I\subset\mathbb Z$ be an interval containing $K\ge1$ integers, let
+$0<\kappa\le\frac14$ and $\varsigma:=\kappa/K$. Then for every $x\in\mathbb C^{I}$
+\[
+ \sum_s a_s|S_x(\theta_s)|^2\ \le\ (1+\kappa^2)\,\max_{s}\,(\mu*\Wkd)(\theta_s)\ \|x\|^2,
+ \qquad (\mu*\Wkd)(\theta):=\sum_{s'}a_{s'}\Wkd(\theta-\theta_{s'}).
+\]
+\end{lemma}
+
+\begin{proof}
+\emph{Step 1 (Fej\'er majorant).} Let $F(y):=(\sin\pi y/\pi y)^2$; $F$ is even, $F(0)=1$, $F$ is
+decreasing on $[0,1]$, and $\int_{\mathbb R}F(y)e(y\xi)\,dy=(1-|\xi|)_+$. Let $c\in\tfrac12\mathbb Z$ be the midpoint
+of $I$, so $|n-c|\le K/2$ for $n\in I$, and put $g(y):=F(\kappa(y-c)/K)/F(\kappa/2)$. Then $g\ge0$ on
+$\mathbb R$, $g(n)\ge1$ for $n\in I$ (because $\kappa|n-c|/K\le\kappa/2<1$), $g(y)\ll_{\kappa,K}(1+|y|)^{-2}$, and
+\[
+ \hat g(\xi):=\int_{\mathbb R}g(y)e(y\xi)\,dy=\frac{e(c\xi)}{F(\kappa/2)}\,k_0(\xi),
+\]
+which is continuous and supported in $[-\varsigma,\varsigma]\subset(-\tfrac12,\tfrac12)$. The $1$-periodic function
+$G(\xi):=\sum_{m\in\mathbb Z}\hat g(\xi+m)$ is continuous, its Fourier coefficients are
+$\int_0^1G(\xi)e(-n\xi)d\xi=\int_{\mathbb R}\hat g(\xi)e(-n\xi)d\xi=g(n)$ (Fourier inversion; $\hat g\in L^1$ and $g$ is
+continuous), and $\sum_n|g(n)|<\infty$. Hence (Poisson summation)
+\begin{equation}\label{eqA:Poisson-g}
+ \sum_{n\in\mathbb Z}g(n)e(n\xi)=G(\xi),\qquad |G(\xi)|=\frac{\Wkd(\xi)}{F(\kappa/2)}\quad(\xi\in\TT),
+\end{equation}
+the second identity because for each $\xi$ at most one $m$ contributes to $G(\xi)$ (the support of $\hat g$ has
+length $2\varsigma<1$). Thus $G(\xi)=e(c\tilde\xi)\Wkd(\xi)/F(\kappa/2)$, where $\tilde\xi\in(-\frac12,\frac12]$ is the representative
+of $\xi$; only the modulus $|G|$ is used below (Remark~\ref{rem:phase}).
+
+\emph{Step 2 (duality and the Schur test on $|G|$).} Let $A:\mathbb C^I\to\mathbb C^{\{s\}}$,
+$(Ax)_s:=\sqrt{a_s}\,S_x(\theta_s)$. The left-hand side of the lemma is $\|Ax\|^2\le\|A\|^2\|x\|^2$, and
+$\|A\|=\|A^*\|$ with $(A^*c)_n=\sum_sc_s\sqrt{a_s}\,e(-n\theta_s)$ for $n\in I$. For any $c$,
+using $g\ge0$, $g\ge1$ on $I$ and \eqref{eqA:Poisson-g} (the double series converges absolutely),
+\[
+ \|A^*c\|^2\le\sum_{n\in\mathbb Z}g(n)\Big|\sum_sc_s\sqrt{a_s}e(-n\theta_s)\Big|^2
+ =\sum_{s,s'}c_s\bar c_{s'}\sqrt{a_sa_{s'}}\,G(\theta_{s'}-\theta_s)
+ \le\frac1{F(\kappa/2)}\sum_{s,s'}|c_s||c_{s'}|\,B_{ss'},
+\]
+where $B_{ss'}:=\sqrt{a_sa_{s'}}\,\Wkd(\theta_s-\theta_{s'})\ge0$ is symmetric ($\Wkd$ is even). This is the
+entrywise-modulus domination $\|M\|\le\|\,|M|\,\|$ for the Hermitian matrix $M_{ss'}=\sqrt{a_sa_{s'}}\,G(\theta_{s'}-\theta_s)$.
+Schur's test with the positive weights $p_s:=\sqrt{a_s}$ (write
+$|c_s||c_{s'}|\le\frac12(|c_s|^2p_{s'}/p_s+|c_{s'}|^2p_s/p_{s'})$ and use symmetry) gives
+\[
+ \sum_{s,s'}|c_s||c_{s'}|B_{ss'}\le\|c\|^2\max_s\frac1{p_s}\sum_{s'}B_{ss'}p_{s'}=\|c\|^2\max_s(\mu*\Wkd)(\theta_s).
+\]
+Finally $F(y)\ge1-\pi^2y^2/3$, so $F(\kappa/2)^{-1}\le(1-\pi^2\kappa^2/12)^{-1}\le1+\kappa^2$ for $\kappa\le\frac14$.
+\end{proof}
+
+\begin{remark}[on the phases]\label{rem:phase}
+It is tempting to say that the phases $e(c\,\cdot)$ conjugate the kernel matrix unitarily, i.e.\ that
+$G(\theta_{s'}-\theta_s)=e(c\tilde\theta_{s'})\overline{e(c\tilde\theta_s)}\,|G(\theta_{s'}-\theta_s)|$ for fixed lifts $\tilde\theta_s$. This
+fails under wrap-around when $c\notin\mathbb Z$: if $\tilde\theta_{s'}-\tilde\theta_s$ differs from the representative of
+$\theta_{s'}-\theta_s$ in $(-\frac12,\frac12]$ by a nonzero integer $j$, the two sides differ by the factor $e(cj)\ne1$. Lemma~\ref{lem:dual} avoids the issue by applying Schur's test to the entrywise modulus
+(Perron--Frobenius domination $\|M\|\le\|\,|M|\,\|$); nothing is lost, since the Schur bound only ever used $|G|$.
+(Alternatively one may take $c\in\mathbb Z$ at the cost of replacing $K$ by $K+1$.)
+\end{remark}
+
+\begin{proposition}[local count along spokes]\label{prop:count}
+Let $\mathfrak w:\mathbb R\to[0,\infty)$ be of bounded variation $V_{\mathfrak w}$, with $\mathfrak w=0$ outside $(0,1]$,
+and let $\mathfrak m:=\sum_{q\ge1}\mathfrak w(q/Q)\sumst_{b\bmod q}\delta_{b/q}$. Let $Q\ge1$, $0<\varsigma<\frac12$, $V\ge1$ and
+$\theta\in\TT$. By Dirichlet's theorem choose $u\in\mathbb Z$, $1\le v\le V$, $(u,v)=1$ with $|\theta-u/v|\le1/(vV)$
+for a lift $\theta\in\mathbb R$, and put $y:=\theta-u/v$. Then
+\begin{equation}\label{eqA:count}
+ (\mathfrak m*\Wkd)(\theta)=\mathfrak w(v/Q)\,k_0(y)+\int_{\mathbb R}k_0(z-y)\,\rho_{\mathfrak w,v}(z)\,dz+\varrho,
+ \qquad |\varrho|\le 4V_{\mathfrak w}\,\varsigma^{-1}k_*\,(1+\log^+k_*),
+\end{equation}
+where $k_*:=Q/V+QV\varsigma$ and, for $z\ne0$,
+\begin{equation}\label{eqA:rho}
+ \rho_{\mathfrak w,v}(z):=\frac1{(vz)^2}\sum_{k\ge1}\varphi(k)\,\mathfrak w\Big(\frac{k}{v|z|Q}\Big)
+ =Q^2\,t^2\sum_{k\ge1}\varphi(k)\mathfrak w(kt)\Big|_{t=1/(v|z|Q)}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\emph{Reduction to lattice points.} Since $\varsigma<\frac12$, for each $b\bmod q$ at most one lift of $b/q$ lies within
+$\varsigma$ of $\theta$, so
+$(\mathfrak m*\Wkd)(\theta)=\sum_{(b,q)\in\mathcal P}\mathfrak w(q/Q)\,k_0(b/q-\theta)$ with
+$\mathcal P:=\{(b,q)\in\mathbb Z^2:\ q\ge1,\ (b,q)=1\}$ (here $b$ runs over all of $\mathbb Z$).
+
+\emph{The $\mathrm{SL}_2(\mathbb Z)$ change of variables} (the ``spoke'' parametrisation of Farey fractions near $u/v$, cf.\ \cite{BCZ01}). Fix $u',v'\in\mathbb Z$ with $vu'-uv'=1$; note $(v',v)=1$. The map
+$(b,q)\mapsto(k,m):=(vb-uq,\,-v'b+u'q)$ is a bijection of $\mathbb Z^2$ with inverse $(k,m)\mapsto(u'k+um,\,v'k+vm)$,
+it preserves $\gcd$, and $b/q-u/v=k/(qv)$. Thus
+\begin{equation}\label{eqA:spokes}
+ (\mathfrak m*\Wkd)(\theta)=\sum_{k\in\mathbb Z}\ \sum_{\substack{m\in\mathbb Z,\ (m,k)=1\\ q:=v'k+vm\ \ge1}}
+ \mathfrak w(q/Q)\,k_0\Big(\frac{k}{qv}-y\Big).
+\end{equation}
+\emph{The isolated point $k=0$.} $(0,m)=1$ forces $m=\pm1$, and $q\ge1$ leaves $(b,q)=(u,v)$: the contribution is
+$\mathfrak w(v/Q)k_0(-y)=\mathfrak w(v/Q)k_0(y)$.
+
+\emph{The spokes $k\ne0$.} Put $f_k(q):=\mathfrak w(q/Q)\,k_0(k/(qv)-y)$ for $q>0$ and $f_k(q):=0$ for $q\le0$.
+If $f_k(q)\ne0$ then $0<q\le Q$ and $|k|<qv(|y|+\varsigma)\le Q/V+Qv\varsigma\le k_*$, so only $1\le|k|<k_*$ occur. By
+M\"obius inversion over $d\mid k$ (only squarefree $d$ contribute),
+\[
+ \sum_{m:(m,k)=1}f_k(v'k+vm)=\sum_{d\mid k}\mu(d)\sum_{j\in\mathbb Z}f_k(v'k+vdj).
+\]
+For a function $f$ of bounded variation with compact support and any $a\in\mathbb R$, $D>0$,
+\begin{equation}\label{eqA:APTV}
+ \Big|\sum_{j\in\mathbb Z}f(a+Dj)-\frac1D\int_{\mathbb R}f\Big|\le\operatorname{TV}(f):
+\end{equation}
+indeed, with $F(x):=f(a+Dx)$, the left side is $|\sum_j\int_j^{j+1}(F(j)-F(x))dx|\le\sum_j\operatorname{Var}_{[j,j+1]}F=\operatorname{TV}(F)=\operatorname{TV}(f)$.
+Since $\sum_{d\mid k}\mu(d)/(vd)=\varphi(|k|)/(v|k|)$, we get
+\[
+ \Big|\sum_{m:(m,k)=1}f_k(v'k+vm)-\frac{\varphi(|k|)}{v|k|}\int_{\mathbb R}f_k\Big|\le 2^{\omega(k)}\operatorname{TV}(f_k).
+\]
+The map $q\mapsto k/(qv)-y$ is monotone on $q>0$, so $\operatorname{TV}(k_0(k/(\cdot)v-y))\le\operatorname{TV}(k_0)=2/\varsigma$; with
+$\operatorname{TV}(fg)\le\|f\|_\infty\operatorname{TV}(g)+\|g\|_\infty\operatorname{TV}(f)$ and $V_{\mathfrak w}\ge2\|\mathfrak w\|_\infty$ (the variation of $\mathfrak w$ on $\mathbb R$ includes the rise from $0$ and the return to $0$ at the ends of its support, jumps included),
+$\operatorname{TV}(f_k)\le(2\|\mathfrak w\|_\infty+V_{\mathfrak w})/\varsigma\le2V_{\mathfrak w}/\varsigma$. Summing over $1\le|k|<k_*$ and using
+$\sum_{k\le x}2^{\omega(k)}\le\sum_{k\le x}\tau(k)\le x(1+\log x)$ ($x\ge1$) gives the bound on $\varrho$.
+
+\emph{Main term.} For $k\ge1$ substitute $q=k/(vz)$, $z>0$ (so $dq=-k\,dz/(vz^2)$), and for $k\le-1$ substitute
+$q=|k|/(v|z|)$, $z<0$. By Tonelli (all terms are $\ge0$)
+\[
+ \sum_{k\ne0}\frac{\varphi(|k|)}{v|k|}\int_0^\infty f_k(q)\,dq
+ =\int_{\mathbb R}k_0(z-y)\sum_{k\ge1}\frac{\varphi(k)}{v^2z^2}\,\mathfrak w\Big(\frac{k}{v|z|Q}\Big)dz
+ =\int_{\mathbb R}k_0(z-y)\rho_{\mathfrak w,v}(z)\,dz. \qedhere
+\]
+\end{proof}
+
+\begin{lemma}[Lemma A: sharp weighted Farey large sieve on intervals]\label{lem:A}
+Fix $\varepsilon\in(0,1)$ and $w$ as above. There is $Q_0=Q_0(\varepsilon,V_w/c_w)$ such that for $Q\ge Q_0$, for every
+interval $I\subset\mathbb Z$ containing $K\le Q^{2-\varepsilon}$ integers and every $x\in\mathbb C^I$,
+\[
+ \sum_{q\ge1}w(q/Q)\sumst_{b\bmod q}|S_x(b/q)|^2\le(\Rw+\vartheta_Q)\,W\,\|x\|^2,\qquad
+ \vartheta_Q:=30\Big(\Rw+\frac{V_w}{c_w}\Big)Q^{-\varepsilon/4}\log Q .
+\]
+For the sharp log-wide weight $w_\eta=u^{-2}\mathbf 1_{[\eta,1]}$ one has $V_w=2\eta^{-2}$ and $c_w=\frac6{\pi^2}\log\frac1\eta$,
+so $\vartheta_Q\le30(\Rw+3.3\,\eta^{-2}/\log\frac1\eta)\,Q^{-\varepsilon/4}\log Q$.
+\end{lemma}
+
+\begin{proof}
+Enlarging $I$ only increases the left side, so we may assume $Q\le K\le Q^{2-\varepsilon}$. Take
+$\kappa:=Q^{-\varepsilon/4}$ ($\le\frac14$ for $Q\ge4^{4/\varepsilon}$), $\varsigma:=\kappa/K\le\kappa/Q<\frac12$, and
+$V:=Q^{1-\varepsilon/2}$. By Lemma~\ref{lem:dual} with $\mu=\mathfrak F_w$ the left side is at most
+$(1+\kappa^2)\sup_{\theta}(\mathfrak F_w*\Wkd)(\theta)\,\|x\|^2$. Apply Proposition~\ref{prop:count} with $\mathfrak w=w$.
+By \eqref{eqA:rho} and \eqref{eqA:Pw}, $\rho_{w,v}(z)=c_wQ^2\,\Pw(1/(v|z|Q))$. On each half-line $z\gtrless0$ the map
+$z\mapsto1/(v|z|Q)$ is a $C^1$-diffeomorphism onto $(0,\infty)$, so it maps null sets to null sets in both directions and
+$\rho_{w,v}(z)\le c_wQ^2\Rw$ for almost every $z$. As $k_0\ge0$ and $\int k_0=1$, the main term of \eqref{eqA:count}
+is at most $c_wQ^2\Rw$. The other two terms:
+\begin{itemize}
+\item \emph{isolated point:} $w(v/Q)k_0(y)\le w_{\max}/\varsigma=w_{\max}K/\kappa\le\frac12V_wQ^{2-3\varepsilon/4}$; in fact this term
+ vanishes once $V<\eta Q$ (i.e.\ $Q>\eta^{-2/\varepsilon}$), since $v\le V$ and $w=0$ on $(0,\eta)$;
+\item \emph{spokes} (this is where $K\le Q^{2-\varepsilon}$, the genuine bandwidth constraint, enters; in Lemma~\ref{lem:C} it also
+ enters through a non-vanishing isolated point): $k_*/\varsigma=QK/(V\kappa)+QV\le Q^{2-\varepsilon/4}+Q^{2-\varepsilon/2}\le2Q^{2-\varepsilon/4}$ and
+ $k_*\le Q^{\varepsilon/2}+Q^{1-3\varepsilon/4}\le2Q$, so $|\varrho|\le 4V_w\cdot2Q^{2-\varepsilon/4}\cdot3\log Q$ for $Q\ge3$.
+\end{itemize}
+Hence $\sup_\theta(\mathfrak F_w*\Wkd)(\theta)\le c_wQ^2\big(\Rw+25\,(V_w/c_w)\,Q^{-\varepsilon/4}\log Q\big)$. By
+Lemma~\ref{lem:WH}, $c_wQ^2\le W(1+2c_0(V_w/c_w)Q^{-1}\log(2Q))$ once $Q$ is large in terms of $V_w/c_w$; together with
+$1+\kappa^2=1+Q^{-\varepsilon/2}$ this gives the stated $\vartheta_Q$ for $Q\ge Q_0(\varepsilon,V_w/c_w)$. For $w_\eta$:
+the variation is $\eta^{-2}$ (jump at $\eta$) $+(\eta^{-2}-1)$ (decrease on $[\eta,1]$) $+1$ (jump at $1$) $=2\eta^{-2}$, and
+$\frac{\pi^2}{3}<3.3$.
+\end{proof}
+
+\begin{remark}[why an essential supremum]\label{rem:essup}
+For weights with jumps, $\Pw$ has jumps at the points $t=j/k$ ($j$ a jump point of $w$), and its pointwise supremum can
+exceed \eqref{eqA:Rw}: for $w_{0.1}$ the pointwise supremum is $1.5086$ (attained only at $t=0.1$, where both $k=1$ and
+$k=10$ are counted) while $R_{w_{0.1}}=1.4801$ (Table~\ref{tab:Rw}). The proof only sees $\Pw$ through the integral in \eqref{eqA:count}, so the essential
+supremum is the correct constant. All tabulated values of $\Rw$ and $\Cw$ (Table~\ref{tab:Rw}) are essential suprema;
+in particular the sharp log-wide value at $\eta=10^{-5}$ is $\Cw=\CG\cdot1.099642=1.3952$ (at this $\eta$ the pointwise supremum
+$1.099643$ gives the same four digits).
+\end{remark}
+
+\paragraph{The Gauss-sum transfer.}
+Let $\Delta(n,m):=\sum_{\chi\in\cF}\omega_\chi\chi(n)\bar\chi(m)$ be the family Gram matrix, so that
+$x^*\Delta x=\sum_{\chi\in\cF}\omega_\chi|\sum_nx_n\chi(n)|^2$, and recall from \S\ref{sec:kernels} that $\Lmult(K)$ is the supremum of
+$x^*\Delta x$ over unit vectors $x$ supported on an interval of at most $K$ consecutive positive integers.
+
+\begin{lemma}[Gauss transfer]\label{lem:gauss}
+For every finitely supported $x$,
+\[
+ x^*\Delta x\le\sum_{q}w(q/Q)\sumst_{b\bmod q}|S_x(b/q)|^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+For $\chi$ primitive mod $q$ and every $n\in\mathbb Z$, $\chi(n)\tau(\bar\chi)=\sum_{b\bmod q}\bar\chi(b)e(bn/q)$ and
+$|\tau(\bar\chi)|^2=q$ \cite[\S3.4]{IK04}. Hence
+$|\sum_nx_n\chi(n)|^2=q^{-1}|\sumst_{b}\bar\chi(b)S_x(b/q)|^2$. Summing over primitive $\chi$ and enlarging to all
+$\chi\bmod q$, orthogonality gives $\sumst_{\chi\bmod q}|\sum_nx_n\chi(n)|^2\le\frac{\varphi(q)}q\sumst_{b\bmod q}|S_x(b/q)|^2$.
+Multiply by $\omega(q)=w(q/Q)q/\varphi(q)$ and sum over $q$.
+\end{proof}
+
+\begin{corollary}\label{cor:LmultA}
+Fix $\varepsilon\in(0,1)$. For $Q\ge Q_0(\varepsilon,w)$ and all $K\le Q^{2-\varepsilon}$,
+$\ \Lmult(K)\le\frac WH(\Rw+\vartheta_Q)\,H=(\Cw+o(1))H$, where $o(1)\to0$ as $Q\to\infty$ for fixed $(\varepsilon,w)$.
+\end{corollary}
+
+\begin{proof}
+Lemma~\ref{lem:gauss}, Lemma~\ref{lem:A}, and $W/H=\CG+o(1)$ (Lemma~\ref{lem:WH}).
+\end{proof}
+
+\paragraph{Log-wide weights: $\Rw\to1$.}
+
+\begin{lemma}\label{lem:harm}
+Let $B_\varphi:=\sum_d|\mu(d)|d^{-3/2}=\zeta(3/2)/\zeta(3)<2.174$ and $c_\varphi:=\gamma-\zeta'(2)/\zeta(2)=1.1471\ldots$ For
+$y\ge1$,
+\[
+ E_\varphi(y):=\sum_{k\le y}\frac{\varphi(k)}{k^2}-\frac6{\pi^2}(\log y+c_\varphi)\quad\text{satisfies}\quad |E_\varphi(y)|\le2B_\varphi y^{-1/2}
+\]
+(also for left limits $E_\varphi(y^-)$). Consequently, for all $0<\alpha\le\beta$,
+$\ \sum_{\alpha\le k\le\beta}\varphi(k)/k^2\le\frac6{\pi^2}\log(\beta/\alpha)+4B_\varphi$.
+\end{lemma}
+
+\begin{proof}
+$\varphi(k)/k^2=k^{-1}\sum_{d\mid k}\mu(d)/d$, so $\sum_{k\le y}\varphi(k)/k^2=\sum_{d\le y}\frac{\mu(d)}{d^2}\mathcal H(y/d)$ with
+$\mathcal H(x):=\sum_{j\le x}1/j$. For $x\ge1$, $\mathcal H(x)=\log x+\gamma+\vartheta(x)$ with $|\vartheta(x)|<1/\lfloor x\rfloor\le2/x$
+(because $\mathcal H(n)-\log n-\gamma\in(0,\frac1{2n})$ and $0\le\log(x/n)<\frac1n$ for $n=\lfloor x\rfloor$). Using
+$\sum_d\mu(d)/d^2=6/\pi^2$ and $-\sum_d\mu(d)\log d/d^2=-\zeta'(2)/\zeta(2)^2$,
+\[
+ E_\varphi(y)=-\sum_{d>y}\frac{\mu(d)}{d^2}\Big(\log\frac yd+\gamma\Big)+\sum_{d\le y}\frac{\mu(d)}{d^2}\vartheta(y/d).
+\]
+For $d>y$, $|\log(y/d)+\gamma|\le(\gamma+\log(d/y))\le0.99\,(d/y)^{1/2}$ (the maximum of $(\gamma+\log z)z^{-1/2}$ on $z\ge1$ is
+$2e^{-(2-\gamma)/2}<0.99$); for $d\le y$, $|\vartheta(y/d)|\le 2d/y\le 2(d/y)^{1/2}$. As the two ranges of $d$ are disjoint,
+$|E_\varphi(y)|\le2y^{-1/2}\sum_d|\mu(d)|d^{-3/2}$. For the consequence: if $\alpha\ge1$ the sum is
+$\frac6{\pi^2}\log(\beta/\alpha)+E_\varphi(\beta)-E_\varphi(\alpha^-)$; if $\alpha<1$ it is at most
+$\frac6{\pi^2}(\log\beta+c_\varphi)+2B_\varphi\le\frac6{\pi^2}\log(\beta/\alpha)+0.70+2B_\varphi$ (and $0$ if $\beta<1$).
+\end{proof}
+
+\begin{lemma}[$\Rw\to1$ for log-wide weights]\label{lem:Rwlog}
+Let $h:\mathbb R\to[0,1]$ vanish on $(-\infty,0)$, have $I_h:=\int h<\infty$, and be quasi-concave (each set $\{h>\lambda\}$,
+$0<\lambda<1$, is an interval). Let $w(u):=u^{-2}h(\log(1/u))$ on $(0,1]$. Then $\WIw=I_h$ and, for every $t>0$,
+\[
+ \Pw(t)\le1+\frac{\pi^2}{6}\cdot\frac{4B_\varphi}{I_h}\le1+\frac{14.31}{I_h}.
+\]
+In particular, for $L:=\log(1/\eta)$: $R_{w_\eta}\le1+14.31/L$ for $w_\eta=u^{-2}\mathbf 1_{[\eta,1]}$ ($h=\mathbf 1_{[0,L]}$), and
+$R_{w^{\rm sm}_\eta}\le1+28.62/L$ for $w^{\rm sm}_\eta=u^{-2}\sin^2(\pi\log u/\log\eta)\mathbf 1_{[\eta,1]}$
+($h(y)=\sin^2(\pi y/L)\mathbf 1_{[0,L]}(y)$, $I_h=L/2$). Hence $C_{w_\eta},C_{w^{\rm sm}_\eta}\to\CG$ as $\eta\to0$.
+\end{lemma}
+
+\begin{proof}
+$\WIw=\int_0^1u^{-1}h(\log\frac1u)\,du=\int_0^\infty h=I_h$. By \eqref{eqA:Pw}, $c_w\Pw(t)=\sum_k\frac{\varphi(k)}{k^2}h(\log\frac1{kt})$.
+Write $h(y)=\int_0^1\mathbf 1[h(y)>\lambda]\,d\lambda$ and let $[a_\lambda,b_\lambda]$ be the closure of the interval $\{h>\lambda\}$; by
+Fubini $\int_0^1(b_\lambda-a_\lambda)d\lambda=I_h$. By Tonelli and Lemma~\ref{lem:harm},
+\[
+ \sum_k\frac{\varphi(k)}{k^2}h\Big(\log\frac1{kt}\Big)\le\int_0^1\sum_{e^{-b_\lambda}/t\le k\le e^{-a_\lambda}/t}\frac{\varphi(k)}{k^2}\,d\lambda
+ \le\int_0^1\Big(\frac6{\pi^2}(b_\lambda-a_\lambda)+4B_\varphi\Big)d\lambda=\frac6{\pi^2}I_h+4B_\varphi .
+\]
+Divide by $c_w=\frac6{\pi^2}I_h$. For the two weights $h$ is quasi-concave with $I_h=L$, resp.\ $L/2$.
+\end{proof}
+
+The same layer-cake argument controls $\Pw$ near $t=0$ (the ``far field''); this is the analogue for $\Rw$ of
+Proposition~\ref{prop:CTfixed}(a), and it is used in the certified evaluation of $\Rw$ (Remark~\ref{rem:Rwnum}).
+
+\begin{lemma}[far field of $\Pw$]\label{lem:Rwfar}
+Let $h$ be as in Lemma~\ref{lem:Rwlog}, and assume moreover that $h=0$ on $(L,\infty)$, where $L=\log\frac1\eta$; let
+$w(u)=u^{-2}h(\log\frac1u)$. For $T_1\ge1$ put $\epsilon_\varphi(T_1):=\sup_{y>T_1}\max(|E_\varphi(y)|,|E_\varphi(y^-)|)$,
+with $E_\varphi$ as in Lemma~\ref{lem:harm}. Then for every $t\in(0,\eta/T_1)$
+\[
+ |\Pw(t)-1|\le\frac{2\,\epsilon_\varphi(T_1)}{c_w}\le\frac{4B_\varphi}{c_w\sqrt{T_1}} .
+\]
+\end{lemma}
+
+\begin{proof}
+As in the proof of Lemma~\ref{lem:Rwlog}, $c_w\Pw(t)=\int_0^1\Sigma_\lambda\,d\lambda$ with
+$\Sigma_\lambda:=\sum\{\varphi(k)/k^2:\ \log\frac1{kt}\in\{h>\lambda\}\}$. Fix $\lambda\in(0,1)$ with $\{h>\lambda\}\ne\emptyset$, let
+$a_\lambda\le b_\lambda$ be the end points of this interval, and put $\alpha:=e^{-b_\lambda}/t$, $\beta:=e^{-a_\lambda}/t$. Then
+$\Sigma_\lambda$ lies between the sums of $\varphi(k)/k^2$ over $\alpha<k<\beta$ and over $\alpha\le k\le\beta$. Since $h=0$ outside $[0,L]$,
+$b_\lambda\le L$, so $\alpha\ge\eta/t>T_1\ge1$. By the definition of $E_\varphi$,
+\[
+ \sum_{\alpha\le k\le\beta}\frac{\varphi(k)}{k^2}=\frac6{\pi^2}\log\frac\beta\alpha+E_\varphi(\beta)-E_\varphi(\alpha^-),\qquad
+ \sum_{\alpha<k<\beta}\frac{\varphi(k)}{k^2}=\frac6{\pi^2}\log\frac\beta\alpha+E_\varphi(\beta^-)-E_\varphi(\alpha),
+\]
+and all four values of $E_\varphi$ are taken at points $>T_1$ or as left limits at such points. Hence
+$|\Sigma_\lambda-\frac6{\pi^2}(b_\lambda-a_\lambda)|\le2\epsilon_\varphi(T_1)$. Integrating over $\lambda$ and using
+$\int_0^1(b_\lambda-a_\lambda)d\lambda=I_h$ gives $|c_w\Pw(t)-\frac6{\pi^2}I_h|\le2\epsilon_\varphi(T_1)$; divide by $c_w=\frac6{\pi^2}I_h$. The
+last inequality is Lemma~\ref{lem:harm}.
+\end{proof}
+
+In particular $\Pw(t)\to1$ as $t\to0^+$ at the rate $O(t^{1/2})$ for these weights.
+
+\begin{remark}[numerical values]\label{rem:Rwnum}
+Lemma~\ref{lem:Rwlog} only gives the rate $O(1/\log\frac1\eta)$ with a poor constant. The actual essential suprema are much
+closer to $1$: for the sharp log-wide weight $R_{w_\eta}=1.4801$ at $\eta=10^{-1}$, decreasing to $1.0996$ at $\eta=10^{-5}$
+(COMPUTED; floating point, exact finite sums, essential supremum over the open intervals between breakpoints), and for the
+log-smooth weight $\Rw\le1.059816,\,1.028831,\,1.015859$ at $\eta=10^{-3},10^{-4},10^{-5}$ (CERTIFIED); see Table~\ref{tab:Rw}.
+These values enter Theorem~\ref{thm:gauss} only in the limit $\eta\to0$, where Lemma~\ref{lem:Rwlog} is rigorous. The upper bounds
+used in Theorem~\ref{thm:fixed}(iii) are CERTIFIED in interval arithmetic (ancillary file \texttt{rw\_arb.py} and its logs
+\texttt{rw\_arb\_lsmooth\_*.log}): $\Pw$ is evaluated in ball arithmetic for $t\ge\eta/T_1$, with $T_1=10^7\eta$ and a proved
+interpolation bound between grid points, and for $t<\eta/T_1$ Lemma~\ref{lem:Rwfar} is used, with $\epsilon_\varphi(T_1)$ bounded by
+a rigorous scan of $E_\varphi$ on $[T_1,10^7]$ and by $2B_\varphi y^{-1/2}$ beyond $10^7$ (Lemma~\ref{lem:harm}).
+\end{remark}

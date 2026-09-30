@@ -1,0 +1,6 @@
+w=1_[eta,1], eta=0.01000: C_cl <= 4.174516363   (<= 4.175: True)
+w=1_[eta,1], eta=0.01460: C_cl <= 4.174988852   (<= 4.175: True)
+w=1_[eta,1], eta=0.01469: C_cl <= 4.174999860   (<= 4.175: True)
+w=1_[eta,1], eta=0.01470: C_cl <= 4.175001087   (<= 4.175: False)
+largest eta with C_cl <= 4.175 (using Ec >= 0.47914533): 0.0146911 (rounded down)
+dyadic: C_cl = 8/(3 Ec) <= 5.5654653   (<= 5.5657: True)

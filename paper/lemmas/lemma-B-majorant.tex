@@ -1,0 +1,274 @@
+%% =====================================================================
+%% lemma-B-majorant.tex -- smooth sums (Lemma P), invisibility (B1), the
+%%   flattened norm (B2), and the time-localised majorant (M1 factorisation,
+%%   M2 short intervals, M3 localisation, Prop. TI).
+%% Input in Section 5 of main.tex (amsart).  No preamble.
+%%
+%% Labels DEFINED here:
+%%   ssec:lemmaB, lem:poisson, lem:B1, lem:B2, eqB:PNT, eqB:Mrat,
+%%   rem:bandwidth, ssec:majorant, lem:M1, lem:M2, lem:M3, prop:TI
+%% Labels USED from main.tex: sec:setup, sec:kernels, eq:MVLS, eq:Kdiag,
+%%   prop:second; from lemma-A.tex: lem:A, cor:LmultA, lem:WH; from
+%%   lemma-toeplitz-C.tex: lem:C, prop:TIsharp.
+%% =====================================================================
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\sumst}{\sideset{}{^*}\sum}
+\providecommand{\Cw}{C_w}
+\providecommand{\Lmult}{\Lambda_{\mathrm{mult}}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\hJ}{\widehat{\mathbf 1_J}}
+\providecommand{\ash}{a^\sharp}
+\providecommand{\LamR}{\Lambda_R}
+\providecommand{\Ups}{\Upsilon}
+\providecommand{\Yc}{Y}
+
+\subsection{Flattening: Lemma B}\label{ssec:lemmaB}
+
+Recall $a_n=\Lambda(n)n^{-1/2}\Ups(n)$, where $\Ups(n)=\Ups_0(\log n/L)$ is smooth, $\Ups=1$ on $[2,X]$ and $\Ups(n)=0$ for
+$n>\Yc=X^{1+\varepsilon_1}\le Q^{2-\varepsilon_1}$. Fix a smooth partition of unity $\sum_{j\ge0}\psi_j=1$ on $[1,\infty)$, $\psi_j\ge0$,
+$\operatorname{supp}\psi_j\subset[N_j/2,2N_j]$, $N_j=2^j$, with $|\psi_j^{(i)}(y)|\le c_iN_j^{-i}$ for constants $c_i$ independent of $j$. Only
+blocks with $N_j\le2\Yc$ meet the support of $a$. Fix $\varepsilon_3\in(0,\frac14)$ and put
+\begin{gather*}
+ R_j:=\big\lfloor N_j^{1-\varepsilon_3}/(QT)\big\rfloor,\qquad
+ \LamR(n):=\sum_{r\le R}\frac{\mu(r)}{\varphi(r)}c_r(n),\\
+ \ash_n:=\sum_{j:\,R_j\ge1}\psi_j(n)\Ups(n)n^{-1/2}\Lambda_{R_j}(n),\qquad b:=a-\ash ,
+\end{gather*}
+where $c_r(n)=\sumst_{h\bmod r}e(hn/r)$ is Ramanujan's sum. No subtraction is made in blocks with $R_j=0$, in particular for $N_j<QT$.
+If $R_j\ge1$ then $N_j\ge QT$, and, since $N_j\le2\Yc\le2Q^2$,
+\begin{equation}\label{eqB:Rj}
+ QR_j\le N_j^{1-\varepsilon_3}/T,\qquad R_j\le N_j^{1/2-\varepsilon_3}\cdot\frac{N_j^{1/2}}{QT}\le N_j^{1/2-\varepsilon_3}\qquad(T\ge2).
+\end{equation}
+We write $G(R):=\sum_{r\le R}\mu^2(r)/\varphi(r)$, $S_\chi[x](t):=\sum_nx_n\chi(n)n^{-it}$ and $\|\beta\|$ for the distance from
+$\beta\in\mathbb R$ to $\mathbb Z$. We use the elementary bounds $|c_r(n)|\le\varphi(r)$ and
+$G(R)\le\sum_{r\le R}1/\varphi(r)\le1.95(1+\log R)$ ($R\ge1$; proof of Lemma~\ref{lem:C}).
+
+The Poisson estimates in this subsection and in the proof of Proposition~\ref{prop:TIsharp} all reduce to the following lemma.
+
+\begin{lemma}[smooth sums]\label{lem:poisson}
+Let $N\ge1$, $\Theta\ge1$, $B_0>0$ and an integer $i\ge2$. Let $F:\mathbb R\to\mathbb C$ be smooth, supported in $[N/2,2N]$, with
+$|F^{(k)}(y)|\le B_0N^{-1/2-k}\Theta^k$ for $0\le k\le i$ and all $y$.
+\begin{enumerate}
+\item[(a)] For $\beta\in\mathbb R\setminus\mathbb Z$: $\ \big|\sum_{n\in\mathbb Z}F(n)e(n\beta)\big|\le B_0N^{1/2}\big(\Theta/(N\|\beta\|)\big)^i$.
+\item[(b)] If $f:\mathbb Z\to\mathbb C$ has period $M\ge1$ and mean $0$ over a period, then
+ $\big|\sum_nF(n)f(n)\big|\le B_0\,M\|f\|_\infty N^{1/2}(\Theta M/N)^i$.
+\item[(c)] $\big|\sum_nF(n)-\int_{\mathbb R}F\big|\le 2B_0N^{1/2}(\Theta/N)^i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\widehat F(\xi):=\int F(y)e(-\xi y)\,dy$. Integrating by parts $i$ times,
+$|\widehat F(\xi)|\le(2\pi|\xi|)^{-i}\int|F^{(i)}|\le\frac32B_0N^{1/2}\big(\Theta/(2\pi N|\xi|)\big)^i$, since the support has length $\frac32N$.
+As $F\in C_c^\infty$, Poisson summation gives $\sum_nF(n)e(n\beta)=\sum_{m\in\mathbb Z}\widehat F(m-\beta)$.
+(a) Put $d:=\|\beta\|\in(0,\frac12]$. The numbers $|m-\beta|$, $m\in\mathbb Z$, are $d+k$ and $1-d+k$ ($k\ge0$), so
+$\sum_m|m-\beta|^{-i}\le d^{-i}+2^i+2\zeta(2)\le3d^{-i}$, because $2^i\le d^{-i}$ and $2\zeta(2)<4\le d^{-i}$. Hence the sum is at most
+$\frac92(2\pi)^{-i}B_0N^{1/2}(\Theta/(Nd))^i$, and $\frac92(2\pi)^{-2}<1$.
+(b) Write $f(n)=\sum_{h=1}^{M-1}\widehat f(h)e(hn/M)$ with $\widehat f(h)=M^{-1}\sum_{a\bmod M}f(a)e(-ah/M)$; the term $h=0$ is the mean, which
+vanishes, and $|\widehat f(h)|\le\|f\|_\infty$. Apply (a) with $\beta=h/M$, $\|h/M\|\ge1/M$.
+(c) $\sum_nF(n)-\int F=\sum_{m\ne0}\widehat F(m)$, and $\sum_{m\ne0}|m|^{-i}\le2\zeta(2)<4$.
+\end{proof}
+
+For a block $j$, a real $t$ and a real $u$ put
+\begin{equation}\label{eqB:Fjt}
+ F_{j,t}(y):=\psi_j(y)\Ups(y)\,y^{-1/2-it},\qquad F_{j,t,u}(y):=F_{j,t}(y)\,\rho\Big(\frac{\log y-u}\delta\Big),
+\end{equation}
+with $\rho$ and $\delta=T^{-1/2}$ as in Lemma~\ref{lem:M3} and Proposition~\ref{prop:TIsharp}. By the Leibniz rule, since
+$\frac{d^k}{dy^k}y^{-1/2-it}\ll_k(1+|t|)^kN_j^{-1/2-k}$ on $[N_j/2,2N_j]$, $\frac{d^k}{dy^k}\Ups_0(\log y/L)\ll_kN_j^{-k}$ ($L\ge1$) and
+$\frac{d^k}{dy^k}\rho((\log y-u)/\delta)\ll_k\delta^{-k}N_j^{-k}$, we have for $|t|\le3T$ and all $u$
+\begin{equation}\label{eqB:derivs}
+ |F_{j,t}^{(k)}(y)|+|F_{j,t,u}^{(k)}(y)|\le B_kN_j^{-1/2-k}T^k\qquad(k\ge0),
+\end{equation}
+with $B_k$ nondecreasing in $k$ and depending only on $k$, $(c_i)$, $\Ups_0$ and $\rho$ (we used $\delta^{-1}=T^{1/2}\le T$ and $1+|t|\le4T$;
+for $F_{j,t}$ alone, $\rho$ does not enter). The partition $(\psi_j)$ and the cut-offs $\Ups_0$ and $\rho$ are part of the fixed data of
+\S\ref{sec:parameters}.
+
+\begin{lemma}[B1: invisibility]\label{lem:B1}
+For every $\chi\in\cF$, every $|t|\le3T$ and every $A>0$: $S_\chi[\ash](t)\ll_{A,\varepsilon_3,(c_i),\Ups_0}Q^{-A}$; that is, the
+implied constant depends only on $A$, $\varepsilon_3$, the derivative bounds $(c_i)$ of the partition of unity and the cut-off $\Ups_0$
+(through the constants $B_i$ of \eqref{eqB:derivs} for $F_{j,t}$, in which $\rho$ does not enter).
+\end{lemma}
+
+\begin{proof}
+Let $\chi$ be primitive mod $q\in[\eta Q,Q]$, fix $j$ with $R_j\ge1$ and $r\le R_j$, and let $M:=[q,r]\le QR_j$.
+\emph{Mean zero.} The function $f_r(n):=c_r(n)\chi(n)=\sumst_{h\bmod r}e(hn/r)\chi(n)$ has period $M$ and mean $0$ for
+\emph{every} $r\ge1$: if $r\nmid q$, the mean $m_h$ of $\chi(n)e(hn/r)$ satisfies $m_h=e(hq/r)m_h$ (shift $n\mapsto n+q$) with
+$e(hq/r)\ne1$; if $r\mid q$, $r<q$, then $m_h=q^{-1}\tau(\chi,hq/r)=q^{-1}\bar\chi(hq/r)\tau(\chi)=0$ as $(hq/r,q)>1$; if $r=q$, then
+$\sum_hm_h=q^{-1}\tau(\chi)\sumst_h\bar\chi(h)=0$ as $\chi$ is non-principal. In particular no condition such as $R_j<\eta Q$ is
+needed.
+\emph{Poisson.} By \eqref{eqB:derivs} and Lemma~\ref{lem:poisson}(b) with $\Theta=T$, $\|f_r\|_\infty\le\varphi(r)$ and \eqref{eqB:Rj},
+\[
+ \Big|\sum_nF_{j,t}(n)f_r(n)\Big|\le B_i\,QR_j\,\varphi(r)\,N_j^{1/2}\Big(\frac{TQR_j}{N_j}\Big)^i\le B_i\,\varphi(r)\,N_j^{3/2-i\varepsilon_3}.
+\]
+Since
+\[
+ S_\chi[\ash](t)=\sum_{j:R_j\ge1}\sum_{r\le R_j}\frac{\mu(r)}{\varphi(r)}\sum_nF_{j,t}(n)f_r(n),
+\]
+we get
+$|S_\chi[\ash](t)|\le B_i\sum_{j:R_j\ge1}R_jN_j^{3/2-i\varepsilon_3}\le B_i(2+\log_2\Yc)(QT)^{5/2-i\varepsilon_3}$, using $R_j\le N_j$ and
+$N_j\ge QT$. Take $i\ge(A+3)/\varepsilon_3$.
+\end{proof}
+
+Consequently, with $M_{\rm rat}=M^{\mathrm{rat}}_{\Lambda\Lambda}$ the ratio part of the second moment (\S\ref{sec:setup}) and
+$\cK(n,m)=\iint_{J^2}\Phi(t-t')^2n^{-it}m^{it'}dt\,dt'$,
+\begin{equation}\label{eqB:Mrat}
+ M_{\rm rat}=\frac1{2\pi^2}\sum_{n,m}a_na_m\Delta(n,m)\cK(n,m)=\frac1{2\pi^2}\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)+O(Q^{-A}),
+\end{equation}
+since the middle expression is $\frac1{2\pi^2}\sum_\chi\omega_\chi\iint_{J^2}\Phi^2S_\chi[a](t)\overline{S_\chi[a](t')}$,
+$S_\chi[a]=S_\chi[b]+S_\chi[\ash]$, $|S_\chi[b](t)|\le\sum_n|b_n|\ll Q^{3}$, $\iint_{J^2}\Phi^2\le2\pi bL|J|$ and $H\ll Q^3$.
+
+For Lemma~\ref{lem:B2} we use the prime number theorem with the de la Vall\'ee Poussin error term: there are absolute constants
+$c_0\in(0,1]$ and $C_0\ge1$ such that, for $x\ge2$ and $\vartheta(x)=\sum_{p\le x}\log p$,
+\begin{equation}\label{eqB:PNT}
+ |\vartheta(x)-x|\le C_0\,x\,e^{-c_0\sqrt{\log x}}
+\end{equation}
+(\cite[Ch.~18]{Dav} proves this for $\psi(x)=\sum_{n\le x}\Lambda(n)$, and $0\le\psi(x)-\vartheta(x)\ll\sqrt x\log x$).
+
+\begin{lemma}[B2: flattened norm]\label{lem:B2}
+Let $h:\mathbb R\to[0,\infty)$ be smooth with $\|h^{(k)}\|_\infty\le C_k\|h\|_\infty$ for all $k\ge1$. Then, uniformly in $\ell^{a_0}\le T\le\ell^{A_0}$,
+\[
+ \sum_n|b_n|^2h(\log n)\le\Big(1+\frac{2\log T+2}{\ell}\Big)\int_{\mathbb R}\ell\,F_b(s/\ell)\,h(s)\,ds+O(\|h\|_\infty\ell),\quad F_b(\alpha):=\min(\alpha^+,1+\varepsilon_4),
+\]
+with $\varepsilon_4=2\varepsilon_3$; the implied constant depends only on $(C_k)$, $\varepsilon_3$, $(c_i)$ and $\Ups_0$. More precisely, the
+proof bounds $|b_n|^2$ by the convexity majorant $\Ups(n)^2n^{-1}\sum_j\psi_j(n)(\Lambda(n)-\Lambda_{R_j}(n))^2$ (with $\Lambda_0:=0$), whose
+local density at $n=y$ (in the variable $\log y$) is $\Ups(y)^2$ times the $\psi_j$-weighted average $\sum_j\psi_j(y)\,(\log y-G(R_j))$ of the block
+densities $\log y-G(R_j)$ (with $G(0):=0$) of the overlapping blocks that contain $y$; it is not claimed that the density of $|b_n|^2$ is
+at most that of any single block. Since $G(R)\ge\log(R+1)$, the quantity $\log(N/R)$ is only an \emph{upper} bound for $\log N-G(R)$.
+\end{lemma}
+
+\begin{proof}
+(1) \emph{Reduction to blocks.} Since $b_n=\sum_j\psi_j(n)\Ups(n)n^{-1/2}(\Lambda(n)-\Lambda_{R_j}(n))$ (with $\Lambda_0:=0$), $\psi_j\ge0$ and
+$\sum_j\psi_j=1$, convexity gives $|b_n|^2h(\log n)\le\sum_jF_j(n)\,(\Lambda(n)-\Lambda_{R_j}(n))^2$ with
+$F_j(y):=\psi_j(y)\Ups(y)^2h(\log y)/y$. So it suffices to evaluate $\Sigma_j:=\sum_nF_j(n)(\Lambda(n)-\Lambda_{R_j}(n))^2$ for each $j$ with
+$N_j\le2\Yc$. The function $F_j$ is supported in $[N_j/2,2N_j]$, $\|F_j\|_\infty\le2\|h\|_\infty/N_j$, and
+$\int|(F_j(y)\log y)'|\,dy\le C_1'(1+C_1)\|h\|_\infty(1+\log N_j)/N_j$ with $C_1'$ depending only on $(c_i)$ and $\Ups_0$. Write
+$\mathcal R_j:=(1+C_1)\|h\|_\infty(1+\log N_j)e^{-c_0\sqrt{\log(N_j/2)}}$ for $N_j\ge4$.
+
+(2) \emph{The term $\Lambda^2$} ($N_j\ge4$). The prime powers $p^k\le2N_j$ with $k\ge2$ number $O(N_j^{1/2})$, so they contribute
+$O(\|h\|_\infty N_j^{-1/2}\log^2(2N_j))$. For the primes, by Stieltjes integration by parts against $d\vartheta(y)=dy+d(\vartheta(y)-y)$ (the
+boundary terms vanish) and \eqref{eqB:PNT},
+\[
+ \sum_pF_j(p)(\log p)^2=\int F_j(y)\log y\,dy-\int(\vartheta(y)-y)\,d\big(F_j(y)\log y\big)=\int F_j(y)\log y\,dy+O(C_0C_1'\mathcal R_j).
+\]
+(3) \emph{The term $\Lambda\LamR$} ($R:=R_j\ge1$). For a prime $p>R$ and $r\le R$ we have $c_r(p)=\mu(r)$, so $\LamR(p)=G(R)$; every $p\ge N_j/2$
+exceeds $R$ by \eqref{eqB:Rj}. For a prime power $p^k$ and squarefree $r$, $c_r(p^k)=\mu(r)+\mathbf 1[p\mid r]\,p\,\mu(r/p)$, hence
+$|\LamR(p^k)|\le G(R)+\frac p{p-1}G(R/p)\le3G(R)\ll\ell$. By the same Stieltjes argument with $d\vartheta$,
+\[
+ \sum_nF_j(n)\Lambda(n)\LamR(n)=G(R)\int F_j+O\big(G(R)\,\mathcal R_j\big)+O\big(\ell\,\|h\|_\infty N_j^{-1/2}\log^2(2N_j)\big).
+\]
+(4) \emph{The term $\LamR^2$.} $\sum_nF_j\LamR^2=\sum_{r,r'\le R}\frac{\mu(r)\mu(r')}{\varphi(r)\varphi(r')}\sum_nF_j(n)c_r(n)c_{r'}(n)$. The product
+$c_rc_{r'}$ has period $M=[r,r']\le R^2\le N_j^{1-2\varepsilon_3}$ (by \eqref{eqB:Rj}) and mean $\varphi(r)\mathbf 1[r=r']$ over a period (orthogonality
+of Ramanujan sums). Apply Lemma~\ref{lem:poisson}(b) to $f=c_rc_{r'}-\varphi(r)\mathbf 1[r=r']$ (so $\|f\|_\infty\le2\varphi(r)\varphi(r')$) and
+Lemma~\ref{lem:poisson}(c) to the mean, both with $F=N_j^{1/2}F_j$ and $\Theta=1$ (so $B_0\ll_i(1+C_1+\dots+C_i)\|h\|_\infty$):
+\[
+ \sum_nF_j\LamR^2=G(R)\int F_j+O_i\Big(\|h\|_\infty\big(R^4N_j^{-2i\varepsilon_3}+G(R)N_j^{-i}\big)\Big)=G(R)\int F_j+O(\|h\|_\infty N_j^{-1}),
+\]
+taking $i\ge3/\varepsilon_3$. This is the only place where $R\le N^{1/2-\varepsilon_3}$ is needed (step (3) only needs $R<N_j/2$), and it holds automatically for $N\le2Q^2$.
+(These are the classical asymptotics for the Selberg--Goldston truncation \cite{Gold92,GY03,Gra78}; only the prime number theorem is
+needed here, since $c_r(p)=\mu(r)$.)
+
+(5) \emph{Collecting.} $\Sigma_j=\int F_j(y)\,(\log y-G(R_j))\,dy+\mathcal E_j$ with
+\[
+ |\mathcal E_j|\ll(1+G(R_j))\mathcal R_j+\ell\|h\|_\infty N_j^{-1/2}\log^2(2N_j)+\|h\|_\infty N_j^{-1},
+\]
+and, for the finitely many $j$ with
+$N_j<4$, $\Sigma_j\ll\|h\|_\infty$. Since $G(R_j)\ll\ell$, $\log N_j=j\log2$ and $\sum_{j\ge2}(1+j)e^{-c_0\sqrt{(j-1)\log2}}<\infty$,
+\begin{equation}\label{eqB:B2err}
+ \sum_j|\mathcal E_j|\ll\|h\|_\infty\,\ell .
+\end{equation}
+(6) \emph{The density.} $G(R)=\sum_{r\le R}\frac{\mu^2(r)}r\sum_{\mathrm{rad}(m)\mid r}\frac1m\ge\sum_{n\le R}\frac1n\ge\log(R+1)$, so
+$\log y-G(R_j)\le\log y-\log R_j$ (an upper bound only). On $\operatorname{supp}\psi_j$, $R_j\ge N_j^{1-\varepsilon_3}/(2QT)$ gives
+$\log y-\log R_j\le\ell+\varepsilon_3\log N_j+\log T+2\log2\le\ell(1+2\varepsilon_3)+\log T+2$, as $\log N_j\le\log(2\Yc)\le2\ell$. Also
+$\log y-G(R_j)\le\log y$. In blocks with $R_j=0$ the density is exactly $\log y$ (step 2), and there $N_j^{1-\varepsilon_3}<2QT$, so
+$\log y\le\log(2N_j)\le(1-\varepsilon_3)^{-1}(\ell+\log T+\log2)+\log2\le\ell(1+2\varepsilon_3)+2\log T+2$. In all cases the density is at most
+$\min\big(\log^+y,\ \ell(1+2\varepsilon_3)+2\log T+2\big)\le(1+\frac{2\log T+2}\ell)\,\ell F_b(\log y/\ell)$.
+(7) \emph{Summing over $j$.} $\sum_j\int F_j(y)\,\ell F_b(\log y/\ell)\,dy\le\int h(s)\,\ell F_b(s/\ell)\,ds$ (substitute $y=e^s$; $\Ups\le1$,
+$\sum\psi_j=1$), and the errors are bounded by \eqref{eqB:B2err}.
+\end{proof}
+
+\begin{remark}[where $\lambda<2$ is used]\label{rem:bandwidth}
+The mixed term $M_{\mu\Lambda}$ does \emph{not} force $\lambda<2$: its relative size is
+$\ll X^{(1+\varepsilon_1)/2}\log X/(QT\ell)$, which is $O(1/T)$ even at $X^{1+\varepsilon_1}=Q^2$. The genuine constraints are (i) the window length
+$K\le Q^{2-\varepsilon}$ in Lemmas~\ref{lem:A} and~\ref{lem:C} (it enters through the spoke count, and in Lemma~\ref{lem:C} also through
+the isolated point $\Omega(v)+m(v/Q)$), and (ii) the $N$-term of the large sieve:
+$\Lmult(\Yc)\ll_wH$ (used for $\mathfrak F(t)^2$ in the finite-centre step and for the tails of the localisation in Propositions~\ref{prop:TI}
+and~\ref{prop:TIsharp}) requires
+$\Yc\ll Q^2$ (for $\Yc>Q^2$ see Lemma~\ref{H:lem:M3prime} and Corollary~\ref{H:cor:tails}). Condition (iii), $R\le N^{1/2-\varepsilon_3}$ in Lemma~\ref{lem:B2}, is automatic for $N\le2Q^2$. No condition of the form
+$R_j<\eta Q$ is needed anywhere (Lemma~\ref{lem:B1}).
+\end{remark}
+
+\subsection{The time-localised majorant}\label{ssec:majorant}
+
+Let $\hJ(\xi):=\int_Je^{it\xi}dt$, so $|\hJ(\xi)|\le\min(|J|,2/|\xi|)$. For $y\in\mathbb C^{\mathbb Z}$ finitely supported and $u\in\mathbb R$ put
+$x_y(u)_n:=y_n\hJ(u-\log n)$. We write $x^*\Delta x:=\sum_{\chi\in\cF}\omega_\chi|\sum_nx_n\chi(n)|^2\ge0$ for the family form; $\Delta\succeq0$.
+
+\begin{lemma}[M1: time--frequency factorisation]\label{lem:M1}
+\[
+ \cK(n,m)=\int_{\mathbb R}g(u)\,\hJ(u-\log n)\,\overline{\hJ(u-\log m)}\,du .
+\]
+Hence
+$\sum_{n,m}y_n\bar y_m\Delta(n,m)\cK(n,m)=\int g(u)\,x_y(u)^*\Delta x_y(u)\,du$, and $\cK(n,n)=\int g|\hJ(\cdot-\log n)|^2=2\pi|J|g(\log n)+O_v(1)$.
+\end{lemma}
+
+\begin{proof}
+Insert $\Phi(t-t')^2=\hat g(t-t')=\int g(u)e^{i(t-t')u}du$ into the definition of $\cK$ and integrate in $t$, $t'$ first (Fubini: $g$ is
+integrable with compact support, $J$ is bounded). For the diagonal, $\cK(n,n)=\int\Phi(r)^2n^{-ir}(|J|-|r|)_+dr$,
+$\int\Phi(r)^2n^{-ir}dr=2\pi g(\log n)$ and $\int\Phi(r)^2|r|dr=O_v(1)$.
+\end{proof}
+
+\begin{lemma}[M2: short intervals]\label{lem:M2}
+For every interval $I$ of $K$ integers and $x\in\mathbb C^I$: $x^*\Delta x\le\big(H+4w_{\max}QK(1+\log K)\big)\|x\|^2$.
+\end{lemma}
+
+\begin{proof}
+$\Delta(n,n)=\sum_q\omega(q)\varphi^*(q)\mathbf 1[(n,q)=1]\le H$. For $n\ne m$, $\Delta(n,m)=\sum_q\omega(q)\mathbf 1[(nm,q)=1]\sum_{d\mid(q,n-m)}\varphi(d)\mu(q/d)$
+\cite[(3.9)]{IK04}, so $|\Delta(n,m)|\le w_{\max}\sum_{d\mid n-m}\varphi(d)\sum_{j\le Q/d}\frac{dj}{\varphi(dj)}\le1.95\,w_{\max}Q\,\tau(|n-m|)$, using
+$\frac{dj}{\varphi(dj)}\le\frac d{\varphi(d)}\frac j{\varphi(j)}$ and $\sum_{j\le x}\frac j{\varphi(j)}\le\frac{\zeta(2)\zeta(3)}{\zeta(6)}x$. Schur's test and
+$\sum_{h<K}\tau(h)\le K(1+\log K)$ give the claim. No zero-free region or M\"obius cancellation is used.
+\end{proof}
+
+\begin{lemma}[M3: localisation]\label{lem:M3}
+Let $\delta\in(0,\frac14]$, $\kappa\in(0,1]$, and $\rho\in C_c^\infty((-2,2))$ with $0\le\rho\le1$, $\rho=1$ on $[-1,1]$. For $u\in\mathbb R$ split
+$x=x_y(u)$ as $x^s+x^t$, $x^s_n:=x_n\rho((\log n-u)/\delta)$. Then:
+(i) $x^*\Delta x\le(1+\kappa)\,x^{s*}\Delta x^s+(1+\kappa^{-1})\,x^{t*}\Delta x^t$;
+(ii) $x^s$ is supported in an interval of length $\le5\delta e^u$;
+(iii) $\int g(u)\|x^s(u)\|^2c(u)\,du\le\sum_n|y_n|^2\cK(n,n)\sup\{c(u):|u-\log n|<2\delta\}$ for every bounded measurable $c\ge0$;
+(iv) $\int g(u)\|x^t(u)\|^2du\le8bL\|y\|^2/\delta$.
+\end{lemma}
+
+\begin{proof}
+(i) $\Delta\succeq0$ and $2|\mathrm{Re}\langle x^s,x^t\rangle_\Delta|\le\kappa\|x^s\|_\Delta^2+\kappa^{-1}\|x^t\|_\Delta^2$. (ii) $e^{2\delta}-e^{-2\delta}\le5\delta$.
+(iii) $\|x^s(u)\|^2\le\sum_n|y_n|^2|\hJ(u-\log n)|^2\mathbf 1[|u-\log n|<2\delta]$, and $\int g|\hJ(\cdot-\log n)|^2=\cK(n,n)$ (Lemma~\ref{lem:M1}).
+(iv) $|1-\rho|\le\mathbf 1_{|\xi|>\delta}$, $g\le g(0)=bL$ and $\int_{|\xi|>\delta}4\xi^{-2}d\xi=8/\delta$.
+\end{proof}
+
+We record the norms of the three vectors that are localised. By Mertens' estimate $\sum_{n\le x}\Lambda(n)/n=\log x+O(1)$,
+$\|a\|^2\le\sum_{n\le\Yc}\Lambda(n)^2/n\le\log\Yc\,(\log\Yc+O(1))\ll L^2$. By convexity (step (1) of the proof of Lemma~\ref{lem:B2}) and step (4) of
+that proof with $h\equiv1$, $\|\ash\|^2\le\sum_{j:R_j\ge1}\big(G(R_j)\int\psi_j\Ups^2\frac{dy}y+O(N_j^{-1})\big)\ll L\ell$. Hence
+\begin{equation}\label{eqB:norms}
+ \|a\|^2+\|\ash\|^2+\|b\|^2\ll L^2 .
+\end{equation}
+
+\begin{proposition}[TI: time-integrated majorant, Gauss-transfer constant]\label{prop:TI}
+Let $\delta:=T^{-1/2}$, $\kappa:=T^{-1/4}$. For $\varepsilon\in(0,\frac13)$ let $\widetilde C_\varepsilon:\mathbb R\to[1,\Cw]$ be smooth, $=1$ on
+$(-\infty,1-2\varepsilon]$ and $=\Cw$ on $[1-\frac32\varepsilon,\infty)$. Then, as $Q\to\infty$ with all parameters fixed, uniformly in $T$,
+\[
+ \sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+o(1))H\sum_n|b_n|^2\widetilde C_\varepsilon\Big(\frac{\log n}\ell\Big)\cK(n,n)+O_w\big(T^{-1/4}H|J|L^2\ell\big),
+\]
+and consequently
+$M_{\rm rat}\le(1+o(1))\frac{H|J|}{\pi}L^2\ell\int_0^1F_\varepsilon(\lambda s)(v*v)(s)\,ds+o(H|J|L^2\ell)$ with
+$F_\varepsilon(\alpha):=\widetilde C_\varepsilon(\alpha)\min(\alpha,1+\varepsilon_4)$. As $\varepsilon,\varepsilon_4\to0$, $F_\varepsilon\to F_{\Cw}$ ($\alpha$ on $[0,1]$, $\Cw$ on
+$(1,2]$) pointwise off $\alpha=1$ and boundedly, so Proposition~\ref{prop:second} applies with $F=F_{\Cw}$ in the limit.
+\end{proposition}
+
+\begin{proof}
+By \eqref{eqB:Mrat} and Lemma~\ref{lem:M1} it suffices to bound $\int g(u)x_b(u)^*\Delta x_b(u)du$; invisibility is used \emph{before}
+localisation. Apply Lemma~\ref{lem:M3}(i) at each $u$. If $u\le(1-\varepsilon)\ell$, the short part lies in an interval of at most
+$5\delta e^u+1\le5\delta Q^{1-\varepsilon}+1\le Q^{1-\varepsilon/2}$ integers (Lemma~\ref{lem:M3}(ii)), and Lemma~\ref{lem:M2} gives the constant $1+4w_{\max}H^{-1}Q^{2-\varepsilon/2}(1+\ell)=1+o(1)$, with
+no condition on $T$. If $u>(1-\varepsilon)\ell$, the short part lies in an interval of at most $5\delta X+1\le Q^{2-\varepsilon_1}$ integers ($e^u<X$ on $\operatorname{supp}g$), and
+Corollary~\ref{cor:LmultA} (with $\varepsilon_1$ in place of $\varepsilon$) gives $\Cw+o(1)$ (the Gauss-transfer constant is used from $(1-\varepsilon)\ell$ on).
+If $|u-\log n|<2\delta$ and $u>(1-\varepsilon)\ell$ then $\log n/\ell\ge1-\frac32\varepsilon$ for $Q$ large, so in both cases the constant is
+$\le(1+o(1))\widetilde C_\varepsilon(\log n/\ell)$, and Lemma~\ref{lem:M3}(iii) gives the main term. The tails: by Lemma~\ref{lem:M3}(iv),
+$\Lmult(\Yc)\le w_{\max}(Q^2+\Yc)\le2w_{\max}Q^2\ll_wH$ (\eqref{eq:MVLS}, $\Yc\le Q^2$) and \eqref{eqB:norms}, they contribute
+$\ll_w(1+\kappa^{-1})H\,bL\,\|b\|^2/\delta\ll T^{3/4}HL^3$, which is $O(T^{-1/4})$ relative to $H|J|L^2\ell$.
+For the second display use $\cK(n,n)=2\pi|J|g(\log n)+O(1)$ and Lemma~\ref{lem:B2} with the smooth weight
+$h(s)=g(s)\widetilde C_\varepsilon(s/\ell)$, then substitute $s=L\sigma$, $g(L\sigma)=L(v*v)(\sigma)$.
+\end{proof}

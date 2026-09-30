@@ -1,0 +1,10 @@
+[    0.0s] rw_arb lsmooth_10000: NS=10000000 T1=1000 Pc=10000000 prec=64 dgrid=1/1000
+[    0.0s] environment: python 3.10.12, python-flint 0.9.0 (FLINT 3.6.0), numpy 2.2.6, x86_64 Linux
+[    3.9s] c_w = (6/pi^2) L/2 in [2.799607764712, 2.799607764712]; c_phi = [1.14717665799606567 +/- 4.95e-18]; B_phi = [2.17325431251955414 +/- 2.05e-18]; E in [0.4791453312696, 0.4791453472412]
+[    4.0s] 16120 grid points, 38651 checkpoints
+[   35.2s] prefix sums done
+[   35.4s] sup_(y>=T1)|E_phi(y)| <= 1.3745e-03 (scan 5.7085e-04, tail 1.3745e-03); far field x > NS: P_w <= 1.0009819
+[   35.8s] self-check: direct sum at t/eta=6.9057: [1.028830277220889 +/- 5.42e-16] vs prefix/cos [1.028830277220889 +/- 5.62e-16]: overlap OK
+[   35.8s] near: sup P_w <= 1.028830330 (cell at t/eta ~ 6.9057); certified lower bound P_w(t/eta=6.9057) >= 1.028830277
+[   35.8s] SUMMARY lsmooth_10000: CERTIFIED  R_w <= 1.028830330   (ess sup R_w >= 1.0288303);  C_G <= 1.2687739234 < 1.268774;  C_w = C_G R_w <= 1.305353095
+[   35.8s] total time 36s, peak memory 549 MB

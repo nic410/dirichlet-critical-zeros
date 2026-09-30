@@ -1,0 +1,33 @@
+== n=400
+C=1 (=1.000000) n=400: float p=0.9322820; EXACT p >= 0.932282047 (certified >= 0.932282); distinct >= 0.966141023 (certified >= 0.966141); min f = 0.2892
+C=12688/10000 (=1.268800) n=400: float p=0.8859123; EXACT p >= 0.885912297 (certified >= 0.885912); distinct >= 0.942956148 (certified >= 0.942956); min f = 0.1852
+C=10911/10000 (=1.091100) n=400: float p=0.9155496; EXACT p >= 0.915549550 (certified >= 0.915549); distinct >= 0.957774775 (certified >= 0.957774); min f = 0.2550
+C=10434/10000 (=1.043400) n=400: float p=0.9241817; EXACT p >= 0.924181651 (certified >= 0.924181); distinct >= 0.962090825 (certified >= 0.962090); min f = 0.2730
+C=13448/10000 (=1.344800) n=400: float p=0.8744663; EXACT p >= 0.874466346 (certified >= 0.874466); distinct >= 0.937233173 (certified >= 0.937233); min f = 0.1541
+C=13055/10000 (=1.305500) n=400: float p=0.8802921; EXACT p >= 0.880292136 (certified >= 0.880292); distinct >= 0.940146068 (certified >= 0.940146); min f = 0.1703
+C=12890/10000 (=1.289000) n=400: float p=0.8827975; EXACT p >= 0.882797493 (certified >= 0.882797); distinct >= 0.941398746 (certified >= 0.941398); min f = 0.1770
+C=11/10 (=1.100000) n=400: float p=0.9139704; EXACT p >= 0.913970445 (certified >= 0.913970); distinct >= 0.956985222 (certified >= 0.956985); min f = 0.2516
+C=12/10 (=1.200000) n=400: float p=0.8969125; EXACT p >= 0.896912475 (certified >= 0.896912); distinct >= 0.948456237 (certified >= 0.948456); min f = 0.2127
+C=16030/10000 (=1.603000) n=400: float p=0.8412489; EXACT p >= 0.841248909 (certified >= 0.841248); distinct >= 0.920624454 (certified >= 0.920624); min f = 0.0427
+== n=800
+C=1 (=1.000000) n=800: float p=0.9322825; EXACT p >= 0.932282479 (certified >= 0.932282); distinct >= 0.966141239 (certified >= 0.966141); min f = 0.2885
+C=12688/10000 (=1.268800) n=800: float p=0.8859133; EXACT p >= 0.885913281 (certified >= 0.885913); distinct >= 0.942956640 (certified >= 0.942956); min f = 0.1844
+C=10911/10000 (=1.091100) n=800: float p=0.9155501; EXACT p >= 0.915550140 (certified >= 0.915550); distinct >= 0.957775070 (certified >= 0.957775); min f = 0.2543
+C=10434/10000 (=1.043400) n=800: float p=0.9241822; EXACT p >= 0.924182155 (certified >= 0.924182); distinct >= 0.962091077 (certified >= 0.962091); min f = 0.2723
+C=13448/10000 (=1.344800) n=800: float p=0.8744675; EXACT p >= 0.874467535 (certified >= 0.874467); distinct >= 0.937233767 (certified >= 0.937233); min f = 0.1532
+C=13055/10000 (=1.305500) n=800: float p=0.8802932; EXACT p >= 0.880293216 (certified >= 0.880293); distinct >= 0.940146608 (certified >= 0.940146); min f = 0.1694
+C=12890/10000 (=1.289000) n=800: float p=0.8827985; EXACT p >= 0.882798529 (certified >= 0.882798); distinct >= 0.941399264 (certified >= 0.941399); min f = 0.1761
+C=11/10 (=1.100000) n=800: float p=0.9139711; EXACT p >= 0.913971052 (certified >= 0.913971); distinct >= 0.956985526 (certified >= 0.956985); min f = 0.2509
+C=12/10 (=1.200000) n=800: float p=0.8969133; EXACT p >= 0.896913292 (certified >= 0.896913); distinct >= 0.948456646 (certified >= 0.948456); min f = 0.2119
+C=16030/10000 (=1.603000) n=800: float p=0.8412510; EXACT p >= 0.841250982 (certified >= 0.841250); distinct >= 0.920625491 (certified >= 0.920625); min f = 0.0415
+== n=1600
+C=1 (=1.000000) n=1600: float p=0.9322826; EXACT p >= 0.932282587 (certified >= 0.932282); distinct >= 0.966141293 (certified >= 0.966141); min f = 0.2882
+C=12688/10000 (=1.268800) n=1600: float p=0.8859135; EXACT p >= 0.885913527 (certified >= 0.885913); distinct >= 0.942956763 (certified >= 0.942956); min f = 0.1839
+C=10911/10000 (=1.091100) n=1600: float p=0.9155503; EXACT p >= 0.915550287 (certified >= 0.915550); distinct >= 0.957775143 (certified >= 0.957775); min f = 0.2539
+C=10434/10000 (=1.043400) n=1600: float p=0.9241823; EXACT p >= 0.924182281 (certified >= 0.924182); distinct >= 0.962091140 (certified >= 0.962091); min f = 0.2720
+C=13448/10000 (=1.344800) n=1600: float p=0.8744678; EXACT p >= 0.874467832 (certified >= 0.874467); distinct >= 0.937233916 (certified >= 0.937233); min f = 0.1527
+C=13055/10000 (=1.305500) n=1600: float p=0.8802935; EXACT p >= 0.880293486 (certified >= 0.880293); distinct >= 0.940146743 (certified >= 0.940146); min f = 0.1689
+C=12890/10000 (=1.289000) n=1600: float p=0.8827988; EXACT p >= 0.882798788 (certified >= 0.882798); distinct >= 0.941399394 (certified >= 0.941399); min f = 0.1757
+C=11/10 (=1.100000) n=1600: float p=0.9139712; EXACT p >= 0.913971204 (certified >= 0.913971); distinct >= 0.956985602 (certified >= 0.956985); min f = 0.2505
+C=12/10 (=1.200000) n=1600: float p=0.8969135; EXACT p >= 0.896913496 (certified >= 0.896913); distinct >= 0.948456748 (certified >= 0.948456); min f = 0.2115
+C=16030/10000 (=1.603000) n=1600: float p=0.8412515; EXACT p >= 0.841251501 (certified >= 0.841251); distinct >= 0.920625750 (certified >= 0.920625); min f = 0.0408

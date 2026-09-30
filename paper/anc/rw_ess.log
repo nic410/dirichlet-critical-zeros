@@ -1,0 +1,11 @@
+# C_G = 6/(pi^2 E) = 1.268773881;  NS=10000000
+sharp     eta=1e-1: ess sup R_w = 1.480065 (block A=0: t in (eta/1, eta/1) i.e. t -> eta+); pointwise sup = 1.508641 (at t = eta/1); far<= 1.00196; C_w = C_G R_w = 1.8779 (pointwise 1.9141)
+logsmooth eta=1e-1: ess sup R_w <= 1.588398 at t/eta=2.7650 (grid value without allowance 1.588341); far<= 1.00393; C_w = 2.0153   [3s]
+sharp     eta=1e-2: ess sup R_w = 1.247814 (block A=0: t in (eta/1, eta/1) i.e. t -> eta+); pointwise sup = 1.249243 (at t = eta/1); far<= 1.00098; C_w = C_G R_w = 1.5832 (pointwise 1.5850)
+logsmooth eta=1e-2: ess sup R_w <= 1.152422 at t/eta=4.6571 (grid value without allowance 1.152397); far<= 1.00196; C_w = 1.4622   [3s]
+sharp     eta=1e-3: ess sup R_w = 1.166030 (block A=0: t in (eta/1, eta/1) i.e. t -> eta+); pointwise sup = 1.166125 (at t = eta/1); far<= 1.00065; C_w = C_G R_w = 1.4794 (pointwise 1.4795)
+logsmooth eta=1e-3: ess sup R_w <= 1.059834 at t/eta=6.0273 (grid value without allowance 1.059818); far<= 1.00131; C_w = 1.3447   [4s]
+sharp     eta=1e-4: ess sup R_w = 1.124548 (block A=0: t in (eta/1, eta/1) i.e. t -> eta+); pointwise sup = 1.124555 (at t = eta/1); far<= 1.00049; C_w = C_G R_w = 1.4268 (pointwise 1.4268)
+logsmooth eta=1e-4: ess sup R_w <= 1.028844 at t/eta=6.9062 (grid value without allowance 1.028831); far<= 1.00098; C_w = 1.3054   [4s]
+sharp     eta=1e-5: ess sup R_w = 1.099642 (block A=0: t in (eta/1, eta/1) i.e. t -> eta+); pointwise sup = 1.099643 (at t = eta/1); far<= 1.00162; C_w = C_G R_w = 1.3952 (pointwise 1.3952)
+logsmooth eta=1e-5: ess sup R_w <= 1.015869 at t/eta=7.4623 (grid value without allowance 1.015859); far<= 1.00324; C_w = 1.2889   [5s]

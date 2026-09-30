@@ -1,0 +1,33 @@
+[   0.0s] certify_constants_arb: Pc=10000000 R0=1000000 prec=64
+[   0.0s] environment: python 3.10.12, python-flint 0.9.0 (FLINT 3.6.0), numpy 2.2.6, x86_64 Linux
+[   8.9s] E = prod_p(1-p^-2-p^-3)                          in [0.479145331270, 0.479145347241]
+[   8.9s] C_G = 6/(pi^2 E)                                 in [1.268773881149, 1.268773923443]
+[   8.9s] c_phi = gamma - zeta'(2)/zeta(2)                 in [1.147176657996, 1.147176657996]
+[   8.9s] B_phi = zeta(3/2)/zeta(3)                        in [2.173254312520, 2.173254312520]
+[   8.9s] 4 B_phi pi^2/6                                   in [14.2994402184, 14.2994402184]
+[   8.9s] Z = zeta(2)zeta(3)/zeta(6)                       in [1.943596436821, 1.943596436821]
+[   8.9s] S2 = sum mu^2(r)/(r^2 phi(r))                    in [1.3397841536, 1.3397841536]
+[   8.9s] sigma_0^- = sum_{mu(r)=-1} 1/(r^2 phi(r))        in [0.3211413975, 0.3211413975]
+[   8.9s] sigma_1^- = sum_{mu(r)=-1} log r/(r^2 phi(r))    in [0.2631351659, 0.2631351683]
+[   8.9s] c_empty                                          in [1.4107008037, 1.4107025157]
+[   8.9s] max_S (c_empty - c_S)                            in [0.1672295669, 0.1672295669]
+[   8.9s] B                                                in [3.72527401, 3.72763082]
+[   8.9s] delta_P0                                         in [0.000058242306, 0.000058242306]
+[   8.9s] check E >= 0.47914 (Lean Ecal_ge_047914)                   OK
+[   8.9s] check C_G <= 1.2688                                        OK
+[   8.9s] check C_G < 1.268774                                       OK
+[   8.9s] check C_G < 1.26877394                                     OK
+[   8.9s] check C_G > 1.2687738 (so C_G = 1.2687739...)              OK
+[   8.9s] check 4 B_phi pi^2/6 <= 14.31                              OK
+[   8.9s] check B_phi < 2.174                                        OK
+[   8.9s] check Z <= 1.95                                            OK
+[   8.9s] check S2 <= 1.34                                           OK
+[   8.9s] check sigma_0^- < 0.33                                     OK
+[   8.9s] check sigma_1^- < 0.27                                     OK
+[   8.9s] check c_empty < 1.411                                      OK
+[   8.9s] check max_S(c_empty - c_S) < 0.168                         OK
+[   8.9s] check B < 3.73                                             OK
+[   8.9s] check delta_P0 < 5.83e-5                                   OK
+[   8.9s] check 4 B/E < 31.14 with the stated B < 3.73               OK
+[   8.9s] check c_empty + 4B/E < 32.6 with the stated B < 3.73       OK
+[   8.9s] SUMMARY: all 17 inequalities CERTIFIED; total time 9s

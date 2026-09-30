@@ -1,0 +1,37 @@
+name = "Families"
+version = "0.1.0"
+defaultTargets = ["Families", "FamiliesH"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+autoImplicit = false
+
+# Same Mathlib pin as the `zeta23` project of anthropics/formal-math (zeta23/lakefile.toml).
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The Lean formalisation of Alpöge–Furman, arXiv:2608.13637: subdirectory `zeta23` of
+# https://github.com/anthropics/formal-math (formerly anthropics/zeta-23-lean).
+# Imported only by `Families/**`
+# (`FamiliesH` imports nothing from it directly). The modules imported, by use:
+#   Certificate/PerChar      `Zeta23.LinAlg.{RankTrace,Inertia}` (rank–trace inequality of the certificate);
+#   Ported/Zero/*            `Zeta23.ExplicitFormula.Bridge`, `Zeta23.ZeroSide.Mult`,
+#                            `Zeta23.ThmE.{MainChi,MainTermChi,LocalCountChi,GammaFactsChiProof,ReZeroCountChi}`;
+#   Ported/Second/EFBridge   `Zeta23.ThmE.Statement`;
+#   Hyp/Montgomery/*         `Zeta23.RvM.LocalCount`, `Zeta23.ThmE.{LocalCountChi,SeamL,LGrowth}`;
+#   Hyp/PNT, Hyp/Stirling    `Zeta23.FromPNTPlus.MediumPNT`, `Zeta23.GammaFacts.StirlingVert`.
+[[require]]
+name = "Zeta23"
+git = "https://github.com/anthropics/formal-math"
+rev = "fbdc36bbf17d20af3fd0447c6d1a8a02773c9844"
+subDir = "zeta23"
+
+[[lean_lib]]
+name = "Families"
+
+# Theorem 1.4(a) of the paper (§9, polynomial height): `Families.Hybrid.thmH`. Built on `Families`.
+[[lean_lib]]
+name = "FamiliesH"

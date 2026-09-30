@@ -1,0 +1,555 @@
+%% =====================================================================
+%% lemma-toeplitz-C.tex -- exact Toeplitz identity, positivity and duality
+%%   (Lemma S), the local count for the positive part (Lemma C),
+%%   uniformity in S, C_T^+(w_eta) -> 1, the fixed-eta reduction, and the
+%%   interface with the time-integrated majorant (band device).
+%% Input in Section 6.2 of main.tex (amsart).  No preamble.
+%%
+%% Labels DEFINED here:
+%%   ssec:toeplitz, lem:toeplitz, rem:toeplitz, lem:Omega, rem:negpart, lem:S,
+%%   def:RS, lem:fS, lem:C, prop:sharpLS, lem:CTlimit, prop:CTfixed,
+%%   prop:TIsharp, rem:orderlimits, eqC:*
+%% Labels USED: ssec:lemmaA, lem:WH, lem:dual, prop:count, lem:harm, lem:A,
+%%   cor:LmultA, eqA:APTV, eqA:rho, eqA:spokes (lemma-A.tex); lem:poisson,
+%%   lem:B1, lem:B2, lem:M1, lem:M2, lem:M3, prop:TI, eqB:* (lemma-B-majorant.tex);
+%%   tab:CTfixed (constants.tex); thm:main, thm:fixed, eq:MVLS,
+%%   sec:parameters, sec:priorLS, app:numerics (main.tex).
+%% =====================================================================
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\sumst}{\sideset{}{^*}\sum}
+\providecommand{\Ec}{\mathcal{E}}
+\providecommand{\CG}{C_{\mathrm G}}
+\providecommand{\Cw}{C_w}
+\providecommand{\CT}{C_{\mathrm T}}
+\providecommand{\CTp}{C^{+}_{\mathrm T}}
+\providecommand{\Tom}{T_\omega}
+\providecommand{\muO}{\mu_\Omega}
+\providecommand{\Lmult}{\Lambda_{\mathrm{mult}}}
+\providecommand{\TT}{\mathbb{T}}
+\providecommand{\Wkd}{k_{\varsigma}}
+\providecommand{\WIw}{I_w}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\hJ}{\widehat{\mathbf 1_J}}
+\providecommand{\ash}{a^\sharp}
+\providecommand{\Wnat}{\natural}
+\providecommand{\Yc}{Y}
+
+\subsection{The exact Toeplitz structure and the sharp constant}\label{ssec:toeplitz}
+
+We keep the notation of \S\ref{ssec:lemmaA}: $w$ has bounded variation, $\operatorname{supp}w\subset[\eta,1]$,
+$\widetilde w(u)=u^2w(u)$, $\WIw=\int_0^1uw$, $\omega(q)=w(q/Q)q/\varphi(q)$, $H=\sum_q\omega(q)\varphi^*(q)$,
+$\Delta(n,m)=\sum_{\chi\in\cF}\omega_\chi\chi(n)\bar\chi(m)$, $S_y(\theta)=\sum_ny_ne(n\theta)$,
+and $k_0,\Wkd$ are the triangle kernels of width $\varsigma$. An integer $n\ge1$ is \emph{$Q$-rough} if every prime
+factor of $n$ exceeds $Q$. We write $L_\eta:=\log(1/\eta)$ and $\|\widetilde w\|_\infty=\sup_uu^2w(u)$ ($=1$ for
+log-wide weights).
+
+\subsubsection*{The identity}
+
+\begin{lemma}[exact Toeplitz identity]\label{lem:toeplitz}
+For $Q$-rough $n,m$ we have $\Delta(n,m)=k_\omega(n-m)$, where
+\[
+ k_\omega(h):=\sum_{d\mid h}\varphi(d)\sum_{j\ge1}\mu(j)\,\omega(dj)\qquad(h\in\mathbb Z;\ \text{all }d\ge1\text{ if }h=0).
+\]
+Moreover $k_\omega(h)=\sum_{e\ge1}\Omega(e)c_e(h)$ with $c_e$ the Ramanujan sum and
+\begin{equation}\label{eqC:Omega}
+ \Omega(e)=\frac{\varphi(e)}e\sum_{\substack{r\ \mathrm{squarefree}\\(r,e)=1}}\frac{\mu(r)\,\omega(er)}r
+ =\sum_{\substack{r\ \mathrm{squarefree}\\(r,e)=1}}\frac{\mu(r)}{\varphi(r)}\,w\Big(\frac{er}Q\Big)
+\end{equation}
+($\Omega(e)=0$ for $e>Q$). Consequently, for every $y$ supported on $Q$-rough integers,
+\begin{equation}\label{eqC:farey}
+ y^*\Delta y=y^*\Tom y=\int_\TT|S_y|^2\,d\muO,\qquad \Tom:=[k_\omega(n-m)]_{n,m},\quad
+ \muO:=\sum_{e\ge1}\Omega(e)\sumst_{c\bmod e}\delta_{c/e},
+\end{equation}
+and $\muO(\TT)=\sum_e\Omega(e)\varphi(e)=k_\omega(0)=H$.
+\end{lemma}
+
+\begin{proof}
+(i) For $(a,q)=1$, $\sumst_{\chi\bmod q}\chi(a)=\sum_{d\mid(q,a-1)}\varphi(d)\mu(q/d)$ \cite[(3.9)]{IK04}. If $n,m$ are $Q$-rough
+then $(nm,q)=1$ for every $q\le Q$; with $a\equiv n\bar m\pmod q$ we have $d\mid a-1\iff d\mid n-m$. Hence
+$\Delta(n,m)=\sum_q\omega(q)\sum_{d\mid(q,n-m)}\varphi(d)\mu(q/d)$; put $q=dj$.
+(ii) Since $d\,\mathbf 1[d\mid h]=\sum_{e\mid d}c_e(h)$, $k_\omega(h)=\sum_{e}c_e(h)\sum_{q}\omega(q)c(q,e)$ with
+$c(q,e):=\sum_{e\mid d\mid q}\mu(q/d)\varphi(d)/d$. Writing $q=es$, $d=ej$: the function $j\mapsto\varphi(ej)/(ej)$ equals
+$\frac{\varphi(e)}e\prod_{p\mid j,\,p\nmid e}(1-\frac1p)$, and a prime-by-prime evaluation of the M\"obius sum over $j\mid s$
+gives $c(es,e)=\frac{\varphi(e)}e\frac{\mu(s)}s$ if $s$ is squarefree and $(s,e)=1$, and $0$ otherwise.
+(iii) For $(e,r)=1$, $\omega(er)=w(er/Q)\frac e{\varphi(e)}\frac r{\varphi(r)}$, which gives the second form of \eqref{eqC:Omega}.
+(iv) $\sum_{n,m}y_n\bar y_mc_e(n-m)=\sumst_{c\bmod e}|S_y(c/e)|^2$; sum over $e$. Finally $k_\omega(0)=\sum_q\omega(q)
+\sum_{d\mid q}\varphi(d)\mu(q/d)=\sum_q\omega(q)\varphi^*(q)=H$.
+\end{proof}
+
+\begin{remark}\label{rem:toeplitz}
+(a) The $r=1$ term of \eqref{eqC:Omega} is $w(e/Q)$, the additive weight of the Gauss transfer (Lemma~\ref{lem:gauss}); the terms
+$r\ge2$ are exactly the corrections that the transfer discards. They have either sign ($\mu(r)=\pm1$), and their total mass is
+$H-W\le0$, which is why $\muO$ has mass $H$ rather than $W$.
+(b) $\Tom$ is \emph{not} positive semidefinite on all vectors, and $\muO$ has a negative part; both facts are handled by
+Lemma~\ref{lem:S}. (c) The identity was checked numerically with explicit characters to relative error $2\cdot10^{-15}$
+(ancillary file \texttt{toeplitz\_identity\_check.py}); it fails, as it must, off $Q$-rough vectors.
+(d) Steps (i), (ii) and (iv) of the proof use only that $\omega$ is supported on $q\le Q$. For
+$\omega(q)=G_q(Q):=\frac q{\varphi(q)}\sum_{\ell\le Q/q,\,(\ell,q)=1}\mu^2(\ell)/\varphi(\ell)$, the first form of \eqref{eqC:Omega} gives, with
+$m=r\ell$, $\Omega(e)=\sum_{m\le Q/e,\,(m,e)=1}\frac{\mu^2(m)}{\varphi(m)}\sum_{r\mid m}\mu(r)=\mathbf 1_{e\le Q}$. The lemma then becomes the
+identity $\sum_{q\le Q}G_q(Q)\sumst_{\chi\bmod q}|\sum_ny_n\chi(n)|^2=\sum_{q\le Q}\sumst_{a\bmod q}|S_y(a/q)|^2$ for $Q$-rough $y$, which is the
+case of the invertible residue classes in \cite[Thm.~2.1]{Ram09} (see the proof of \cite[Thm.~2.3]{Ram09}, and \cite{BD68}).
+Lemma~\ref{lem:toeplitz} is thus a weighted form of a known identity; see \S\ref{sec:priorLS}.
+\end{remark}
+
+\subsubsection*{The level weights and a positive majorant for $\mu_\Omega^-$}
+
+Let $\sigma^-_0:=\sum_{\mu(r)=-1}\frac1{r^2\varphi(r)}<0.33$ and $\sigma^-_1:=\sum_{\mu(r)=-1}\frac{\log r}{r^2\varphi(r)}<0.27$ (both CERTIFIED;
+Table~\ref{tab:constants}), and define
+\begin{equation}\label{eqC:m}
+ m(u):=\Big(\sum_{\substack{r\ \mathrm{squarefree}\\ \mu(r)=-1}}\frac{w(ur)}{\varphi(r)}-w(u)\Big)_+\ (u>0),\qquad
+ \widetilde m(u):=u^2m(u)=\Big(\sum_{\mu(r)=-1}\frac{\widetilde w(ur)}{r^2\varphi(r)}-\widetilde w(u)\Big)_+ .
+\end{equation}
+
+\begin{lemma}[level weights]\label{lem:Omega}
+For all $e\ge1$ and $u>0$:
+\begin{enumerate}
+\item[(a)] $|\Omega(e)|\le3\|\widetilde w\|_\infty\min\{(Q/e)^2,\eta^{-2}\}$;
+\item[(b)] $\Omega^-(e):=\max(-\Omega(e),0)\le m(e/Q)$;
+\item[(c)] $m(u)\le3\|\widetilde w\|_\infty\min\{u^{-2}/4,\eta^{-2}\}$, i.e.\ $\widetilde m(u)\le 3\|\widetilde w\|_\infty\min\{\frac14,(u/\eta)^2\}$, and
+ $m(u)=0$ for $u>\frac12$;
+\item[(d)] if $\widetilde w$ is constant on $[\eta,1]$ (the sharp log-wide weight), then $m=0$ on $[\eta,\infty)$; in particular
+ $\Omega(e)>0$ for $\eta Q\le e\le Q$;
+\item[(e)] if $\widetilde w(u)=h(\log\frac1u)$ with $h$ Lipschitz on $\mathbb R$ (constant $\|h'\|_\infty$), then
+ $\widetilde m(u)\le\|h'\|_\infty\sigma_1^-$ for $u\ge\eta$. For $w^{\rm sm}_\eta$, $\|h'\|_\infty=\pi/L_\eta$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We use $\sum_{r\ge y}\mu^2(r)/(r^2\varphi(r))\le3y^{-2}$ ($y>0$): indeed $\frac1{r^2\varphi(r)}=\frac1{r^3}\sum_{d\mid r}\frac{\mu^2(d)}{\varphi(d)}$, so the sum is
+at most $\sum_d\frac{\mu^2(d)}{\varphi(d)d^3}\sum_{j\ge y/d}j^{-3}\le\frac{1.5}{y^2}\sum_d\frac{\mu^2(d)}{d\varphi(d)}=\frac{1.5}{y^2}\frac{\zeta(2)\zeta(3)}{\zeta(6)}\le\frac3{y^2}$,
+using $\sum_{j\ge z,\,j\ge1}j^{-3}\le1.5z^{-2}$ for all $z>0$.
+(a) Only $r$ with $\eta Q\le er\le Q$ contribute, and $w(er/Q)\le\|\widetilde w\|_\infty(Q/er)^2$; so
+$|\Omega(e)|\le\|\widetilde w\|_\infty(Q/e)^2\sum_{r\ge\max(1,\eta Q/e)}\frac{\mu^2(r)}{r^2\varphi(r)}$, and the last sum is $\le\min(1.34,\,3(e/\eta Q)^2)$ ($\sum_r\mu^2(r)/(r^2\varphi(r))<1.34$; Table~\ref{tab:constants}).
+(b) In \eqref{eqC:Omega} drop the terms with $\mu(r)=+1$, $r\ge2$ (they are $\ge0$) and add the terms with $\mu(r)=-1$, $(r,e)>1$
+(they are $\le0$): $\Omega(e)\ge w(e/Q)-\sum_{\mu(r)=-1}w(er/Q)/\varphi(r)\ge-m(e/Q)$.
+(c) $m(u)\le\sum_{\mu(r)=-1,\ ur\ge\eta}w(ur)/\varphi(r)\le\|\widetilde w\|_\infty u^{-2}\sum_{r\ge\max(2,\eta/u)}\frac{\mu^2(r)}{r^2\varphi(r)}$; if $u>\frac12$ every
+$r\ge2$ has $ur>1$.
+(d) For $u\ge\eta$: $\sum_{\mu(r)=-1}\widetilde w(ur)/(r^2\varphi(r))\le\|\widetilde w\|_\infty\sigma_0^-<\widetilde w(u)$.
+(e) For $u\ge\eta$, $y:=\log\frac1u\in[0,L_\eta]$ and $h(y-\log r)\le h(y)+\|h'\|_\infty\log r$, so the bracket in \eqref{eqC:m} is at most
+$h(y)(\sigma_0^--1)+\|h'\|_\infty\sigma_1^-\le\|h'\|_\infty\sigma_1^-$.
+\end{proof}
+
+\begin{remark}[where $\mu_\Omega^-$ lives]\label{rem:negpart}
+By (d), for the \emph{sharp} weight $\Omega<0$ only on levels $e<\eta Q$. This is \emph{false} for log-smooth weights: there
+$\widetilde w(e/Q)$ vanishes to second order at $e=\eta Q$ while the $r=2,3$ terms do not, and $64$--$70\%$ of the
+mass of $\mu_\Omega^-$ lies on levels $e\in[\eta Q,2.5\eta Q)$ (numerically, at $Q=10^6$, $\eta=10^{-2},10^{-3}$; ancillary file \texttt{omega\_check.c}).
+So for such weights it is \emph{not} true that $\Omega<0$ only below $\eta Q$, and the positive part must be handled at levels
+$e\ge\eta Q$ as well. Lemma~\ref{lem:Omega}(e) is what is used there: the negative part is $O(L_\eta^{-1})$ relative to the local
+scale $(Q/e)^2$.
+\end{remark}
+
+Define the positive measures $\mu^m:=\sum_{e\ge1}m(e/Q)\sumst_{c\bmod e}\delta_{c/e}$ and
+\[
+ \mu^\Wnat:=\muO+\mu^m\ \ge\ \muO+\muO^-=\muO^+\ \ge0
+\]
+(Lemma~\ref{lem:Omega}(b)). Let $T^+:=[k^+(n-m)]$ and $T^\Wnat:=[k^\Wnat(n-m)]$ be the Toeplitz matrices of $\muO^+$ and
+$\mu^\Wnat$, i.e.\ $k^\bullet(h)=\int_\TT e(h\theta)\,d\mu^\bullet(\theta)$; for an interval $I$ write $T^\bullet_I$ for the
+restriction to $\mathbb C^I$.
+
+\begin{lemma}[positivity and duality]\label{lem:S}
+For every finitely supported $y$,
+$\ \int|S_y|^2d\muO\le\int|S_y|^2d\muO^+\le\int|S_y|^2d\mu^\Wnat$, i.e.\ $\Tom\preceq T^+\preceq T^\Wnat$ as Hermitian forms,
+and $T^+,T^\Wnat\succeq0$. If $I$ contains $K$ integers and $0<\kappa\le\frac14$, then with $\varsigma=\kappa/K$
+\[
+ \lambda_{\max}(T^+_I)\le\lambda_{\max}(T^\Wnat_I)\le(1+\kappa^2)\sup_{\theta\in\TT}(\mu^\Wnat*\Wkd)(\theta).
+\]
+In particular $y^*\Delta y\le y^*T^\Wnat y$ for $y$ supported on $Q$-rough integers.
+\end{lemma}
+
+\begin{proof}
+$\muO\le\muO^+\le\mu^\Wnat$ as measures and $|S_y|^2\ge0$. The duality bound is Lemma~\ref{lem:dual} applied to the positive
+measure $\mu^\Wnat$ (restricted to the points of positive mass). The last claim is \eqref{eqC:farey}.
+\end{proof}
+
+\subsubsection*{Local densities}
+
+\begin{definition}[local densities]\label{def:RS}
+For a finite set $S$ of primes let $f_S$ be the multiplicative function with
+\[
+ f_S(p^a)=1-\tfrac1p-\tfrac1{p^2}\ (p\notin S,\ a\ge1);\qquad f_S(p)=\tfrac{p-2}{p-1},\quad f_S(p^a)=\tfrac{p-1}p\ (a\ge2)\quad(p\in S).
+\]
+For $t>0$ put
+\begin{equation}\label{eqC:RS}
+ R_S(t):=\frac1{\Ec\WIw}\sum_{n\ge1}\frac{f_S(n)}n\,\widetilde w(nt),\qquad
+ R^m(t):=\frac1{\Ec\WIw}\sum_{k\ge1}\frac{\varphi(k)}{k^2}\,\widetilde m(kt),\qquad R^+_S:=R_S+R^m,
+\end{equation}
+and
+\[
+ \CT(w):=\sup_S\operatorname*{ess\,sup}_{t>0}R_S(t),\qquad \CTp(w):=\sup_S\operatorname*{ess\,sup}_{t>0}R^+_S(t),
+\]
+the suprema over all finite sets of primes. $R^+_S$ is the local density of the positive measure $\mu^\Wnat$, which
+dominates $\muO^+$; thus $\CTp(w)$ bounds the local density of $\muO^+$.
+\end{definition}
+
+The sums in \eqref{eqC:RS} are finite ($\widetilde w(nt)=0$ unless $nt\in[\eta,1]$), $0\le f_S\le1$, so $R_S\ge0$.
+
+\begin{lemma}[arithmetic of $f_S$; uniformity in $S$]\label{lem:fS}
+Let $G_S(k,r):=\frac{\varphi(k)}k\prod_{p\mid r,\,p\nmid k,\,p\notin S}(1-\frac1p)\cdot\mathbf 1[\text{no }p\in S\text{ divides }(k,r)]$ for $k\ge1$, $r$ squarefree.
+\begin{enumerate}
+\item[(i)] $f_S(n)=\sum_{kr=n,\ r\ \mathrm{sqfree}}\mu(r)G_S(k,r)/(r\varphi(r))$; hence, with absolute convergence,
+ \[
+ R_S(t)=(\Ec\WIw)^{-1}t^2\sum_{k\ge1}\sum_{r\ \mathrm{sqfree}}\frac{\mu(r)}{\varphi(r)}\,k\,G_S(k,r)\,w(krt).
+ \]
+\item[(ii)] $f_S=1*g_S$ with $g_S$ multiplicative: $g_S(p)=-\frac1p-\frac1{p^2}$, $g_S(p^a)=0$ ($a\ge2$) for $p\notin S$;
+ $g_S(p)=-\frac1{p-1}$, $g_S(p^2)=\frac1{p(p-1)}$, $g_S(p^a)=0$ ($a\ge3$) for $p\in S$. In all cases $|g_S(p)|\le\frac1{p-1}$,
+ $|g_S(p^2)|\le\frac1{p(p-1)}$, and $\sum_dg_S(d)/d=\Ec$ for every $S$.
+\item[(iii)] Let $F_S(s):=\sum_{n\le e^s}f_S(n)/n$ and $E_S(s):=F_S(s)-\Ec(s+c_S)$ for $s\ge0$, where
+ \[
+ c_\emptyset=\gamma+\sum_p\frac{(p^{-2}+p^{-3})\log p}{1-p^{-2}-p^{-3}}=1.41070\ldots,\qquad
+ c_\emptyset-c_S=\sum_{p\in S}\frac{\log p}{p^3(p-1)(1-p^{-2}-p^{-3})}\ \ge0 .
+ \]
+ Then $|E_S(s)|\le2B\,e^{-s/2}$ with $B:=\prod_p\big(1+\frac{p^{-1/2}}{p-1}+\frac{p^{-1}}{p(p-1)}\big)<3.73$, uniformly in $S$. Moreover
+ $0\le c_\emptyset-c_S<0.168$, and the primes $p>P$ in $S$ contribute at most $3.2\sum_{p>P}\frac{\log p}{p^4}\le\frac{3.2\log P}{P^3}$
+ ($P\ge3$) to $c_\emptyset-c_S$.
+\item[(iv)] If $S=S_1\sqcup S_2$, then $R_S(t)=\sum_{m\ge1}\frac{\lambda_{S_2}(m)}m R_{S_1}(mt)$ where $\lambda_{S_2}$ is multiplicative,
+ supported on $S_2$-smooth integers, with $\sum_m\lambda_{S_2}(m)/m=1$ and
+ $\delta_{S_2}:=\sum_{m\ge2}|\lambda_{S_2}(m)|/m=\prod_{p\in S_2}\big(1+\frac2{p^3(p-1)}\big)-1$. Consequently
+ $R_S(t)\le R_{S_1}(t)+\frac12\delta_{S_2}\sup R_{S_1}$ for all $t$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) The summand $\mu(r)G_S(k,r)/(r\varphi(r))$ factors over primes as a function of $(v_p(k),v_p(r))$, so the convolution is
+multiplicative. For $p\notin S$ and $a\ge1$ the pairs $(p^a,1)$ and $(p^{a-1},p)$ contribute $(1-\frac1p)$ and
+$-\frac1{p(p-1)}(1-\frac1p)$, total $1-\frac1p-\frac1{p^2}$. For $p\in S$: $(p^a,1)$ contributes $1-\frac1p$; $(p^{a-1},p)$ is allowed only
+for $a=1$ and contributes $-\frac1{p(p-1)}$; this gives $f_S(p)=\frac{p-2}{p-1}$ and $f_S(p^a)=\frac{p-1}p$ ($a\ge2$). The second
+formula follows from $t^2k\,w(krt)=\widetilde w(nt)/(nr)$, $n=kr$. Absolute convergence:
+$t^2\sum_kk\,w(krt)=r^{-2}\sum_k\widetilde w(krt)/k\le r^{-2}\|\widetilde w\|_\infty(L_\eta+1)$ and $\sum_r(r^2\varphi(r))^{-1}<\infty$.
+(ii) $g_S=f_S*\mu$; the values follow from (i). $\frac1p+\frac1{p^2}\le\frac1{p-1}$. The Euler factor of $\sum_dg_S(d)/d$ at $p$ is
+$1-p^{-2}-p^{-3}$ for $p\notin S$ and $1-\frac1{p(p-1)}+\frac1{p^3(p-1)}=1-p^{-2}-p^{-3}$ for $p\in S$.
+(iii) With $\mathcal H$ as in the proof of Lemma~\ref{lem:harm}, $F_S(s)=\sum_{d\le x}\frac{g_S(d)}d\mathcal H(x/d)$, $x=e^s\ge1$,
+and $c_S=\gamma-\Ec^{-1}\sum_dg_S(d)\log d/d$; the error estimate is word for word that of Lemma~\ref{lem:harm} with
+$\mu(d)/d^2$ replaced by $g_S(d)/d$, giving $|E_S(s)|\le2x^{-1/2}\sum_d|g_S(d)|d^{-1/2}\le2Bx^{-1/2}$ by (ii). For the closed form,
+$A_S(z):=\sum_dg_S(d)d^{-1-z}=\prod_pa_p(z)$ with $a_p=1-(p^{-1}+p^{-2})X$ ($p\notin S$) and
+$a_p=1-\frac X{p-1}+\frac{X^2}{p(p-1)}$ ($p\in S$), $X=p^{-1-z}$; then $c_S=\gamma+A_S'(0)/A_S(0)$, and
+$a_p'(0)=\frac{(p+1)\log p}{p^3}$, resp.\ $\frac{(p^2-2)\log p}{p^3(p-1)}$, whose difference is $\frac{\log p}{p^3(p-1)}$, while
+$a_p(0)=1-p^{-2}-p^{-3}\ge\frac58$. Numerically $\sum_p\frac{\log p}{p^3(p-1)(1-p^{-2}-p^{-3})}=0.16722\ldots<0.168$, and $B<3.73$ (both CERTIFIED; Table~\ref{tab:constants}). For the tail use
+$p-1\ge p/2$.
+(iv) $f_S=f_{S_1}*\lambda_{S_2}$, where at $p\in S_2$ the Euler factor of $\lambda_{S_2}$ is the ratio of the two factors in (iii):
+$\lambda_p(X)=\big(1-\frac X{p-1}+\frac{X^2}{p(p-1)}\big)/\big(1-\frac{p+1}{p^2}X\big)$. Its coefficients are $\lambda_0=1$,
+$\lambda_1=-\frac1{p^2(p-1)}$, $\lambda_2=\frac{p^3-p-1}{p^4(p-1)}>0$, $\lambda_a=(\frac{p+1}{p^2})^{a-2}\lambda_2>0$ ($a\ge2$), and
+$\sum_a\lambda_ap^{-a}=\lambda_p(1/p)=1$; hence $\sum_{a\ge1}|\lambda_a|p^{-a}=2|\lambda_1|/p=\frac2{p^3(p-1)}$. Substituting
+$f_S(n)=\sum_{mj=n}\lambda_{S_2}(m)f_{S_1}(j)$ into \eqref{eqC:RS} gives the identity, and
+$R_S(t)-R_{S_1}(t)=\sum_{m\ge2}\frac{\lambda_{S_2}(m)}m(R_{S_1}(mt)-R_{S_1}(t))$. Let $P$ and $N$ be the sums of
+$|\lambda_{S_2}(m)|/m$ over $m\ge2$ with $\lambda_{S_2}(m)>0$, resp.\ $<0$; then $P-N=0$ and $P+N=\delta_{S_2}$, so $P=N=\delta_{S_2}/2$.
+As $0\le R_{S_1}\le M:=\sup R_{S_1}$, the positive terms are at most $P(M-R_{S_1}(t))$ and the negative ones at most
+$N\,R_{S_1}(t)$; the sum is at most $\frac12\delta_{S_2}M$.
+\end{proof}
+
+\subsubsection*{The local count for the positive part}
+
+\begin{lemma}[local count for the positive part]\label{lem:C}
+Fix $\varepsilon\in(0,1)$. Let $Q\ge Q_1(\varepsilon)$, $Q\le K\le Q^{2-\varepsilon}$, $\kappa:=Q^{-\varepsilon/4}$, $\varsigma:=\kappa/K$. Then for every
+$\theta\in\TT$
+\begin{gather*}
+ (\mu^\Wnat*\Wkd)(\theta)\le\Ec\WIw Q^2\,\CTp(w)+\mathfrak E,\\
+ \mathfrak E\le\underbrace{6\|\widetilde w\|_\infty\eta^{-2}Q^{2-3\varepsilon/4}}_{\text{isolated point}}
+ +\underbrace{120\,V_wQ^{2-\varepsilon/4}(1+\log Q)^3}_{\text{spokes}}
+ +\underbrace{3\|\widetilde w\|_\infty(L_\eta+1)}_{r>Q\ \text{tail}} .
+\end{gather*}
+There is no ``far part'': the dual kernel $\Wkd$ has compact support.
+\end{lemma}
+
+\begin{proof}
+Choose $u/v$ and $y$ by Dirichlet's theorem with $V:=Q^{1-\varepsilon/2}$ as in Proposition~\ref{prop:count}, fix $u',v'$ with
+$vu'-uv'=1$, and let $S$ be the set of primes dividing $v$. Let $k_*:=Q/V+QV\varsigma$. Since $\varsigma=\kappa/K$, $\kappa=Q^{-\varepsilon/4}$ and
+$Q\le K\le Q^{2-\varepsilon}$, we have $\varsigma^{-1}k_*=QK/(V\kappa)+QV\le Q^{2-\varepsilon/4}+Q^{2-\varepsilon/2}\le2Q^{2-\varepsilon/4}$ and
+$k_*\le Q^{\varepsilon/2}+Q^{1-3\varepsilon/4}\le2Q$, so $1+\log^+k_*\le2(1+\log Q)$.
+
+\emph{Decomposition.} Since $w(er/Q)=0$ for $r>Q$, \eqref{eqC:Omega} gives $\muO=\sum_{r\le Q}\frac{\mu(r)}{\varphi(r)}\nu_r$ with the positive
+measures $\nu_r:=\sum_{e\ge1,(e,r)=1}w(er/Q)\sumst_{c\bmod e}\delta_{c/e}$ ($r$ squarefree). Also $\mu^m$ only sees
+$m_Q(u):=(\sum_{\mu(r)=-1,\,r\le Q}w(ur)/\varphi(r)-w(u))_+\le m(u)$, since $m(e/Q)=m_Q(e/Q)$ for integers $e\ge1$. The function $m_Q$ vanishes
+outside $[\eta/Q,\frac12]$ and has variation $V_{m_Q}\le V_w(1+\sum_{r\le Q}\frac1{\varphi(r)})\le3V_w(1+\log Q)$, using
+$\sum_{r\le x}\frac1{\varphi(r)}=\sum_k\frac{\mu^2(k)}{k\varphi(k)}\mathcal H(x/k)\le1.95(1+\log x)$.
+
+\emph{The measure $\mu^m$.} Proposition~\ref{prop:count} with $\mathfrak w=m_Q$ gives
+$(\mu^m*\Wkd)(\theta)=m(v/Q)k_0(y)+\int k_0(z-y)\rho_{m_Q,v}(z)dz+\varrho_m$ with
+$|\varrho_m|\le4V_{m_Q}\varsigma^{-1}k_*(1+\log^+k_*)\le48V_wQ^{2-\varepsilon/4}(1+\log Q)^2$, and
+$\rho_{m_Q,v}(z)\le\rho_{m,v}(z)=Q^2\Ec\WIw R^m(t)$ with $t=1/(v|z|Q)$, by \eqref{eqA:rho} and \eqref{eqC:RS}.
+
+\emph{The measures $\nu_r$: spokes with a coprimality twist.} Fix squarefree $r\le Q$. Exactly as in \eqref{eqA:spokes},
+\begin{gather*}
+ (\nu_r*\Wkd)(\theta)=\mathbf 1[(v,r)=1]\,w(vr/Q)k_0(y)+\sum_{k\ne0}\ \sum_{\substack{m:\ (m,k)=1\\ (q,r)=1,\ q:=v'k+vm\ge1}}f_{k,r}(q),\\
+ f_{k,r}(q):=w(qr/Q)\,k_0\Big(\frac k{qv}-y\Big).
+\end{gather*}
+Let $p\mid r$. If $p\mid v$ then $q\equiv v'k\pmod p$ with $p\nmid v'$, so $p\mid q\iff p\mid k$: the whole spoke vanishes if $p\mid(k,v)$,
+and otherwise there is no condition at $p$. If $p\nmid v$ and $p\mid k$, then $p\mid q\iff p\mid m$, already excluded by $(m,k)=1$.
+If $p\nmid vk$, then $p\mid q$ iff $m$ lies in one residue class $m_p\pmod p$ (possibly $m_p\equiv0$, if $p\mid v'$; since $p\nmid k$ this does not interact with the condition $(m,k)=1$). Let $r_k:=\prod\{p\mid r:\ p\nmid vk\}$.
+By inclusion--exclusion over $d_1\mid k$, $d_2\mid r_k$ (coprime, so the joint condition is one class modulo $d_1d_2$) and
+\eqref{eqA:APTV}, the inner sum equals
+\[
+ \frac{G_S(|k|,r)}v\int_{\mathbb R}f_{k,r}+O^*\big(2^{\omega(k)}2^{\omega(r)}\operatorname{TV}(f_{k,r})\big),\qquad
+ \operatorname{TV}(f_{k,r})\le\frac{2V_w}\varsigma ,
+\]
+because $\sum_{d_1\mid k}\frac{\mu(d_1)}{d_1}\sum_{d_2\mid r_k}\frac{\mu(d_2)}{d_2}=\frac{\varphi(|k|)}{|k|}\frac{\varphi(r_k)}{r_k}$, which together with the
+vanishing rule is $G_S(|k|,r)$ (Lemma~\ref{lem:fS}); the variation bound is as in Proposition~\ref{prop:count}, since
+$u\mapsto w(ru)$ has variation $V_w$. Only $1\le|k|<k_*$ occur. The main terms are evaluated by the substitution of
+Proposition~\ref{prop:count}: $\sum_{k\ne0}\frac{G_S(|k|,r)}v\int f_{k,r}=\int k_0(z-y)\rho_r(z)\,dz$ with
+$\rho_r(z)=Q^2t^2\sum_{k\ge1}kG_S(k,r)w(krt)$, $t=1/(v|z|Q)$.
+
+\emph{Summing over $r$.} The isolated points combine to $\Omega(v)k_0(y)$. The main terms combine to
+$\int k_0(z-y)\sum_{r\le Q}\frac{\mu(r)}{\varphi(r)}\rho_r(z)dz$, and by Lemma~\ref{lem:fS}(i),
+$\sum_{r}\frac{\mu(r)}{\varphi(r)}\rho_r(z)=Q^2\Ec\WIw R_S(t)$, while $\sum_{r>Q}\frac{|\rho_r(z)|}{\varphi(r)}\le Q^2\|\widetilde w\|_\infty(L_\eta+1)\sum_{r>Q}\frac{\mu^2(r)}{r^2\varphi(r)}
+\le3\|\widetilde w\|_\infty(L_\eta+1)$ (proof of Lemma~\ref{lem:Omega}); this is the $r>Q$ tail. The spoke errors sum to at most
+\[
+ \sum_{r\le Q}\frac{\mu^2(r)2^{\omega(r)}}{\varphi(r)}\cdot2k_*(1+\log^+k_*)\cdot\frac{2V_w}\varsigma\le4(1+\log Q)^2\cdot4V_w\cdot2Q^{2-\varepsilon/4}\cdot2(1+\log Q),
+\]
+using $\sum_{r\le x}\mu^2(r)2^{\omega(r)}/\varphi(r)\le(\sum_{d\le x}1/\varphi(d))^2\le4(1+\log x)^2$. Together with $\varrho_m$ this is
+$\le120V_wQ^{2-\varepsilon/4}(1+\log Q)^3$.
+
+\emph{Conclusion.} The isolated point of $\mu^\Wnat$ carries $\Omega(v)+m(v/Q)\le6\|\widetilde w\|_\infty\eta^{-2}$ (Lemma~\ref{lem:Omega}(a),(c)), times
+$k_0(y)\le\varsigma^{-1}=K/\kappa\le Q^{2-3\varepsilon/4}$. The total main term is
+$\int k_0(z-y)\,Q^2\Ec\WIw\,[R_S(t)+R^m(t)]\,dz$ (up to the $r>Q$ tail); as $z\mapsto t=1/(v|z|Q)$ is a diffeomorphism of each
+half-line onto $(0,\infty)$, the bracket is $\le\operatorname*{ess\,sup}_tR^+_S(t)\le\CTp(w)$ for a.e.\ $z$, and $\int k_0=1$.
+\end{proof}
+
+\begin{proposition}[sharp large sieve on $Q$-rough vectors]\label{prop:sharpLS}
+Fix $\varepsilon\in(0,1)$ and $w$. As $Q\to\infty$, uniformly over intervals $I$ with $K\le Q^{2-\varepsilon}$ integers,
+\begin{gather*}
+ \lambda_{\max}(T^+_I)\le\lambda_{\max}(T^\Wnat_I)\le(\CTp(w)+\vartheta'_Q)H,\\
+ \vartheta'_Q\ll\frac{V_w+\|\widetilde w\|_\infty\eta^{-2}}{\WIw}\,Q^{-\varepsilon/4}(\log Q)^3+\Big(Q^{-\varepsilon/2}+\frac{V_w}{\WIw}Q^{-1/2}\Big)\CTp(w),
+\end{gather*}
+with an absolute implied constant. In particular $y^*\Delta y\le(\CTp(w)+\vartheta_Q')H\|y\|^2$ for all $y$ supported on $Q$-rough
+integers of $I$. For the log-wide weights ($V_w\le2\eta^{-2}$, $\|\widetilde w\|_\infty=1$, $\WIw\asymp L_\eta$) the error is
+$\ll\eta^{-2}L_\eta^{-1}Q^{-\varepsilon/4}(\log Q)^3$.
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:C} needs $K\ge Q$. If $K<Q$, apply the bound to an enclosing interval of $Q$ integers: $\lambda_{\max}$ of the restriction of a Hermitian form to a subinterval is at most its $\lambda_{\max}$ on the larger interval. So we may assume $Q\le K\le Q^{2-\varepsilon}$; combine Lemmas~\ref{lem:S} and~\ref{lem:C} with $1+\kappa^2=1+Q^{-\varepsilon/2}$ and
+$H=\Ec\WIw Q^2(1+O(V_w\WIw^{-1}Q^{-1/2}))$ (Lemma~\ref{lem:WH}).
+\end{proof}
+
+In particular $\CTp(w)\ge1$: the diagonal entries of $T^+_I$ equal $k^+(0)=\muO^+(\TT)\ge\muO(\TT)=H$, so
+$H\le\lambda_{\max}(T^+_I)\le(\CTp(w)+\vartheta'_Q)H$ for every $Q$, and $\vartheta'_Q\to0$.
+
+\subsubsection*{The constant tends to $1$}
+
+\begin{lemma}[$\CTp(w_\eta)\to1$]\label{lem:CTlimit}
+Let $\widetilde w(u)=h(\log\frac1u)$ with $h:\mathbb R\to[0,1]$ vanishing on $(-\infty,0)\cup(L_\eta,\infty)$ and quasi-concave. Then
+\[
+ \sup_S\ \operatorname*{ess\,sup}_tR_S(t)\le1+\frac{c_\emptyset+4B/\Ec}{\WIw}\le1+\frac{32.6}{\WIw}.
+\]
+If moreover $h=\mathbf 1_{[0,L_\eta]}$ (sharp), or $h$ is Lipschitz with $\|h'\|_\infty\le\pi/L_\eta$ (log-smooth), then
+$\sup_tR^m(t)\le(3+\frac43\pi\sigma_1^-\cdot\mathbf 1_{\rm smooth})/(\Ec\WIw)\le8.7/\WIw$ (for $L_\eta\ge3$). Hence
+\[
+ \CTp(w_\eta)\le1+\frac{42}{L_\eta},\qquad \CTp(w^{\rm sm}_\eta)\le1+\frac{83}{L_\eta},
+\]
+and $\CTp(w_\eta),\CTp(w^{\rm sm}_\eta)\to1$ as $\eta\to0$.
+\end{lemma}
+
+\begin{proof}
+\emph{$R_S$.} As in Lemma~\ref{lem:Rwlog}, $\Ec\WIw R_S(t)=\int_0^1\sum_{n:\,\log(1/nt)\in\{h>\lambda\}}\frac{f_S(n)}n\,d\lambda$, and for
+$0<\alpha\le\beta$, by Lemma~\ref{lem:fS}(iii) (applied at $\log\beta$ and at the left limit at $\log\alpha$),
+$\sum_{\alpha\le n\le\beta}\frac{f_S(n)}n\le\Ec\log(\beta/\alpha)+\Ec c_S^++4B\le\Ec\log(\beta/\alpha)+\Ec c_\emptyset+4B$ (if $\alpha<1$ the sum is
+$F_S(\log\beta)\le\Ec(\log\beta+c_S)+2B$). Integrating over $\lambda$ as in Lemma~\ref{lem:Rwlog} gives
+$R_S\le1+(c_\emptyset+4B/\Ec)/\WIw$, and $c_\emptyset+4B/\Ec<1.411+31.14<32.6$ (by $B<3.73$ and the certified bounds $c_\emptyset<1.411$, $\Ec>0.47914$; Table~\ref{tab:constants}). This bound is uniform in $S$.
+\emph{$R^m$.} $\Ec\WIw R^m(t)\le\sum_k\widetilde m(kt)/k$. By Lemma~\ref{lem:Omega}(c) and $\|\widetilde w\|_\infty\le1$ (as $h\le1$), $\sum_{k<\eta/t}\widetilde m(kt)/k\le3(t/\eta)^2\sum_{k<\eta/t}k
+\le\frac32(1+t/\eta)\le3$ (the sum is empty if $t\ge\eta$). By Lemma~\ref{lem:Omega}(d), $\widetilde m=0$ on $[\eta,\infty)$ in the sharp case;
+in the Lipschitz case Lemma~\ref{lem:Omega}(e),(c) give $\sum_{\eta/t\le k\le1/(2t)}\widetilde m(kt)/k\le\frac\pi{L_\eta}\sigma_1^-(L_\eta+1)\le\frac43\pi\sigma_1^-$
+($L_\eta\ge3$). Finally $\WIw=L_\eta$, resp.\ $L_\eta/2$.
+\end{proof}
+
+\subsubsection*{Fixed $\eta$: a finite reduction and the numerical constants}
+
+\begin{proposition}[finite reduction in $S$]\label{prop:CTfixed}
+Let $P_0:=\{2,3,5,7,11,13\}$ and $M_w:=\max_{S_1\subset P_0}\sup_tR_{S_1}(t)$. Then
+\begin{gather*}
+ \CTp(w)\le\max_{S_1\subset P_0}\ \operatorname*{ess\,sup}_{t>0}\big(R_{S_1}(t)+R^m(t)\big)+\tfrac12M_w\,\delta_{P_0},\\
+ \delta_{P_0}:=\prod_{p>13}\Big(1+\frac2{p^3(p-1)}\Big)-1<5.83\cdot10^{-5}.
+\end{gather*}
+Moreover (``far field''), for $T_1\ge1$, almost every $t<\eta/T_1$ and every $S$, with $\widetilde w(u)=h(\log\frac1u)$:
+\begin{enumerate}
+\item[(a)] $R_S(t)=1-(\Ec\WIw)^{-1}\int E_S(s)\,d_s\widetilde w(e^{s}t)$, hence
+ $R_S(t)\le1+\operatorname{TV}(h)\sup_{s\ge\log T_1}|E_S(s)|/(\Ec\WIw)$;
+\item[(b)] $R^m(t)\le(\Ec\WIw)^{-1}\Big[\frac6{\pi^2}I_m+\frac{18c_\varphi\|\widetilde w\|_\infty}{\pi^2}T_1^{-2}+2B_\varphi\,t^{1/2}V'_m\Big]$, where
+ $I_m:=\int_0^\infty\widetilde m(u)\frac{du}u$ and $V'_m:=\int_0^\infty u^{-1/2}|d\widetilde m(u)|$; here
+ $V'_m\le2\eta^{-1/2}\big(1+\sum_{\mu(r)=-1}r^{1/2}/(r^2\varphi(r))\big)\operatorname{TV}(h)<\infty$, so the last term is $O(T_1^{-1/2})$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $S=S_1\sqcup S_2$ with $S_1=S\cap P_0$ and apply Lemma~\ref{lem:fS}(iv); $R^m$ does not depend on $S$.
+(a) If $t<\eta$ then $\widetilde w(e^st)=0$ for $s<\log(\eta/t)$, so the Stieltjes integral $\int\widetilde w(e^st)\,dF_S(s)$ only involves $s>0$,
+where $dF_S=\Ec\,ds+dE_S$; $\Ec\int\widetilde w(e^st)ds=\Ec\WIw$, and integrating by parts (valid for a.e.\ $t$, when the jump sets are
+disjoint; the boundary terms vanish) gives the formula, with $s\ge\log(\eta/t)>\log T_1$ on the support.
+(b) Let $F_\varphi(s):=\sum_{k\le e^s}\varphi(k)/k^2=\frac6{\pi^2}(s+c_\varphi)+E_\varphi(e^s)$ ($s\ge0$; Lemma~\ref{lem:harm}). Then
+$\sum_k\frac{\varphi(k)}{k^2}\widetilde m(kt)=\int_{[0,\infty)}\widetilde m(e^st)\,dF_\varphi(s)=\frac6{\pi^2}\int_0^\infty\widetilde m(e^st)\,ds+\frac{6c_\varphi}{\pi^2}\widetilde m(t)
+-\int_{[0,\infty)}E_\varphi(e^s)\,d_s\widetilde m(e^st)$ for a.e.\ $t$. The first term is $\le\frac6{\pi^2}I_m$; $\widetilde m(t)\le3\|\widetilde w\|_\infty(t/\eta)^2\le3\|\widetilde w\|_\infty T_1^{-2}$ by
+Lemma~\ref{lem:Omega}(c), and $c_\varphi>0$; and $|E_\varphi(e^s)|\le2B_\varphi e^{-s/2}=2B_\varphi(t/u)^{1/2}$ at $u=e^st$. For $V'_m$: $\widetilde m=(\Sigma-\widetilde w)_+$ with
+$\Sigma(u)=\sum_{\mu(r)=-1}\widetilde w(ur)/(r^2\varphi(r))$; $(\cdot)_+$ does not increase variation, the $r$-th term has variation
+$\operatorname{TV}(h)/(r^2\varphi(r))$ and lives on $u\ge\eta/r$, where $u^{-1/2}\le(r/\eta)^{1/2}$; the term $\widetilde w$ lives on $u\ge\eta$.
+\end{proof}
+
+The right-hand side of Proposition~\ref{prop:CTfixed} is a finite computation (64 sets $S_1$, exact finite sums on
+$t\ge\eta/T_1$, the far-field bounds (a) and (b), the tabulated constants $B$, $c_S$). Its evaluation for the sharp and log-smooth weights at $\eta=10^{-2},10^{-3},10^{-4}$ is
+in Table~\ref{tab:CTfixed}; for both weights $\|\widetilde w\|_\infty=1$ ($h$ takes values in $[0,1]$ and attains $1$), so the
+$T_1^{-2}$ term of (b) is $\frac{18c_\varphi}{\pi^2}T_1^{-2}$, as implemented (ancillary file \texttt{ctplus\_arb.py}, with the logs \texttt{ctplus\_arb\_*.log}; the resulting bounds and the
+exact rational values of $p(C)$ at them are collected in \texttt{certify\_ctplus\_arb.log}). The constants $\Ec$, $B$, $c_\emptyset$, $\delta_{P_0}$ and
+$\sigma_0^-$ are enclosed in the same interval arithmetic. Every truncation, interpolation and far-field error is bounded
+by the inequalities above, and the finite sums are evaluated in interval (ball) arithmetic, so the resulting upper bounds are CERTIFIED;
+the limit statements (Lemma~\ref{lem:CTlimit}) need no computation.
+
+\subsubsection*{Interface with the time-integrated majorant}
+
+We use the notation of Lemmas~\ref{lem:poisson}, \ref{lem:B1}, \ref{lem:M1}, \ref{lem:M3}: $x_y(u)_n:=y_n\hJ(u-\log n)$ for a finitely
+supported vector $y$, $\delta:=T^{-1/2}$, $\kappa_T:=T^{-1/4}$, $\rho\in C_c^\infty((-2,2))$ with $0\le\rho\le1$ and $\rho=1$ on $[-1,1]$, and
+\[
+ x_y^s(u)_n:=x_y(u)_n\,\rho\Big(\frac{\log n-u}\delta\Big),\qquad x_y^t(u):=x_y(u)-x_y^s(u).
+\]
+These are linear in $y$; in particular $x_a=x_b+x_{\ash}$ and $x_a^s=x_b^s+x_{\ash}^s$. We write $x_\sharp:=x_{\ash}$ and, for a positive
+semidefinite Hermitian matrix $P$, $\|x\|_P^2:=x^*Px$; this is the square of a seminorm, so
+\begin{equation}\label{eqC:seminorm}
+ \|x+x'\|_P^2\le(1+\kappa)\|x\|_P^2+(1+\kappa^{-1})\|x'\|_P^2\qquad(0<\kappa\le1).
+\end{equation}
+Recall that $\mu^\Wnat=\sum_{e\ge1}\nu(e)\sumst_{c\bmod e}\delta_{c/e}$ with $\nu(e):=\Omega(e)+m(e/Q)$. By Lemma~\ref{lem:Omega}(a)--(c),
+\begin{equation}\label{eqC:nu}
+ 0\le\Omega^+(e)\le\nu(e)\le6\|\widetilde w\|_\infty\eta^{-2}\quad(e\ge1),\qquad \nu(e)=0\quad(e>Q),
+\end{equation}
+because $\Omega(e)=0$ for $e>Q$ and $m(u)=0$ for $u>\frac12$; hence
+\[
+ \|x\|_{T^\Wnat}^2=\sum_{e\le Q}\nu(e)\sumst_{c\bmod e}|S_x(c/e)|^2 .
+\]
+
+\emph{The band constant.} Fix $\varepsilon\in(0,\frac13)$. Let $C_{\rm band}\ge1$ be a constant such that $\Lmult(Q^{1+2\varepsilon})\le(C_{\rm band}+o(1))H$ as
+$Q\to\infty$. Two admissible choices are $C_{\rm band}=\Cw$ (Corollary~\ref{cor:LmultA} with $1-2\varepsilon$ in place of $\varepsilon$) and, without Lemma~\ref{lem:A},
+$C_{\rm band}=2w_{\max}/(\Ec\WIw)$: by \eqref{eq:MVLS} and $\omega(q)\le w_{\max}q/\varphi(q)$ one has $\Lmult(K)\le w_{\max}(Q^2+K)\le2w_{\max}Q^2$ for
+$K\le Q^2$, and $H=\Ec\WIw Q^2(1+o(1))$ by Lemma~\ref{lem:WH}. Let $C_{\max}:=\max(C_{\rm band},\CTp(w))$ (recall $\CTp(w)\ge1$,
+Proposition~\ref{prop:sharpLS}), and let $\widetilde C_\varepsilon:\mathbb R\to[1,C_{\max}]$ be smooth with
+\begin{gather*}
+ \widetilde C_\varepsilon=1\ \text{on }(-\infty,1-2\varepsilon],\qquad \widetilde C_\varepsilon\ge C_{\rm band}\ \text{on }[1-\tfrac32\varepsilon,1+\tfrac32\varepsilon],\\
+ \widetilde C_\varepsilon\ge\CTp(w)\ \text{on }[1+\tfrac12\varepsilon,\infty),\qquad \widetilde C_\varepsilon=\CTp(w)\ \text{on }[1+2\varepsilon,\infty).
+\end{gather*}
+
+\begin{proposition}[sharp time-integrated majorant; band device]\label{prop:TIsharp}
+Assume the setting of Proposition~\ref{prop:TI} ($\lambda<2$, $\Yc=X^{1+\varepsilon_1}\le Q^{2-\varepsilon_1}$, $\ell^{a_0}\le T\le\ell^{A_0}$, $b=a-\ash$ as in
+\S\ref{ssec:lemmaB}). For each fixed $\varepsilon\in(0,\frac13)$ there is $\vartheta^*_Q\to0$ (depending on the fixed data, not on $T$) such that
+\begin{equation}\label{eqC:TIsharp}
+ \sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+\vartheta^*_Q)(1+\kappa_T)^3\,H\sum_n|b_n|^2\,\widetilde C_\varepsilon\Big(\frac{\log n}\ell\Big)\cK(n,n)+\mathcal E_{\rm TI},
+\end{equation}
+where, with an implied constant depending only on the fixed data,
+\[
+ \mathcal E_{\rm TI}\ll T^{3/4}HL^3+T^{1/4}\eta^{-2}Q^{-\varepsilon_1}H|J|L^2\ell+T^{1/4}Q^{-1/2}\ell^2H|J|L+Q^{-1}=o(H|J|L^2\ell).
+\]
+Consequently (Lemma~\ref{lem:B2} with the smooth weight $g(\cdot)\widetilde C_\varepsilon(\cdot/\ell)$, then $\varepsilon,\varepsilon_4\to0$ by dominated
+convergence) the second-moment majorant of Proposition~\ref{prop:TI} holds with $F=F_{C}$, $C=\CTp(w)$.
+\end{proposition}
+
+\begin{proof}
+Throughout, $u$ ranges over $\operatorname{supp}g\subset(-L,L)$, so $e^u<X$. By Lemma~\ref{lem:M1} the left side of \eqref{eqC:TIsharp} equals
+$\int g(u)\,x_b(u)^*\Delta x_b(u)\,du$, with $g\ge0$ and $\int g=(\int\psi_L^2)^2=a^2L^2$.
+
+\emph{Step 0: invisibility, before any localisation.} For $\chi\in\cF$ and every $u$,
+$\sum_nx_\sharp(u)_n\chi(n)=\int_Je^{itu}S_\chi[\ash](t)\,dt\ll_A|J|Q^{-A}$ by Lemma~\ref{lem:B1} ($J\subset[0,2T]$). Also
+$|\sum_nx_b(u)_n\chi(n)|\le|J|\sum_n|b_n|\ll Q^3$. Expanding $|\alpha+\beta|^2-|\alpha|^2$ and summing with the weights $\omega_\chi$ ($H\ll Q^2$),
+\begin{equation}\label{eqC:step0}
+ x_b(u)^*\Delta x_b(u)\le x_a(u)^*\Delta x_a(u)+Q^{-3}\qquad(\text{all }u,\ Q\ge Q_0).
+\end{equation}
+We now choose, \emph{for each $u$ separately}, which of the two forms to localise: $y(u):=b$ if $u\le(1+\varepsilon)\ell$ and $y(u):=a$ if
+$u>(1+\varepsilon)\ell$. Put $K(u):=5\delta e^u+1$; by Lemma~\ref{lem:M3}(ii) each $x_y^s(u)$ is supported in an interval of at most $K(u)\le5\delta X+1\le Q^{2-\varepsilon_1}$
+integers, contained in $[1,\Yc]$.
+
+\emph{Step 1: localisation.} By Lemma~\ref{lem:M3}(i) with $\kappa=\kappa_T$,
+$x_y^*\Delta x_y\le(1+\kappa_T)x_y^{s*}\Delta x_y^s+(1+\kappa_T^{-1})x_y^{t*}\Delta x_y^t$ for $y=y(u)$.
+
+\emph{Step 2: tails.} $x_y^t(u)$ is supported in $[1,\Yc]$, so $x_y^{t*}\Delta x_y^t\le\Lmult(\Yc)\|x_y^t\|^2\le2w_{\max}Q^2\|x_y^t\|^2$ by
+\eqref{eq:MVLS} ($\Yc\le Q^2$). By Lemma~\ref{lem:M3}(iv) and \eqref{eqB:norms}, $\int g\|x_{y(u)}^t(u)\|^2du\le8bL(\|a\|^2+\|b\|^2)/\delta\ll T^{1/2}L^3$ (apply Lemma~\ref{lem:M3}(iv) to $y=a$ and to $y=b$, since $y(u)$ changes with $u$). With
+the factor $1+\kappa_T^{-1}\le2T^{1/4}$ and $Q^2\ll_wH$, the tails contribute $\ll T^{3/4}HL^3$ in total.
+
+\emph{Step 3: short parts in regimes (i) and (ii).} Let $u\le(1+\varepsilon)\ell$, so $y=b$.
+\begin{itemize}
+\item[(i)] If $u\le(1-\varepsilon)\ell$, then $K(u)\le5\delta Q^{1-\varepsilon}+1\le Q^{1-\varepsilon/2}$, and Lemma~\ref{lem:M2} gives
+ $x_b^{s*}\Delta x_b^s\le c_{\rm i}H\|x_b^s\|^2$ with $c_{\rm i}:=1+4w_{\max}Q^{2-\varepsilon/2}(1+\ell)/H=1+O_w(Q^{-\varepsilon/2}\ell)$, \emph{with no condition on $T$}.
+\item[(ii)] (the band) If $(1-\varepsilon)\ell<u\le(1+\varepsilon)\ell$, then $K(u)\le5\delta Q^{1+\varepsilon}+1\le Q^{1+2\varepsilon}$, and by the definition of
+ $C_{\rm band}$, $x_b^{s*}\Delta x_b^s\le c_{\rm ii}H\|x_b^s\|^2$ with $c_{\rm ii}:=C_{\rm band}+o(1)$.
+\end{itemize}
+
+\emph{Step 4: short parts in regime (iii), $u>(1+\varepsilon)\ell$.} Here $y=a$. If $(x_a^s(u))_n\ne0$ then $a_n\ne0$ and
+$\log n>u-2\delta$, so $n$ is a prime power and $n>Q^{1+\varepsilon}e^{-2\delta}>Q^{1+\varepsilon}/2$. Split
+$x_a^s=x_{\rm r}+x_{\rm pp}$, where $x_{\rm r}$ is the restriction to $Q$-rough $n$ and $x_{\rm pp}$ the restriction to $n=p^k$ with $p\le Q$, $k\ge2$ (a
+prime $p\le Q$ is $<Q^{1+\varepsilon}/2$). By \eqref{eqC:seminorm} for $\Delta$ with $\kappa=\kappa_T$ and Lemma~\ref{lem:S} for the $Q$-rough
+vector $x_{\rm r}$ (first line below); then by the identity $x_{\rm r}=x_b^s+(x_\sharp^s-x_{\rm pp})$ and \eqref{eqC:seminorm} for $T^\Wnat$, first with
+$\kappa=\kappa_T\le1$ for this split and then with $\kappa=1$ for $\|x_\sharp^s-x_{\rm pp}\|^2_{T^\Wnat}\le2\|x_\sharp^s\|^2_{T^\Wnat}+2\|x_{\rm pp}\|^2_{T^\Wnat}$;
+and finally by $2(1+\kappa_T)(1+\kappa_T^{-1})\le4(1+\kappa_T^{-1})$,
+\begin{align*}
+ x_a^{s*}\Delta x_a^s&\le(1+\kappa_T)\|x_{\rm r}\|^2_{T^\Wnat}+(1+\kappa_T^{-1})\,x_{\rm pp}^*\Delta x_{\rm pp}\\
+ &\le(1+\kappa_T)^2\|x_b^s\|^2_{T^\Wnat}+4(1+\kappa_T^{-1})\big(\|x_\sharp^s\|^2_{T^\Wnat}+\|x_{\rm pp}\|^2_{T^\Wnat}+x_{\rm pp}^*\Delta x_{\rm pp}\big).
+\end{align*}
+(a) \emph{Main term.} $x_b^s(u)$ is supported in an interval of $\le K(u)\le Q^{2-\varepsilon_1}$ integers. Put $\varepsilon_1':=\min(\varepsilon_1,\frac12)\in(0,1)$;
+then $K(u)\le Q^{2-\varepsilon_1'}$, so Proposition~\ref{prop:sharpLS} (with $\varepsilon_1'$ in place of $\varepsilon$, which that proposition requires to lie in $(0,1)$)
+gives $\|x_b^s\|^2_{T^\Wnat}\le c_{\rm iii}H\|x_b^s\|^2$, $c_{\rm iii}:=\CTp(w)+\vartheta'_Q$, where $\vartheta'_Q\to0$ is the error term of Proposition~\ref{prop:sharpLS} for $\varepsilon_1'$. Note that $x_b^s$ is
+\emph{not} supported on $Q$-rough integers; this is harmless because $T^\Wnat\succeq0$ is defined on all vectors.
+
+(b) \emph{The subtracted part $x_\sharp^s$.} Let $R_{\max}:=\max\{R_j:N_j\le2\Yc\}\le(2\Yc)^{1-\varepsilon_3}/(QT)$. For $e\ge1$ and $(c,e)=1$,
+by the definitions of $\ash$, $\LamR$ and $c_r$, and \eqref{eqB:Fjt},
+\begin{equation}\label{eqC:Ssharp}
+ S_{x_\sharp^s(u)}\Big(\frac ce\Big)=\int_Je^{itu}\sum_{j:\,R_j\ge1}\ \sum_{r\le R_j}\frac{\mu(r)}{\varphi(r)}\sumst_{h\bmod r}\ \sum_nF_{j,t,u}(n)\,
+ e\Big(n\Big(\frac hr+\frac ce\Big)\Big)\,dt .
+\end{equation}
+\emph{Levels $R_{\max}<e\le Q$.} Let $r\le R_j<e$ and $(h,r)=1$. If $\beta:=\frac hr+\frac ce$ were an integer, then $re\mid he+cr$, hence $e\mid cr$
+and, as $(c,e)=1$, $e\mid r$, contradicting $e>r$. So $\beta\notin\mathbb Z$, and since $re\beta\in\mathbb Z$, $\|\beta\|\ge1/(re)\ge1/(R_jQ)$. By
+\eqref{eqB:derivs} ($|t|\le2T$) and Lemma~\ref{lem:poisson}(a) with $\Theta=T$ and \eqref{eqB:Rj},
+\[
+ \Big|\sum_nF_{j,t,u}(n)e(n\beta)\Big|\le B_iN_j^{1/2}\Big(\frac{TR_jQ}{N_j}\Big)^i\le B_iN_j^{1/2-i\varepsilon_3}.
+\]
+Summing over $h$ and $r$ with the weights $\mu(r)/\varphi(r)$ (total weight $\sum_{r\le R_j}\mu^2(r)\varphi(r)/\varphi(r)\le R_j\le N_j$), over the $\le2+\log_2\Yc$ blocks with
+$R_j\ge1$ (for which $N_j\ge QT$), and integrating over $J$,
+\[
+ \Big|S_{x_\sharp^s(u)}\Big(\frac ce\Big)\Big|\le B_i\,|J|\,(2+\log_2\Yc)\,(QT)^{3/2-i\varepsilon_3}\le Q^{-4}\qquad(i\ge7/\varepsilon_3,\ Q\ge Q_0),
+\]
+uniformly in $u$, $e\in(R_{\max},Q]$ and $c$. By \eqref{eqC:nu} these levels contribute at most $6\|\widetilde w\|_\infty\eta^{-2}Q^2\cdot Q^{-8}$ to
+$\|x_\sharp^s\|_{T^\Wnat}^2$.
+
+\emph{Levels $e\le R_{\max}$.} By \eqref{eqC:nu} and the additive large sieve \cite{MV73}, \cite[Thm.~7.7]{IK04},
+\[
+ \sum_{e\le E}\sumst_{c\bmod e}|S_x(c/e)|^2\le(K+E^2)\|x\|^2
+\]
+for $x$ supported on $K$ consecutive integers,
+\[
+ \sum_{e\le R_{\max}}\nu(e)\sumst_{c\bmod e}\Big|S_{x_\sharp^s}\Big(\frac ce\Big)\Big|^2\le6\|\widetilde w\|_\infty\eta^{-2}\big(K(u)+R_{\max}^2\big)\|x_\sharp^s\|^2
+ \le36\|\widetilde w\|_\infty\eta^{-2}Q^{2-\varepsilon_1}\|x_\sharp^s\|^2,
+\]
+since $K(u)\le5\delta\Yc\le Q^{2-\varepsilon_1}$ and $R_{\max}^2\le4\Yc^2/Q^2\le4Q^{2-2\varepsilon_1}$. By Lemma~\ref{lem:M3}(iii) with $c\equiv1$,
+$\cK(n,n)\le2\pi|J|bL+O(1)$ and \eqref{eqB:norms}, $\int g\|x_\sharp^s\|^2\le\sum_n|\ash_n|^2\cK(n,n)\ll|J|L\cdot L\ell$. With $Q^2\ll_wH$, the
+contribution of (b), including the factor $(1+\kappa_T)\cdot4(1+\kappa_T^{-1})\le16T^{1/4}$ (Steps 1 and 4), is $\ll T^{1/4}\eta^{-2}Q^{-\varepsilon_1}H|J|L^2\ell+Q^{-1}$.
+
+(c) \emph{Prime powers $p^k$, $p\le Q$, $k\ge2$.} The prime powers $n\le y$ with $k\ge2$ number $O(y^{1/2})$, so by partial summation
+$\sum_{n=p^k>Q^{1+\varepsilon}/2,\,k\ge2}\Lambda(n)^2/n\ll Q^{-1/2}\ell^2$. The vector $x_{\rm pp}(u)$ lives in an interval of $\le K(u)\le Q^{2-\varepsilon_1}$
+integers inside $[1,\Yc]$, so $\|x_{\rm pp}\|_{T^\Wnat}^2\le c_{\rm iii}H\|x_{\rm pp}\|^2$ (Proposition~\ref{prop:sharpLS} with $\varepsilon_1'$, as in (a)) and
+$x_{\rm pp}^*\Delta x_{\rm pp}\le2w_{\max}Q^2\|x_{\rm pp}\|^2$ (\eqref{eq:MVLS}). By Lemma~\ref{lem:M3}(iii),
+$\int g\|x_{\rm pp}\|^2\le\sum_{n=p^k>Q^{1+\varepsilon}/2,\,k\ge2}|a_n|^2\cK(n,n)\ll|J|L\,Q^{-1/2}\ell^2$. With the factor $16T^{1/4}$ the
+contribution of (c) is $\ll T^{1/4}Q^{-1/2}\ell^2H|J|L$.
+
+\emph{Step 5: integration in $u$.} Combining \eqref{eqC:step0} and Steps 1--4, for every $u$ in regime (i), (ii) or (iii),
+\[
+ x_b(u)^*\Delta x_b(u)\le(1+\kappa_T)^3\,c(u)\,H\,\|x_b^s(u)\|^2+(\text{tail, (b), (c) terms at }u)+Q^{-3},
+\]
+with $c(u)=c_{\rm i}$, $c_{\rm ii}$, $c_{\rm iii}$ respectively. Let $n$ satisfy $\rho((\log n-u)/\delta)\ne0$, i.e.\ $|u-\log n|<2\delta$, and put
+$\alpha:=\log n/\ell$; for $Q$ large, $2\delta<\frac12\varepsilon\ell$. If $\alpha\le1-\frac32\varepsilon$ then $u<(1-\varepsilon)\ell$, so only (i) occurs; if
+$1-\frac32\varepsilon<\alpha<1+\frac12\varepsilon$ then $u<(1+\varepsilon)\ell$, so only (i) or (ii) occurs; if $1+\frac12\varepsilon\le\alpha\le1+\frac32\varepsilon$ then
+$u>(1-\varepsilon)\ell$, so only (ii) or (iii) occurs; if $\alpha>1+\frac32\varepsilon$ then only (iii) occurs. Comparing with the defining properties of
+$\widetilde C_\varepsilon$ (and $\widetilde C_\varepsilon\ge1$), in every case
+\[
+ c(u)\le(1+\vartheta^*_Q)\,\widetilde C_\varepsilon(\alpha),\qquad \vartheta^*_Q:=\max\big(c_{\rm i}-1,\ c_{\rm ii}-C_{\rm band},\ \vartheta'_Q\big)^+\to0 .
+\]
+Therefore, by Lemma~\ref{lem:M3}(iii) applied to the bounded function $c(u)$,
+$\int g(u)c(u)\|x_b^s(u)\|^2du\le(1+\vartheta^*_Q)\sum_n|b_n|^2\widetilde C_\varepsilon(\log n/\ell)\cK(n,n)$. Adding the tails (Step 2), (b), (c) and
+$\int g\cdot Q^{-3}\ll L^2Q^{-3}\le Q^{-1}$ gives \eqref{eqC:TIsharp}. Each term of $\mathcal E_{\rm TI}$ is $o(H|J|L^2\ell)$ uniformly in $T$: the
+first is $O(T^{-1/4})$ relative to it ($|J|\asymp T$, $L\asymp\ell$), and the others carry $Q^{-\varepsilon_1}$ or $Q^{-1/2}$ against $T^{1/4}\le\ell^{A_0/4}$.
+
+For the final sentence: $F^\Wnat_\varepsilon(\alpha):=\widetilde C_\varepsilon(\alpha)\min(\alpha,1+\varepsilon_4)$ tends to $F_C(\alpha)$ for every $\alpha\ne1$ as
+$\varepsilon,\varepsilon_4\to0$, and $0\le F^\Wnat_\varepsilon\le2C_{\max}$, so $\mathcal Q_{F^\Wnat_\varepsilon}(f)\to\mathcal Q_{F_C}(f)$ for every admissible $f$ by
+dominated convergence.
+\end{proof}
+
+\begin{remark}[order of limits; what is \emph{not} used]\label{rem:orderlimits}
+(1) The order of limits is the one fixed in \S\ref{sec:parameters}: $Q\to\infty$ with $(\eta,w,\lambda,\varepsilon_1,\theta,\psi,\varepsilon,\varepsilon_3)$
+and the cut-offs $\Ups_0$, $(\psi_j)$, $\rho$ of \S\ref{sec:parameters} fixed; then $\varepsilon,\varepsilon_3,\theta\to0$ (so $\varepsilon_4=2\varepsilon_3\to0$); then $\lambda\to2$, with $\varepsilon_1$ chosen in terms of $\lambda$ so that
+$\lambda(1+\varepsilon_1)\le2-\varepsilon_1$, and $\psi\to$ optimal, giving $p(\CTp(w))$ for the fixed weight $w$ (Theorem~\ref{thm:fixed}); finally
+$\eta\to0$, using Lemma~\ref{lem:CTlimit} and the monotonicity and Lipschitz continuity of $C\mapsto p(C)$ (Lemma~\ref{lem:pLip};
+proof of Theorem~\ref{thm:main}). No weight
+depends on $Q$.
+(2) Lemma~\ref{lem:M2} is used only for windows of length $K\le Q^{1-\varepsilon/2}$, which requires no condition on $T$. Using it up to
+$u\le\ell+2\delta$ would require $K\log K/Q\ll\eta^2$ with $K\asymp Q/\sqrt T$, i.e.\ $T\gg\eta^{-4}(\log Q)^{2+o(1)}$; the band of width $2\varepsilon$
+carrying $C_{\rm band}$ avoids this, and it disappears in the limit $\varepsilon\to0$.
+(3) Primes $p\le Q$ never enter the Toeplitz step: regime (iii) lives on $n>Q^{1+\varepsilon}/2$.
+\end{remark}

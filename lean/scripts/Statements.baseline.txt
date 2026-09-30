@@ -1,0 +1,229 @@
+== statement pin: 31 declarations (closure of 22 roots) ==
+
+structure Families.AdmissibleWindow
+  : (ℝ → ℝ) → Prop
+  | Families.AdmissibleWindow.mk : ∀ {f : ℝ → ℝ},
+  (∀ (x : ℝ), (0 : ℝ) ≤ f x) →
+    (∀ (x : ℝ), f (-x) = f x) →
+      (∀ (x : ℝ), f x ≠ (0 : ℝ) → x ∈ Set.Icc (-1 : ℝ) (1 : ℝ)) →
+        MeasureTheory.MemLp f (2 : ENNReal) MeasureTheory.MeasureSpace.volume →
+          ∫ (x : ℝ), f x = (1 : ℝ) → Families.AdmissibleWindow f
+  hash 17037189023772633495
+
+def Families.FC
+  : ℝ → ℝ → ℝ
+  := fun (C α : ℝ) ↦ if α ≤ (1 : ℝ) then α else C
+  hash 277724171242582763
+
+structure Families.Hybrid.AdmissibleWindowB
+  : ℝ → (ℝ → ℝ) → Prop
+  | Families.Hybrid.AdmissibleWindowB.mk : ∀ {β : ℝ} {f : ℝ → ℝ},
+  (∀ (x : ℝ), (0 : ℝ) ≤ f x) →
+    (∀ (x : ℝ), f (-x) = f x) →
+      (∀ (x : ℝ), f x ≠ (0 : ℝ) → x ∈ Set.Icc (-β / (2 : ℝ)) (β / (2 : ℝ))) →
+        MeasureTheory.MemLp f (2 : ENNReal) MeasureTheory.MeasureSpace.volume →
+          ∫ (x : ℝ), f x = (1 : ℝ) → Families.Hybrid.AdmissibleWindowB β f
+  hash 17002692553867795557
+
+def Families.Hybrid.ProportionsAtLeastH
+  : Families.Weight → ℝ → ℝ → (ℝ → ℝ) → Prop
+  := fun (W : Families.Weight) (a0 κ1 : ℝ) (p : ℝ → ℝ) ↦
+  ∀ (ε : ℝ),
+    (0 : ℝ) < ε →
+      ∃ (Q₀ : ℝ),
+        ∀ (Q : ℝ),
+          Q₀ ≤ Q →
+            ∀ T ∈ Set.Icc (Real.log Q ^ a0) (Q ^ κ1),
+              (p (Families.Hybrid.kappaT Q T) - ε) * Families.Nfam W Q T ≤ Families.Ns0 W Q T ∧
+                (p (Families.Hybrid.kappaT Q T) - ε) * Families.Nfam W Q T ≤ Families.Nstar0 W Q T ∧
+                  (((1 : ℝ) + p (Families.Hybrid.kappaT Q T)) / (2 : ℝ) - ε) * Families.Nfam W Q T ≤ Families.Nd W Q T
+  hash 1165785342333589427
+
+def Families.Hybrid.betaK
+  : ℝ → ℝ
+  := fun (κ : ℝ) ↦ ((2 : ℝ) + κ) / ((1 : ℝ) + κ)
+  hash 4197959268165646521
+
+def Families.Hybrid.certH_Statement
+  : Prop
+  := 0.865673 ≤ Families.Hybrid.pB (3 / 2 : ℝ) (1 : ℝ) ∧
+  0.824355 ≤ Families.Hybrid.pB (4 / 3 : ℝ) (1 : ℝ) ∧
+    0.797213 ≤ Families.Hybrid.pB (5 / 4 : ℝ) (1 : ℝ) ∧
+      0.764149 ≤ Families.Hybrid.pB (7 / 6 : ℝ) (1 : ℝ) ∧ 0.727484 ≤ Families.Hybrid.pB (12 / 11 : ℝ) (1 : ℝ)
+  hash 4390364266799495465
+
+def Families.Hybrid.kappaT
+  : ℝ → ℝ → ℝ
+  := fun (Q T : ℝ) ↦ Real.log T / Real.log Q
+  hash 7417742430014790755
+
+def Families.Hybrid.pB
+  : ℝ → ℝ → ℝ
+  := fun (β C : ℝ) ↦
+  (2 : ℝ) - InfSet.sInf (Families.Qf (Families.FC C) '' {f : ℝ → ℝ | Families.Hybrid.AdmissibleWindowB β f})
+  hash 4863700535792196712
+
+def Families.Hybrid.thmH_Statement
+  : Prop
+  := (∀ (ε : ℝ),
+    (0 : ℝ) < ε →
+      ∃ (η₀ : ℝ),
+        (0 : ℝ) < η₀ ∧
+          ∀ (a0 κ1 : ℝ),
+            (0 : ℝ) < a0 →
+              (0 : ℝ) < κ1 →
+                ∀ (η : ℝ),
+                  (0 : ℝ) < η →
+                    η ≤ η₀ →
+                      ∀ (W : Families.Weight),
+                        Families.Weight.w W = Families.wSharpFun η ∨ Families.Weight.w W = Families.wSmoothFun η →
+                          Families.Hybrid.ProportionsAtLeastH W a0 κ1 fun (κ : ℝ) ↦
+                            Families.Hybrid.pB (Families.Hybrid.betaK κ) (1 : ℝ) - ε) ∧
+  Families.Hybrid.certH_Statement
+  hash 532037502061397213
+
+def Families.Lfun
+  : {q : ℕ} → DirichletCharacter ℂ q → ℂ → ℂ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (s : ℂ) ↦ if h : q = (0 : ℕ) then (0 : ℂ) else DirichletCharacter.LFunction χ s
+  hash 12613914690785311661
+
+def Families.Nchi
+  : {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℕ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (T : ℝ) ↦ ∑ᶠ (ρ : ℂ) (_ : ρ ∈ Families.zerosI χ T), Families.mult χ ρ
+  hash 9927632763914628089
+
+def Families.Nd
+  : Families.Weight → ℝ → ℝ → ℝ
+  := fun (W : Families.Weight) (Q T : ℝ) ↦
+  Families.famSum W Q fun (x : ℕ) (χ : DirichletCharacter ℂ x) ↦ ↑(Families.Ndchi χ T)
+  hash 5787431186691792282
+
+def Families.Ndchi
+  : {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℕ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (T : ℝ) ↦ Set.ncard (Families.zerosI χ T)
+  hash 8233608221297122304
+
+def Families.Nfam
+  : Families.Weight → ℝ → ℝ → ℝ
+  := fun (W : Families.Weight) (Q T : ℝ) ↦
+  Families.famSum W Q fun (x : ℕ) (χ : DirichletCharacter ℂ x) ↦ ↑(Families.Nchi χ T)
+  hash 14312124636662374956
+
+def Families.Ns0
+  : Families.Weight → ℝ → ℝ → ℝ
+  := fun (W : Families.Weight) (Q T : ℝ) ↦
+  Families.famSum W Q fun (x : ℕ) (χ : DirichletCharacter ℂ x) ↦ ↑(Families.Ns0chi χ T)
+  hash 7042877481651374208
+
+def Families.Ns0chi
+  : {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℕ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (T : ℝ) ↦
+  Set.ncard {ρ : ℂ | ρ ∈ Families.zerosI χ T ∧ Complex.re ρ = (1 / 2 : ℝ) ∧ Families.mult χ ρ = (1 : ℕ)}
+  hash 5614362179844658636
+
+def Families.Nstar0
+  : Families.Weight → ℝ → ℝ → ℝ
+  := fun (W : Families.Weight) (Q T : ℝ) ↦
+  Families.famSum W Q fun (x : ℕ) (χ : DirichletCharacter ℂ x) ↦ ↑(Families.Nstar0chi χ T)
+  hash 10346077218951948964
+
+def Families.Nstar0chi
+  : {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℕ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (T : ℝ) ↦
+  Set.ncard {ρ : ℂ | ρ ∈ Families.zerosI χ T ∧ Complex.re ρ = (1 / 2 : ℝ)}
+  hash 3423373952002784729
+
+def Families.ProportionsAtLeast
+  : Families.Weight → ℝ → ℝ → ℝ → Prop
+  := fun (W : Families.Weight) (a0 A0 p : ℝ) ↦
+  ∀ (ε : ℝ),
+    (0 : ℝ) < ε →
+      ∃ (Q₀ : ℝ),
+        ∀ (Q : ℝ),
+          Q₀ ≤ Q →
+            ∀ T ∈ Set.Icc (Real.log Q ^ a0) (Real.log Q ^ A0),
+              (p - ε) * Families.Nfam W Q T ≤ Families.Ns0 W Q T ∧
+                (p - ε) * Families.Nfam W Q T ≤ Families.Nstar0 W Q T ∧
+                  (((1 : ℝ) + p) / (2 : ℝ) - ε) * Families.Nfam W Q T ≤ Families.Nd W Q T
+  hash 15544606288438292452
+
+def Families.Qf
+  : (ℝ → ℝ) → (ℝ → ℝ) → ℝ
+  := fun (F f : ℝ → ℝ) ↦ (∫ (x : ℝ), f x ^ (2 : ℕ)) + ∫ (x : ℝ) (y : ℝ), f x * f y * F |x - y|
+  hash 16876827411355065708
+
+structure Families.Weight
+  : Type
+  | Families.Weight.mk : (w : ℝ → ℝ) →
+  (η : ℝ) →
+    (0 : ℝ) < η →
+      η < (1 / 2 : ℝ) →
+        (∀ (u : ℝ), (0 : ℝ) ≤ w u) →
+          (∀ (u : ℝ), w u ≠ (0 : ℝ) → η ≤ u ∧ u ≤ (1 : ℝ)) →
+            BoundedVariationOn w Set.univ → (0 : ℝ) < ∫ (u : ℝ) in (0 : ℝ)..(1 : ℝ), u * w u → Families.Weight
+  hash 1935664904082575765
+
+def Families.Weight.omega
+  : Families.Weight → ℝ → ℕ → ℝ
+  := fun (W : Families.Weight) (Q : ℝ) (q : ℕ) ↦ Families.Weight.w W (↑q / Q) * ↑q / ↑(Nat.totient q)
+  hash 5340368181689518899
+
+def Families.Weight.w
+  : Families.Weight → ℝ → ℝ
+  := fun (self : Families.Weight) ↦ self.1
+  hash 13506819891614308854
+
+def Families.famSum
+  : Families.Weight → ℝ → ((q : ℕ) → DirichletCharacter ℂ q → ℝ) → ℝ
+  := fun (W : Families.Weight) (Q : ℝ) (c : (q : ℕ) → DirichletCharacter ℂ q → ℝ) ↦
+  ∑ q ∈ Finset.Icc (1 : ℕ) ⌊Q⌋₊, Families.Weight.omega W Q q * ∑ χ ∈ Families.primChars q, c q χ
+  hash 3260932598561220277
+
+def Families.mult
+  : {q : ℕ} → DirichletCharacter ℂ q → ℂ → ℕ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (ρ : ℂ) ↦ analyticOrderNatAt (Families.Lfun χ) ρ
+  hash 3280219039177757947
+
+def Families.pC
+  : ℝ → ℝ
+  := fun (C : ℝ) ↦ (2 : ℝ) - InfSet.sInf (Families.Qf (Families.FC C) '' {f : ℝ → ℝ | Families.AdmissibleWindow f})
+  hash 15954004574057494436
+
+def Families.primChars
+  : (q : ℕ) → Finset (DirichletCharacter ℂ q)
+  := fun (q : ℕ) ↦ {χ : DirichletCharacter ℂ q | DirichletCharacter.IsPrimitive χ}
+  hash 1202805672764959987
+
+def Families.thmMain_Statement
+  : Prop
+  := (∀ (a0 A0 ε : ℝ),
+    (0 : ℝ) < a0 →
+      a0 < A0 →
+        (0 : ℝ) < ε →
+          ∃ (η₀ : ℝ),
+            (0 : ℝ) < η₀ ∧
+              ∀ (η : ℝ),
+                (0 : ℝ) < η →
+                  η ≤ η₀ →
+                    ∀ (W : Families.Weight),
+                      Families.Weight.w W = Families.wSharpFun η ∨ Families.Weight.w W = Families.wSmoothFun η →
+                        Families.ProportionsAtLeast W a0 A0 (Families.pC (1 : ℝ) - ε)) ∧
+  0.932282 ≤ Families.pC (1 : ℝ)
+  hash 4731267190546933042
+
+def Families.wSharpFun
+  : ℝ → ℝ → ℝ
+  := fun (η u : ℝ) ↦ if η ≤ u ∧ u ≤ (1 : ℝ) then u⁻¹ ^ (2 : ℕ) else (0 : ℝ)
+  hash 4547632534345593371
+
+def Families.wSmoothFun
+  : ℝ → ℝ → ℝ
+  := fun (η u : ℝ) ↦
+  if η ≤ u ∧ u ≤ (1 : ℝ) then u⁻¹ ^ (2 : ℕ) * Real.sin (Real.pi * Real.log u / Real.log η) ^ (2 : ℕ) else (0 : ℝ)
+  hash 13839422304939612283
+
+def Families.zerosI
+  : {q : ℕ} → DirichletCharacter ℂ q → ℝ → Set ℂ
+  := fun {q : ℕ} (χ : DirichletCharacter ℂ q) (T : ℝ) ↦
+  {ρ : ℂ | Families.Lfun χ ρ = (0 : ℂ) ∧ T < Complex.im ρ ∧ Complex.im ρ ≤ (2 : ℝ) * T}
+  hash 16112936721586543809

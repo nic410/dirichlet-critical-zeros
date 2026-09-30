@@ -1,0 +1,1010 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,enumitem,xcolor,array}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!60!black]{hyperref}
+\hypersetup{
+  pdftitle={Simple zeros on the critical line for a weighted family of Dirichlet L-functions, from polylogarithmic to polynomial height},
+  pdfauthor={Nic Johns},
+  pdfkeywords={Dirichlet L-functions, simple zeros, critical line, pair correlation, large sieve, Farey fractions, Weil explicit formula}
+}
+
+\setlength{\emergencystretch}{2.5em}
+\input{macros}
+
+% Theorem environments (shared with the section files in lemmas/)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+% Section files; paths are relative to the top-level directory (arXiv compiles from there).
+\newcommand{\inputlemma}[1]{\input{lemmas/#1}}
+
+\title[Simple critical zeros of Dirichlet $L$-functions on average]{Simple zeros on the critical line for a weighted family of Dirichlet $L$-functions, from polylogarithmic to polynomial height}
+
+\author{Nic Johns}
+
+\date{Pre-publication draft}
+
+\subjclass[2020]{Primary 11M26; Secondary 11M06, 11N35, 15A42}
+\keywords{Dirichlet $L$-functions, simple zeros, critical line, pair correlation, large sieve, Farey fractions, Weil explicit formula}
+
+\begin{document}
+
+\begin{abstract}
+Let $Q\to\infty$ and weight each primitive Dirichlet character $\chi$ of conductor $q\in[\eta Q,Q]$ by $Q^2/(q\varphi(q))$ or a smoothed variant of it.
+We prove unconditionally that for every $\eps>0$ and every sufficiently small $\eta=\eta(\eps)>0$, for all large $Q$, the weighted proportion of nontrivial zeros $\rho=\beta+i\gamma$ with $T<\gamma\le2T$, counted with multiplicity, that are simple and lie on the critical line is at least $0.9322-\eps$, uniformly for $(\log Q)^{a_0}\le T\le(\log Q)^{A_0}$.
+This constant is approached only as $\eta\to0$; at $\eta=10^{-4}$ the certified bound is $0.9241$ (smoothed weight).
+It is the value produced by the form factor $\min(\alpha,1)$ at support $2$; under the Generalised Riemann Hypothesis Sono obtained it for a differently weighted statistic of low-lying zeros, for which Chirre, Gon\c calves and de Laat later obtained $0.9350$.
+The proof carries the finite-compression method of Alp\"oge--Furman and Hua--Yang from bandwidth $1$ to bandwidth $2$.
+The required upper bound for the family pair-correlation form factor comes from a flattening of the von Mangoldt function, a time localisation, and a sharp large sieve bound, valid on all vectors, for a positive semidefinite Toeplitz form that dominates the family form on sifted vectors and whose constant tends to $1$ for logarithmically wide modulus weights.
+A Gauss-sum transfer and a weighted Farey large sieve give an independent bound $0.8859-\eps$.
+The method extends to heights polynomial in the conductor: uniformly for $(\log Q)^{a_0}\le T\le Q^{\kappa_1}$ the proportion is at least the value produced by $\min(\alpha,1)$ at support $(2+\kappa)/(1+\kappa)$ minus $\eps$, where $T=Q^\kappa$; for instance $0.8656-\eps$ for $T\le Q$, decreasing to $0.6725\ldots$ as $\kappa\to\infty$.
+All statements concern weighted averages over the family; nothing is asserted about any individual $L$-function.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+%======================================================================
+\section{Introduction}\label{sec:intro}
+%======================================================================
+
+\subsection{The result}
+Let $Q$ be a large parameter and put $\ell:=\log Q$. Fix $\eta\in(0,1/2)$ and a weight $w:(0,1]\to[0,\infty)$ of bounded variation with $\supp w\subset[\eta,1]$ and $\int_0^1uw(u)\dd u>0$ (an \emph{admissible} weight, Definition~\ref{def:admissible}; the condition $w\not\equiv0$ alone would allow, e.g., the indicator function of a single point). Let $\cF=\cF(Q,w)$ be the set of primitive Dirichlet characters $\chi$ modulo $q$ with $w(q/Q)>0$ (so $\eta Q\le q\le Q$), and attach to $\chi\bmod q$ the weight
+\begin{equation}\label{eq:omega}
+\omega_\chi=\omega(q):=w(q/Q)\,\frac{q}{\varphi(q)} .
+\end{equation}
+The \emph{log-wide} weights are
+\begin{equation}\label{eq:logwide}
+\wsharp(u)=u^{-2}\one_{[\eta,1]}(u),\qquad \wsmooth(u)=u^{-2}\sin^2\!\Big(\frac{\pi\log u}{\log\eta}\Big)\one_{[\eta,1]}(u).
+\end{equation}
+For $\wsharp$ the character $\chi\bmod q$ receives weight $Q^2/(q\varphi(q))$, and every dyadic range of conductors in $[\eta Q,Q]$ carries the same total weight.
+
+Fix $0<a_0<A_0$ and let $\ell^{a_0}\le T\le\ell^{A_0}$, $I=(T,2T]$. For $\chi\in\cF$ let $N_\chi$ be the number of nontrivial zeros $\rho=\beta+i\gamma$ of $L(s,\chi)$ with $\gamma\in I$, counted with multiplicity; let $N^s_{0,\chi}$ be the number of those that are simple and satisfy $\beta=1/2$, $N^*_{0,\chi}$ the number of distinct zeros with $\gamma\in I$ and $\beta=1/2$, and $N_{d,\chi}$ the number of distinct zeros with $\gamma\in I$. Write
+\[
+N:=\sum_{\chi\in\cF}\omega_\chi N_\chi,\qquad N^s_0:=\sum_{\chi\in\cF}\omega_\chi N^s_{0,\chi},\qquad N^*_0:=\sum_{\chi\in\cF}\omega_\chi N^*_{0,\chi},\qquad N_d:=\sum_{\chi\in\cF}\omega_\chi N_{d,\chi}.
+\]
+We call $N^s_0/N$ the \emph{weighted proportion} of simple zeros on the critical line (at height $T$, in the family $\cF$). By Lemma~\ref{lem:RvM}, $N=(1+o(1))HT\ell/(2\pi)$, where $H=\sum_{\chi\in\cF}\omega_\chi\asymp_w Q^2$.
+
+Let $F_C(\alpha)=\alpha$ for $0\le\alpha\le1$ and $F_C(\alpha)=C$ for $1<\alpha\le2$, and define
+\begin{equation}\label{eq:pC}
+\pC(C):=2-\inf\Big\{\int f^2+\iint f(x)f(y)F_C(|x-y|)\dd x\dd y:\ f\ge0\text{ even},\ \supp f\subset[-1,1],\ \int f=1\Big\}.
+\end{equation}
+(For $C=1$, and numerically for $C\le1.6$, the restriction to even $f$ is immaterial; see Remark~\ref{rem:optimal}.)
+By Proposition~\ref{prop:cert}, $\pC(1)\ge0.932282$ and $\pC(1.2688)\ge0.885912$; these are exact rational evaluations at explicit step functions.
+
+\begin{theorem}[Main theorem]\label{thm:main}
+Fix $0<a_0<A_0$. For every $\eps>0$ there is $\eta_0(\eps)>0$ such that for every $\eta\in(0,\eta_0]$ and $w\in\{\wsharp,\wsmooth\}$,
+\[
+\liminf_{Q\to\infty}\ \inf_{\ell^{a_0}\le T\le\ell^{A_0}}\frac{N^s_0}{N}\ \ge\ \pC(1)-\eps\ \ge\ 0.9322-\eps,
+\]
+and the same lower bound holds for $N^*_0/N$ (trivially, as $N^*_0\ge N^s_0$), while $\liminf\inf_T N_d/N\ge(1+\pC(1))/2-\eps\ge0.9661-\eps$.
+\end{theorem}
+
+The constant $0.9322$ is reached only in the limit $\eta\to0$, and the convergence in $\eta$ is slow. The proved rate $\CTp(\wsmooth)\le1+83/\log(1/\eta)$ of Lemma~\ref{lem:CTlimit}, combined with Lemma~\ref{lem:pLip}, guarantees a proportion $\ge0.93$ once $\log(1/\eta)\ge3.7\cdot10^4$ (for $\wsharp$, once $\log(1/\eta)\ge1.9\cdot10^4$). The best value certified at a fixed $\eta$ is $0.9241$, at $\eta=10^{-4}$ (Theorem~\ref{thm:fixed}). No effective value of $Q$ is claimed either: the thresholds implicit in $\liminf_{Q\to\infty}$ are astronomically large in terms of $\eta^{-1}$.
+
+The number $\pC(1)=0.93228\ldots$ is what the GUE form factor $\min(\alpha,1)$ gives on $|\alpha|\le2$ in the Montgomery--Taylor extremal problem; under GRH it was obtained by Sono \cite{Sono16}, improving the $11/12$ of Chandee, Lee, Liu and Radziwi\l\l{} \cite{CLLR}. It is not the best GRH constant for that statistic: Chirre, Gon\c calves and de Laat \cite[Theorem~5]{CGdL} obtained $0.9350$ under GRH, with test functions that are not supported in $|\alpha|\le2$ (see \S\ref{sec:grhcomp}). Theorem~\ref{thm:main} obtains Sono's constant without any hypothesis, for a related but different statistic: the results of \cite{CLLR,Sono16,CGdL} weight zeros near the central point by $|\widehat\Phi(i\gamma)|^2$, whereas we count zeros with $T<\gamma\le2T$ at polylogarithmic height $T\to\infty$, with the modulus weights \eqref{eq:omega}. The constants coincide because the same form factor $\min(\alpha,1)$ on $[0,2]$ enters the same extremal problem.
+
+The proof of Theorem~\ref{thm:main} uses a large sieve inequality for a positive Toeplitz majorant of the family form (\S\ref{ssec:toeplitz}); \S\ref{sec:priorLS} states which parts of it are new and which are classical. A second, independent route replaces it by a Gauss-sum transfer and a weighted Farey large sieve, with a worse constant:
+
+\begin{theorem}[Gauss-transfer bound]\label{thm:gauss}
+Let $\CG=6/(\pi^2\Ec)\approx1.2687739$, where $\Ec=\prod_p(1-p^{-2}-p^{-3})$. For every $\eps>0$ there is $\eta_0(\eps)>0$ such that for $\eta\le\eta_0$ and $w\in\{\wsharp,\wsmooth\}$ the conclusions of Theorem~\ref{thm:main} hold with $\pC(1)$ replaced by $\pC(\CG)\ge0.885912$; that is, $N^s_0/N,N^*_0/N\ge0.8859-\eps$ and $N_d/N\ge0.9429-\eps$. More generally, for every admissible $w$,
+\[
+\liminf_{Q\to\infty}\inf_{T}\frac{N^s_0}{N}\ge\pC(\CG\Rw),
+\]
+where $\Rw\ge1$ is the explicit Farey constant \eqref{eqA:Rw}.
+\end{theorem}
+
+For concrete $\eta$ the constants are smaller, and the convergence in $\eta$ is slow. For fixed $\eta$ the constant $\CTp(w)$ is reduced to a finite computation (Proposition~\ref{prop:CTfixed}), and $\Rw$ is the essential supremum of an explicit finite sum \eqref{eqA:Rw}. Upper bounds for both are established by a computer-assisted computation in interval arithmetic (Appendix~\ref{app:numerics}; ancillary files \texttt{ctplus\_arb.py} and \texttt{rw\_arb.py}, with their output logs). These bounds and the exact rational evaluations of Proposition~\ref{prop:cert} (which also enter Theorems~\ref{thm:main} and~\ref{thm:gauss}) are the computer-assisted inputs of the following theorem.
+
+\begin{theorem}[Fixed $\eta$]\label{thm:fixed}
+Let $w=\wsmooth$.
+\begin{enumerate}[label=(\roman*)]
+\item For $\eta=10^{-3}$: $\CTp(w)\le1.0911$, and hence $\liminf_{Q}\inf_TN^s_0/N\ge0.9155$ and $\liminf_Q\inf_TN_d/N\ge0.9577$.
+\item For $\eta=10^{-4}$: $\CTp(w)\le1.0434$, and hence $\liminf_{Q}\inf_TN^s_0/N\ge0.9241$ and $\liminf_Q\inf_TN_d/N\ge0.9620$.
+\item (Gauss route.) For $\eta=10^{-3},10^{-4},10^{-5}$: $\Rw\le1.0599,\ 1.0289,\ 1.0159$, and hence $\liminf_Q\inf_TN^s_0/N\ge0.8744,\ 0.8802,\ 0.8827$ respectively.
+\end{enumerate}
+The same bounds hold for $N^*_0/N$. The lower bounds for $\pC$ used here are exact rational certificates (Proposition~\ref{prop:cert}).
+\end{theorem}
+
+\medskip\noindent\emph{Heights polynomial in $Q$.} The zero counts $N_\chi$, $N^s_{0,\chi}$, $N^*_{0,\chi}$, $N_{d,\chi}$ and their weighted sums are defined in the same way for every $T>1$, with $I=(T,2T]$. For $T>1$ put
+\begin{equation}\label{eq:bet}
+\lstar:=\log(QT),\qquad \bet(\kappa):=\frac{2+\kappa}{1+\kappa}\quad(\kappa\ge0),\qquad \bet_T:=\bet\Big(\frac{\log T}{\log Q}\Big)=\frac{\log(Q^2T)}{\log(QT)} .
+\end{equation}
+At height $t\asymp T$ the zeros of $L(s,\chi)$, $\chi\in\cF$, have density $\frac1{2\pi}\log\frac{qt}{2\pi}=\frac{\lstar}{2\pi}+O(1+\log\frac1\eta)$, so $\lstar$ is the relevant log-conductor, and $\bet_T$ is the length $Q^2T$ of Gallagher's hybrid large sieve \cite{Gal70} measured in units of $\lstar$. For $\bet\in[1,2]$ and a nondecreasing $F:[0,\bet]\to[0,\infty)$ put
+\begin{equation}\label{eq:pbeta}
+\pC(\bet;F):=2-\inf\Big\{\Qf_F(f):\ f\ge0\text{ even},\ f\in L^2,\ \supp f\subset[-\tfrac\bet2,\tfrac\bet2],\ \int f=1\Big\},
+\end{equation}
+where $\Qf_F(f):=\int f^2+\iint f(x)f(y)F(|x-y|)\dd x\dd y$, as in Proposition~\ref{prop:second}. Thus $\pC(2;F_C)=\pC(C)$ is the constant \eqref{eq:pC}, and $\pC(1;F_1)=0.6725\ldots$ is the Montgomery--Taylor constant \cite{Mon73,Mon75}; $\bet\mapsto\pC(\bet;F_C)$ is nondecreasing and continuous (Lemma~\ref{H:lem:Mbeta}).
+
+\begin{theorem}[Polynomial height]\label{thm:poly}
+Fix $a_0>0$ and $\kappa_1>0$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{(Sharp route.)} For every $\eps>0$ there is $\eta_0(\eps)>0$, independent of $a_0$ and $\kappa_1$, such that for every $\eta\in(0,\eta_0]$ and $w\in\{\wsharp,\wsmooth\}$
+\[
+\liminf_{Q\to\infty}\ \inf_{\ell^{a_0}\le T\le Q^{\kappa_1}}\Big(\frac{N^s_0}N-\pC(\bet_T;F_1)\Big)\ \ge\ -\eps,
+\]
+and the same holds for $N^*_0/N$; for $N_d/N$ it holds with $\pC(\bet_T;F_1)$ replaced by $\frac12(1+\pC(\bet_T;F_1))$.
+\item \emph{(Gauss route.)} For fixed $\eta$ and admissible $w$, $\liminf_{Q\to\infty}\inf_{\ell^{a_0}\le T\le Q^{\kappa_1}}\big(N^s_0/N-\pC(\bet_T;F_{\CG\Rw})\big)\ge0$; likewise for $N^*_0$, and for $N_d$ with $\frac12(1+\pC(\bet_T;F_{\CG\Rw}))$.
+\item \emph{(Classical route.)} The conclusion of (b) holds with $\CG\Rw$ replaced by $\Ccl(w):=\wmax/(\Ec\WIw)$. Its proof uses, besides the zero side, only flattening, time localisation, the classical large sieve \eqref{eq:MVLS} and the mass asymptotic of Lemma~\ref{lem:WH}; neither Lemma~\ref{lem:A} nor \S\ref{ssec:toeplitz} is used.
+\end{enumerate}
+In particular, for fixed $\kappa>0$ and $T=Q^\kappa$, (a) gives $\liminf_{Q\to\infty}N^s_0/N\ge\pC\big(\frac{2+\kappa}{1+\kappa};F_1\big)-\eps$.
+\end{theorem}
+
+For $w=\one_{[\eta,1]}$ one has $\Ccl(w)=2/(\Ec(1-\eta^2))\le4.175$ for $\eta\le0.0146$ (with the certified bound $\Ec\ge0.47914533$ of Table~\ref{tab:numerics} the threshold is $0.01469\ldots$; ancillary file \texttt{classical\_constant\_check.py}); for the dyadic weight $w=\one_{[1/2,1]}$, $\Ccl(w)=8/(3\Ec)=5.56546\ldots\le5.5657$.
+
+\begin{corollary}[The dyadic family]\label{cor:dyadic}
+Fix $a_0>0$. For the family of primitive characters of conductor $q\in[Q/2,Q]$ with the weights $q/\varphi(q)$, uniformly for $\ell^{a_0}\le T\le Q^{\kappa}$, the weighted proportion of simple zeros on the critical line with $T<\gamma\le2T$ is at least $0.7224-o(1)$ for $\kappa=3$, $0.7203-o(1)$ for $\kappa=5$ and $0.7102-o(1)$ for $\kappa=10$, where $o(1)\to0$ as $Q\to\infty$ uniformly in $T$.
+\end{corollary}
+
+The constants in Theorem~\ref{thm:poly} and Corollary~\ref{cor:dyadic} are exact rational certificates (Proposition~\ref{H:prop:cert}). Since $\bet(\kappa)$ decreases and $\pC(\bet;F)$ is nondecreasing in $\bet$, a value in the row $\kappa$ holds uniformly for all $T\le Q^\kappa$:
+\begin{center}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$\kappa$ & $\bet(\kappa)$ & $\pC(\bet;F_1)\ge$ & $\frac12(1+\pC(\bet;F_1))\ge$ & $\pC(\bet;F_{1.2688})\ge$ & $\pC(\bet;F_{4.175})\ge$ & $\pC(\bet;F_{5.5657})\ge$ \\
+& & (a) & (a), distinct & (b), $\eta\to0$ & (c), $\one_{[\eta,1]}$ & Cor.~\ref{cor:dyadic}\\
+\midrule
+$0$ & $2$ & $0.932282$ & $0.966141$ & $0.885912$ & $0.738253$ & $0.722418$\\
+$1/4$ & $9/5$ & $0.912574$ & $0.956287$ & $0.876420$ & $0.738255$ & --\\
+$1/2$ & $5/3$ & $0.894985$ & $0.947492$ & $0.865967$ & $0.738256$ & $0.722422$\\
+$1$ & $3/2$ & $0.865673$ & $0.932836$ & $0.845721$ & $0.738258$ & $0.722424$\\
+$2$ & $4/3$ & $0.824355$ & $0.912177$ & $0.813189$ & $0.738246$ & $0.722426$\\
+$3$ & $5/4$ & $0.797213$ & $0.898606$ & $0.790061$ & $0.736919$ & $0.722416$\\
+$5$ & $7/6$ & $0.764149$ & $0.882074$ & $0.760485$ & $0.730269$ & $0.720310$\\
+$10$ & $12/11$ & $0.727484$ & $0.863742$ & $0.726227$ & $0.714688$ & $0.710252$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The row $\kappa=0$ is the polylogarithmic range. The column $F_{1.2688}$ is the limit $\eta\to0$ of Theorem~\ref{thm:poly}(b) for the log-wide weights. Each entry is a lower bound from an explicit step function with $400$ cells at its own support; finer step functions ($800$ cells) give values larger by at most $10^{-6}$ in the columns for (a) and (b), and by at most $9\cdot10^{-6}$ in the column for (c); the entries need not be monotone in $\kappa$ in the sixth decimal (discretisation), although $\kappa\mapsto\pC(\bet(\kappa);F)$ is nonincreasing. As $\kappa\to0$, Theorem~\ref{thm:poly}(a) contains Theorem~\ref{thm:main}, and its proof in \S\ref{sec:poly} specialises to a proof of that theorem with a different localisation scale. As $\kappa\to\infty$ the sharp constant decreases to the Montgomery--Taylor value $\pC(1;F_1)=0.6725\ldots$, the value obtained for a single primitive character as $T\to\infty$ in \cite[Theorem~B]{AF26}; $\bet_T$ is the limit of worst-case large sieve bounds at height $T$ (Proposition~\ref{H:prop:ceiling}). As for Theorem~\ref{thm:main}, no effective value of $Q$ is claimed, and the thresholds are larger still: for $\kappa_1=10$, \eqref{H:eq:eps5} gives $\eps_5\le1/(32(1+\kappa_1)^2)\approx2.6\cdot10^{-4}$, and the tail term $T^{-\eps_5/2}\log T$ of Corollary~\ref{H:cor:tails} is below $10^{-2}$ only once $\log T\ge1.27\cdot10^5$.
+
+\subsection{Context}
+Table~\ref{tab:context} places Theorem~\ref{thm:main} among related results. The normalisations differ (see the notes), so the table compares mechanisms rather than identical statements.
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llllc@{}}
+\toprule
+Reference & Object & Statistic & Proportion & Hypothesis\\
+\midrule
+Montgomery \cite{Mon73} & $\zeta$ & simple & $2/3$ & RH\\
+Montgomery--Taylor \cite{Mon75} & $\zeta$ & simple & $0.6725$ & RH\\
+Chirre--Gon\c calves--de Laat \cite{CGdL} & $\zeta$ & simple & $0.6792$ & RH\\
+Alp\"oge--Furman \cite{AF26} & $\zeta$ & simple, on line & $0.6725$ & none\\
+Lamzouri \cite{Lam26} & $\zeta$ & simple, on line & $0.6725$ & none\\
+Wang \cite{Wang26} & $\zeta$ & simple, on line & $0.6725+\delta_0^{(c)}$ & none\\
+Hua--Yang \cite{HY26,HY26b} & $\chi\bmod q$, $q$ prime & simple, on line & $0.6725$ & none\\
+Pr\"uzelius \cite{Pru26} & $\chi\bmod q$, $q$ prime & simple, on line & $2/3$ & none\\
+Fabbian \cite{Fab26} & $S_2(N)$ newforms, $N$ prime & simple, on line & $0.6725$ & none\\
+Dickinson \cite{Dic24} & primitive $\chi\bmod q$ & simple, on line$^{(e)}$ & $0.382$ & none\\
+\cite[Rem.~7.2]{AF26} (announced) & primitive $\chi$, $q\le Q$ & simple, on line & $0.811^{(a)}$ & none\\
+Conrey--Iwaniec--Soundararajan \cite{CIS13} & primitive $\chi$, $q\sim Q$ & simple, on line$^{(b)}$ & $0.56$ & none\\
+Sono \cite{Sono25} & even primitive $\chi$, $q\sim Q$ & simple, on line$^{(b)}$ & $0.6044$ & none\\
+Wu \cite{Wu16} & primitive $\chi$, $q\sim Q$ & simple$^{(b)}$ & $0.6024$ & none\\
+Conrey et al.\ \cite{CKLT26} & $\mathrm{GL}_2$ form $\times\chi$, $q\le Q$ & simple, on line$^{(b)}$ & $1/3$ & none\\
+\"Ozl\"uk \cite{Ozl96} & all $\chi\bmod q$, $q\sim Q$ & simple & $0.8688$ & GRH\\
+Chandee--Lee--Liu--Radziwi\l\l{} \cite{CLLR} & primitive $\chi$ & simple & $11/12$ & GRH\\
+Sono \cite{Sono16} & primitive $\chi$ & simple & $0.9322$ & GRH\\
+Chirre--Gon\c calves--de Laat \cite{CGdL} & primitive $\chi$ & simple & $0.9350$ & GRH\\
+\midrule
+Theorem~\ref{thm:gauss} & primitive $\chi$, weights \eqref{eq:omega} & simple, on line & $0.8859-\eps$ & none\\
+Theorem~\ref{thm:main} & primitive $\chi$, weights \eqref{eq:omega} & simple, on line & $0.9322-\eps$ & none\\
+Theorem~\ref{thm:poly}, $T\le Q$ & primitive $\chi$, weights \eqref{eq:omega} & simple, on line & $0.8656-\eps^{(d)}$ & none\\
+\bottomrule
+\end{tabular}
+\caption{Proportions of simple and critical zeros. $^{(a)}$~Announced without details, for smooth weights $(1-q/Q)^2$ at bandwidth $3/2$; see \S\ref{rem:AF72}. $^{(b)}$~By mollified moments and the asymptotic large sieve \cite{CIS-ALS}: \cite{CKLT26} for the twists by primitive $\chi$, $(q,q_\Pi)=1$, of a fixed $\mathrm{GL}_2$ form and zeros with $|\gamma|\le Q^{\eps}$; \cite{CIS13} for $(\log Q)^6\le T\le(\log Q)^A$ and zeros with $|\gamma|\le T$, and \cite{Wu16} in the same range (also $0.8012$ for distinct zeros); \cite{Sono25} for $(\log Q)^2\le T\le(\log Q)^A$ and $T\le\gamma<2T$, with $0.6107$ for critical zeros. The GRH results \cite{Ozl96,CLLR,Sono16,CGdL} weight low-lying zeros near the central point by $|\widehat\Phi(i\gamma)|^2$; the results of this paper and of \cite{HY26,HY26b,Pru26,Fab26} count zeros with $T<\gamma\le2T$, at height $T$ at most polylogarithmic in the conductor in Theorems~\ref{thm:main}--\ref{thm:fixed} and \cite{HY26,Pru26,Fab26}, at every sub-polynomial height $T=q^{o(1)}$ with $(\log q)^s=o(T)$ for some fixed $s>1$ in \cite{HY26b}, and at height up to $Q^{\kappa_1}$ in Theorem~\ref{thm:poly}. The bandwidth of \cite{HY26,HY26b,Pru26,Fab26} is at most $1$. In \cite{Fab26} the newforms of weight $2$ and prime level $N$ are averaged with the harmonic (Petersson) weights. $^{(c)}$~Here $0.6725$ stands for the Montgomery--Taylor constant $0.67250\ldots$, and $\delta_0=6.66\ldots\cdot10^{-8}$. $^{(d)}$~For heights $T\le Q$; for $T\le Q^\kappa$ the constant is $\pC(\frac{2+\kappa}{1+\kappa};F_1)-\eps$, e.g.\ $0.7641-\eps$ for $T\le Q^5$. $^{(e)}$~By Levinson's method, with a twisted second moment uniform in $q$ and $t$: for every modulus $q$, on average over the primitive $\chi\bmod q$, zeros with $0<\gamma<T$ as $qT\to\infty$ with $T\gg q^{\eps}$, so heights polynomial in $q$ are included.}
+\label{tab:context}
+\end{table}
+
+\emph{Polynomial height.} Theorems~\ref{thm:main}--\ref{thm:fixed} concern polylogarithmic heights, and the other unconditional results for Dirichlet families in Table~\ref{tab:context} with a proportion above $1/2$ (apart from the announcement \cite[Rem.~7.2]{AF26}, which gives no details) concern heights that are sub-polynomial in the conductor, except that the bound of \cite{HY26b} at height $T=q^\theta$ (see below) stays above $1/2$ for $\theta$ below about $0.23$, and above $2/3$ for $\theta$ below about $0.0085$: \cite{HY26b} obtains the Montgomery--Taylor constant at every height $T=q^{o(1)}$ with $(\log q)^s=o(T)$ for some fixed $s>1$. The closest unconditional result at height polynomial in the conductor that we know for Dirichlet $L$-functions is due to Dickinson \cite[Theorem~1.4, Corollary~1.1]{Dic24}: for every modulus $q$, on average over the primitive characters modulo $q$, at least $38.2\%$ of the zeros with $0<\gamma<T$ are simple and on the critical line, as $qT\to\infty$ with $T\gg q^{\eps}$; this comes from Levinson's method and a twisted second moment that is uniform in $q$ and $t$. At height $T=q^{\theta+o(1)}$ the bandwidth of \cite{HY26b}, for the characters modulo one prime $q$, is $1/(1+\theta)$ \cite[Remark~2.4]{HY26b}, which gives $0.601$ at $\theta=0.1$, $0.486$ at $\theta=\frac14$, $0.279$ at $\theta=\frac12$, and nothing for $\theta\gtrsim0.8$. By Levinson's method, Conrey, Kwan, Lin and Turnage-Butterbaugh \cite[Corollaries~1.13, 1.14]{CKLT26} show, for the twists of a fixed $\mathrm{GL}_2$ form by primitive $\chi$, $(q,q_\Pi)=1$, that on average over the family a positive proportion of the zeros with $|\gamma|\le Q^{\varpi}$ lie on the critical line for every $\varpi<1$ (at least $(1-\varpi)/(3(1+\varpi))$), and that a positive proportion of those with $|\gamma|\le Q^{1/2-\eps}$ are simple and on the line; for the twists of a self-dual $\mathrm{GL}_3$ form they obtain at least $1/9$ on the line for $|\gamma|\le Q^{\eps}$, and a smaller positive proportion for $|\gamma|\le Q^\varpi$, $\varpi<\frac13$. These are $L$-functions of degree $2$ and $3$, and the proportions are about $1/3$ or less (in a footnote they note that Conrey's modification of Levinson's method raises the $1/3$ slightly, to $36.58\%$). Garun\v{k}\v{s}tis and Paliulionyt\.e \cite{GP25} prove an unconditional pair-correlation theorem for individual Dirichlet $L$-functions. In a targeted search of arXiv (math.NT, announcements through 28~September~2026) and Zenodo we found no statement of Theorem~\ref{thm:poly}, and, apart from \cite{HY26b} at heights $T=q^\theta$ with $\theta$ below about $0.0085$, no unconditional bound above $2/3$ for a family of Dirichlet $L$-functions at height polynomial in the conductor.
+
+\subsection{Relation to previous large-sieve work}\label{sec:priorLS}
+The positivity certificate is that of \cite{AF26,HY26} (\S\ref{sec:method}), and the constant $\pC(1)=0.93228\ldots$ was obtained by Sono under GRH for a different statistic \cite{Sono16} (for that statistic \cite{CGdL} obtained the larger constant $0.9350$ under GRH; see \S\ref{sec:grhcomp}). Theorem~\ref{thm:main} is thus an unconditional theorem that reaches an existing extremal constant; the constant itself is not new. What is new is the large-sieve input of \S\ref{sec:constants} and the way it is applied. Several of its ingredients are classical.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item \emph{Counting Farey points near a rational.} Write $S_x(\theta)=\sum_nx_ne(n\theta)$, with $e(\theta)=e^{2\pi i\theta}$, for $x$ supported on $N$ consecutive integers. Wolke \cite{Wol71} proved $\sum_{p\le Q}\sum_{b=1}^{p-1}|S_x(b/p)|^2\le c\,(1-\delta)^{-1}Q^2\frac{\log\log Q}{\log Q}\|x\|^2$ for $Q\ge10$ and $N=Q^{1+\delta}$, $0<\delta<1$, with an absolute constant $c$, by counting Farey fractions with prime denominator in short intervals. Baier \cite[\S4]{Bai06} developed Wolke's method for general sparse sets of moduli. The large sieve is bounded through the maximal number of Farey points in a short interval; the centre of the interval is approximated by a rational (Dirichlet's theorem), and the Farey points near it are counted through moduli in arithmetic progressions. The constants there are unspecified absolute constants. Proposition~\ref{prop:count} and Lemma~\ref{lem:C} use the same geometry: a Dirichlet approximation $u/v$ of the centre, and the spokes $k=vb-uq$. They replace the maximal count by a Fej\'er majorant, duality and Schur's test (Lemma~\ref{lem:dual}), and they evaluate the main term exactly. This is what produces the explicit local profiles $\Pw$ and $R_S$ instead of bounds up to a constant.
+\item \emph{The identity on sifted vectors.} Put $G_q(Q):=\frac q{\varphi(q)}\sum_{\ell\le Q/q,\,(\ell,q)=1}\frac{\mu^2(\ell)}{\varphi(\ell)}$. If $x$ is supported on integers with no prime factor $\le Q$, then
+\[
+\sum_{q\le Q}G_q(Q)\sumst_{\chi\bmod q}\Big|\sum_nx_n\chi(n)\Big|^2=\sum_{q\le Q}\ \sumst_{a\bmod q}|S_x(a/q)|^2 .
+\]
+This is the case of the invertible residue classes in Ramar\'e's identity \cite[Thm.~2.1]{Ram09}; see the proof of \cite[Thm.~2.3]{Ram09}, where it yields the inequality of Bombieri and Davenport \cite{BD68}. Lemma~\ref{lem:toeplitz} is the same computation for general weights $\omega(q)$: the weights $\omega(q)=G_q(Q)$ give $\Omega(e)=\one_{e\le Q}$ (Remark~\ref{rem:toeplitz}(d)). For the weights \eqref{eq:omega}, $\Omega(e)$ has a negative part, and the Toeplitz form is not positive semidefinite on all vectors.
+\item \emph{Large sieves for sifted sequences.} Ramar\'e \cite[Thms.~5.2, 5.3]{Ram09} improves the large sieve inequality for sequences carried by a sifted set. For instance, if $x_n=0$ whenever $n$ has a prime factor $<\sqrt N$, and $N\ge100$, then
+\[
+\sum_{q\le Q_0}\ \sumst_{a\bmod q}|S_x(a/q)|^2\le7N\,\frac{\log Q_0}{\log N}\,\|x\|^2\qquad(Q_0\le\sqrt N).
+\]
+Ramar\'e's recent papers \cite{Ram26,Ram26b} derive arithmetic forms of the weighted large sieve for sifted sets from Parseval's identity and the Farey dissection. These results concern additive forms, or sums, of sifted sequences. They do not treat the primitive-character family with the weights \eqref{eq:omega}, and they contain no analogue of the normalised constant $\CTp(w)$ below.
+\item \emph{The approximant $\LamR$} goes back to Selberg and was used by Goldston and by Goldston and Y{\i}ld{\i}r{\i}m (\S\ref{sec:flat}). Vaughan \cite{Vau03a} uses it, mainly at small levels $R\le(\log x)^A$, for moments of primes in arithmetic progressions. We use it at the levels $R_j\asymp N_j^{1-\eps_3}/(QT)$ and need only the upper bound of Lemma~\ref{lem:B2}.
+\end{enumerate}
+Accordingly, we do not claim as new the Toeplitz identity, the duality and Schur-test argument, the rational approximation and spoke counting, the Gauss-sum transfer, or the approximant $\LamR$. We claim as new the following two statements.
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item \emph{A positive Toeplitz envelope, defined on all vectors, whose constant tends to $1$.} This consists of three parts, for the weights \eqref{eq:omega}.
+\begin{itemize}
+\item The explicit normalised local profile $R_S$ of the signed Farey measure $\muO$, uniformly over finite sets $S$ of primes (Definition~\ref{def:RS}, Lemma~\ref{lem:fS}).
+\item An explicit positive measure $\mu^\natural\ge\muO^+$, whose Toeplitz form $T^\natural$ is positive semidefinite and defined on all vectors (Lemma~\ref{lem:S}).
+\item On intervals of $K\le Q^{2-\eps}$ integers, $\lambda_{\max}(T^\natural_I)\le(\CTp(w)+o(1))H$ (Proposition~\ref{prop:sharpLS}). Here $\CTp(w)\le1+42/\log(1/\eta)$ for $\wsharp$ and $\CTp(w)\le1+83/\log(1/\eta)$ for $\wsmooth$, if $\eta\le e^{-3}$ (Lemma~\ref{lem:CTlimit}).
+\end{itemize}
+On vectors supported on $Q$-rough integers (all of whose prime factors exceed $Q$), $T^\natural$ dominates the family form. The normalised family large-sieve constant on such vectors is therefore at most $\CTp(w)$, and the value $1$ is optimal. The error term of Proposition~\ref{prop:sharpLS} grows like $\eta^{-2}$, so these statements are for fixed $\eta$ as $Q\to\infty$.
+\item \emph{The transfer to the flattened vector.} The flattened prime vector is not supported on $Q$-rough integers. Above the band around $\alpha=1$, the localised prime vector (not the flattened one) is split into its $Q$-rough part and prime powers. The identity and Lemma~\ref{lem:S} are applied to the rough part. Only then, inside $T^\natural$, is the rough part rewritten through the flattened coefficients and the localised subtracted vector. The subtracted vector is resonant at low denominators, where the additive large sieve bounds it with a saving in length; at high denominators Poisson summation makes it negligible (Proposition~\ref{prop:TIsharp}).
+\end{enumerate}
+The Farey constant $\Rw$ of the Gauss route (Lemmas~\ref{lem:A} and~\ref{lem:Rwlog}) is a result of the same kind as (i), for the additive Farey measure; it enters only Theorem~\ref{thm:gauss}. We found neither (i) nor (ii) in the sources above. Our literature search was targeted rather than exhaustive, and we claim no priority beyond it.
+
+\subsection{What is claimed and what is not}\label{sec:scope}
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item \emph{Weighted averages.} Theorems~\ref{thm:main}--\ref{thm:poly} bound ratios of \emph{weighted family totals}. The weights $\omega_\chi$ are part of the statement. They are positive and, for fixed $\eta$, bounded by $\eta^{-2}\,q/\varphi(q)\ll\eta^{-2}\log\log Q$. Every dyadic range of conductors carries comparable total weight; this spreading over logarithmic scales is essential to the constants (\S\ref{sec:weights}).
+\item \emph{Heights.} The zeros counted have ordinates in $(T,2T]$ with $(\log Q)^{a_0}\le T\le(\log Q)^{A_0}$. We call them \emph{low-lying} only in this sense. In units of the mean spacing $2\pi/\log q$ the window contains $\asymp T\ell\to\infty$ zeros of each $L(s,\chi)$; this is not the one-level-density regime of a fixed normalised window at the central point, and it is also not the regime $T\to\infty$ with $q$ fixed. Theorem~\ref{thm:poly} allows $(\log Q)^{a_0}\le T\le Q^{\kappa_1}$ with $\kappa_1$ fixed; those zeros are at height polynomial in the conductor and are not low-lying in any sense. Heights $T>Q^{\kappa_1}$ with $\kappa_1\to\infty$ are \emph{not} covered (\S\ref{H:sec:superpoly}).
+\item \emph{No individual $L$-functions.} Nothing is asserted about any single $L(s,\chi)$ or about a single modulus. Characters with few simple critical zeros are possible; they carry a small proportion of the total weight.
+\item \emph{Lower bounds only.} We do not show that the remaining zeros lie off the line. Off-line zeros and multiple zeros are not distinguished by the method.
+\item \emph{Unconditional.} No form of GRH, no zero-free region for any $L(s,\chi)$ and no hypothesis on exceptional zeros is used (the prime number theorem for $\zeta$ is used in Lemma~\ref{lem:B2}); the only information about zeros off the line is Montgomery's classical zero-density theorem \cite{Mon69}, used to discard a negligible set of characters. An exceptional zero merely removes its character from the certificate, at negligible cost. The same holds for Theorem~\ref{thm:poly}: Montgomery's theorem is used there exactly as here, at heights at most $e^{1/2}Q^{1/4}$ (\S\ref{H:sec:exterior}).
+\item \emph{Not RH-moving.} Theorems~\ref{thm:main}--\ref{thm:fixed} say nothing about zeros at heights beyond $(\log Q)^{A_0}$, Theorem~\ref{thm:poly} nothing about heights beyond $Q^{\kappa_1}$, and none of them anything about an individual zero; for $\zeta$ the method stops at bandwidth $1$ (\S\ref{sec:limits}).
+\item \emph{Kinds of verification.} Three kinds are kept apart (\S\ref{ssec:checked}). The numerical inputs are certified by exact rational or interval arithmetic. Theorem~\ref{thm:main} is also proved formally in Lean~4, with no hypotheses and only Lean's standard axioms; what the machine checks is the Lean statement, and its agreement with Theorem~\ref{thm:main} as displayed above is a correspondence of definitions that the reader can check. Theorems~\ref{thm:gauss} and~\ref{thm:fixed} and Lemma~\ref{lem:A} are not formalised; they rest on the written proofs and on the certified numerics. Theorem~\ref{thm:poly}(a) is also proved formally in Lean~4, with no hypotheses and only Lean's standard axioms; again the machine checks the Lean statement, and its agreement with Theorem~\ref{thm:poly}(a) as displayed above is a correspondence of definitions that the reader can check. Theorem~\ref{thm:poly}(b), (c) and Corollary~\ref{cor:dyadic} are not formalised; they rest on the written proofs of \S\ref{sec:poly} and on the certified numerics of Proposition~\ref{H:prop:cert}.
+\end{enumerate}
+
+\subsection{The method}\label{sec:method}
+The starting point is the finite compression of Weil's Hermitian form introduced in \cite{AF26} (the argument of \cite{AF26} is due to Claude, as recorded there) and ported to the family of characters modulo a large prime in \cite{HY26,HY26b} (see also \cite{Pru26}), where the bandwidth is at most $1$; it has also been transferred to the weight-$2$ newforms of prime level with Petersson weights \cite{Fab26}, again at bandwidth at most $1$. For each $\chi$ one builds a real symmetric $d\times d$ matrix $G_\chi$ by sampling the explicit formula against a Gabor system of bandwidth $L=\lambda\ell$. Its zero side is a sum of rank-one blocks over zeros; critical-line zeros give positive semidefinite blocks and off-line pairs give blocks with at most one positive eigenvalue. A rank--trace inequality (Lemma~\ref{lem:ranktrace}) turns this block structure into a lower bound for $N^s_{0,\chi}$ in terms of the trace and the Frobenius norm of the part $\hA_\chi$ of the normalised matrix that comes from zeros with ordinates in $(T,2T]$ (Proposition~\ref{prop:perchi}). After the exterior zeros and a negligible set of characters are removed (\S\ref{sec:zero}), these are replaced by $\tr\hG_\chi$ and $\|\hG_\chi\|_\Fro^2$, which are computed from the prime side of the explicit formula. The certificate is valid character by character, so it may be summed with any nonnegative weights.
+
+The trace is easy. The Frobenius norm is a pair-correlation sum: after the explicit formula it becomes
+\[
+\sum_{\chi}\omega_\chi\iint_{J^2}\Phi(t-t')^2\nu_\chi(t)\nu_\chi(t')\dd t\dd t',
+\]
+whose prime part is governed by the quadratic form $\Delta(n,m)=\sum_\chi\omega_\chi\chi(n)\overline{\chi}(m)$ restricted to $n,m\le Q^{\lambda}$. For $\lambda<1$ it is essentially diagonal on the relevant range (for a single prime modulus $q>Q^\lambda$ exactly so, by orthogonality); this is the situation of \cite{AF26,HY26}, and it gives the Montgomery--Taylor constant $0.6725$. (For $\zeta$ the corresponding unconditional input in \cite{AF26,Lam26} is the pair-correlation theorem of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh \cite{BGSTB24}.) The certificate only needs an \emph{upper} bound for this form, and an upper bound for a positive semidefinite form is exactly what a large sieve inequality provides. We use three devices to make the upper bound sharp enough to be useful up to $\lambda=2$.
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item \emph{Flattening.} Subtracting from $\Lambda(n)$ a truncated divisor sum $\Lambda_R(n)$, at a level $R=R_j\le N_j^{1-\eps_3}/(QT)$ fixed on each dyadic block $n\asymp N_j$, changes no character sum $S_\chi(t)$, $\chi\in\cF$, $|t|\le3T$, by more than $O(Q^{-A})$ (Lemma~\ref{lem:B1}), but lowers the mean square of the coefficients from $\log n$ to about $\log Q$ (Lemma~\ref{lem:B2}). This is where the form factor acquires the plateau $\min(\alpha,1)$.
+\item \emph{Time localisation.} The time integral in $\cK(n,m)$ couples $n$ and $m$ with weight decaying like $1/(T|\log(n/m)|)$; localising to $|\log(n/m)|\lesssim T^{-1/2}$ costs a relative error $O(T^{-1/4})$ (Lemmas~\ref{lem:M1}--\ref{lem:M3}). Hence only large sieve constants for vectors supported on intervals of length about $n/\sqrt T$ are needed. For $n\le Q^{1-\eps}$ the Gram matrix is trivially diagonally dominant on such intervals, which gives the exact form factor $\alpha$ on $[0,1)$.
+\item \emph{A sharp constant on $(1,2)$.} For $\alpha>1$ we need the large sieve constant of the primitive family on intervals of length $K\in[Q^{1-\eps},Q^{2-\eps}]$, normalised by $H$. The Gauss-sum transfer followed by a sharp weighted Farey large sieve (Lemma~\ref{lem:A}) gives $\CG\Rw$, and $\Rw\to1$ for log-wide weights; this yields Theorem~\ref{thm:gauss}. For vectors supported on integers free of prime factors $\le Q$, the family form is \emph{exactly} a Toeplitz form attached to a signed Farey measure (Lemma~\ref{lem:toeplitz}). Adding a positive majorant of the negative part of this measure gives a positive semidefinite Toeplitz form $T^\natural$ defined on \emph{all} vectors (Lemma~\ref{lem:S}). Its constant $\CTp(w)$, on intervals of length at most $Q^{2-\eps}$, is a supremum of explicit local densities, and $\CTp(w)\to1$ for log-wide weights (Lemma~\ref{lem:CTlimit}). Above the band around $\alpha=1$ the flattened vector, which is not sifted, enters only through $T^\natural$, after a swap inside that form (Proposition~\ref{prop:TIsharp}). This yields Theorem~\ref{thm:main}.
+\end{enumerate}
+The bandwidth barrier at $\lambda=2$ is the classical one: for intervals longer than $Q^2$ the length term of the large sieve dominates the family mass $H\asymp Q^2$ (\S\ref{sec:limits}).
+
+\emph{Polynomial height.} At height $T$ the bandwidth is measured in units of the log-conductor $\lstar=\log(QT)$, and three changes carry the argument up to every bandwidth $\lambda<\bet_T$ (\S\ref{sec:poly}). Every occurrence of $\ell$ that measures the density of zeros, the bandwidth or the flattening becomes $\lstar$; in particular the flattened diagonal density is $\min(\alpha,1)$ in units of $\lstar$. The time localisation is at scale $T^{-1+\eps_5}$ instead of $T^{-1/2}$; then the localised vectors live on intervals of about $e^u/T^{1-\eps_5}$ integers, so the family large sieve on intervals of at most $Q^{2-\eps}$ integers reaches $n\le Q^{2-\eps}T^{1-\eps_5}$, i.e.\ $\alpha<\bet_T$: this converts height into bandwidth. And the tails of the localisation, which were bounded above through $\Lmult(\Yc)\le2\wmax Q^2$ (valid only for $\Yc\le Q^2$), are bounded by dyadic shells and the classical large sieve (Lemma~\ref{H:lem:M3prime}). The large sieve constants of \S\ref{sec:constants} concern intervals of at most $Q^{2-\eps}$ integers, independently of $T$, and are used verbatim; on the zero side nothing new is needed. A worst-case bound cannot go beyond $\bet_T$ (Proposition~\ref{H:prop:ceiling}).
+
+\subsection{Organisation}
+Section~\ref{sec:setup} fixes notation, the explicit formula and the Gabor matrix. Section~\ref{sec:certificate} states the per-character certificate and reduces everything to an upper bound for the weighted second moment. Section~\ref{sec:zero} carries out the zero-side analysis for the weighted family, following \cite{HY26}. Section~\ref{sec:prime} evaluates the second moment up to the ratio terms and contains the flattening and time-localisation lemmas. Section~\ref{sec:constants} proves the two large-sieve constants. Section~\ref{sec:variational} treats the variational problem and assembles the proofs. Section~\ref{sec:remarks} discusses limitations. Appendix~\ref{app:numerics} lists the computations, separately from the proofs. Appendix~\ref{app:ported} proves the explicit formula and the rank--trace inequality; together with the proofs in \S\S\ref{sec:setup}--\ref{sec:zero}, this makes the paper independent of \cite{AF26,HY26} for correctness, which are cited for attribution. Section~\ref{sec:poly} extends the results to heights polynomial in $Q$ (Theorem~\ref{thm:poly}, Corollary~\ref{cor:dyadic}). Table~\ref{tab:deps} records which results each main theorem depends on.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{12.9cm}@{}}
+\toprule
+Theorem & Inputs\\
+\midrule
+all three & Proposition~\ref{prop:zero} (Sections~\ref{sec:certificate}--\ref{sec:zero}: Lemmas~\ref{lem:blocks}, \ref{lem:ranktrace}, \ref{lem:RvM}, \ref{lem:pointwise}, \ref{lem:tails}, \ref{lem:bad} with \cite{Mon69}; Propositions~\ref{prop:perchi}, \ref{prop:finitecentre}, \ref{prop:trace}, \ref{prop:tail}; the explicit formula of Appendix~\ref{app:ported}); Proposition~\ref{prop:second} (Lemmas~\ref{lem:mumu}, \ref{lem:muLambda}, \ref{lem:ss}, \ref{lem:B1}, \ref{lem:B2}); Lemmas~\ref{lem:M1}--\ref{lem:M3}; Theorem~\ref{thm:conditional}; Lemmas~\ref{lem:windows}, \ref{lem:pLip}; Proposition~\ref{prop:cert}.\\
+\ref{thm:main} & Proposition~\ref{prop:TIsharp}, through Lemmas~\ref{lem:toeplitz}, \ref{lem:Omega}, \ref{lem:S}, \ref{lem:fS}, \ref{lem:C}, \ref{lem:CTlimit} and Proposition~\ref{prop:sharpLS}; from Section~\ref{ssec:lemmaA} only Lemmas~\ref{lem:WH}, \ref{lem:dual}, \ref{lem:harm}, Proposition~\ref{prop:count} and the layer-cake argument of Lemma~\ref{lem:Rwlog}; the classical large sieve \eqref{eq:MVLS} on the band. Not used: Lemmas~\ref{lem:A}, \ref{lem:gauss}, Corollary~\ref{cor:LmultA}.\\
+\ref{thm:gauss} & Corollary~\ref{cor:LmultA} (Lemmas~\ref{lem:gauss}, \ref{lem:A}, \ref{lem:WH}, \ref{lem:dual}, Proposition~\ref{prop:count}); Proposition~\ref{prop:TI}; Lemmas~\ref{lem:harm}, \ref{lem:Rwlog}; $\CG\le1.2688$ (certified).\\
+\ref{thm:fixed} & (i), (ii): as Theorem~\ref{thm:main} at fixed $\eta$, with Proposition~\ref{prop:CTfixed} and the interval certificates \texttt{ctplus\_arb.py}. (iii): as Theorem~\ref{thm:gauss}, with Lemma~\ref{lem:Rwfar} and the interval certificates \texttt{rw\_arb.py}.\\
+\ref{thm:poly}, \ref{cor:dyadic} & Proposition~\ref{H:prop:zero} (Lemmas~\ref{H:lem:RvM}, \ref{H:lem:pointwise}, \ref{H:lem:tails}; Propositions~\ref{H:prop:fc}, \ref{H:prop:trace}, \ref{H:prop:tail}; and the results of Sections~\ref{sec:setup}--\ref{sec:zero} listed in \S\ref{H:sec:unchanged}); Lemma~\ref{H:lem:sizes}; Lemmas~\ref{H:lem:arch}, \ref{H:lem:B1}, \ref{H:lem:B2}, \ref{H:lem:M3prime}, Corollary~\ref{H:cor:tails}; Proposition~\ref{H:prop:second}; Theorem~\ref{H:thm:cond}; Lemmas~\ref{H:lem:Mbeta}, \ref{H:lem:pLip}, \ref{H:lem:windows}; Proposition~\ref{H:prop:cert}. (a): Proposition~\ref{H:prop:TIsharp}, with the results of \S\ref{ssec:toeplitz} used for Theorem~\ref{thm:main}. (b): Proposition~\ref{H:prop:TI} with Corollary~\ref{cor:LmultA}. (c) and Corollary~\ref{cor:dyadic}: Proposition~\ref{H:prop:TI} with \eqref{eq:MVLS}.\\
+\bottomrule
+\end{tabular}
+\caption{Logical dependencies of the main theorems (numerical inputs: Appendix~\ref{app:numerics}).}\label{tab:deps}
+\end{table}
+
+%======================================================================
+\section{Setup and notation}\label{sec:setup}
+%======================================================================
+
+\subsection{Conventions}
+Throughout, $Q\to\infty$, $\ell=\log Q$, and $\varphi$ is Euler's function. $\sumst_{\chi\bmod q}$ denotes a sum over primitive characters and $\varphi^*(q)$ their number. The Fourier transform is $\widehat f(t)=\int_\RR f(u)e^{itu}\dd u$, so that $\int\widehat f\,\overline{\widehat g}=2\pi\int f\overline g$ (as in \cite[(2.11)]{HY26}). For a matrix $M$, $\|M\|_\Fro$ and $\|M\|_1$ are the Frobenius and trace norms and $n_+(M)$ is the number of positive eigenvalues of a Hermitian $M$.
+
+\subsection{The family and its masses}\label{sec:weights}
+\begin{definition}\label{def:admissible}
+A weight $w:(0,1]\to[0,\infty)$ is \emph{admissible} if it has bounded variation $V_w$, $\supp w\subset[\eta,1]$ for some $\eta\in(0,1/2)$, and $\int_0^1uw(u)\dd u>0$. Put $\wmax=\sup w$.
+\end{definition}
+Since $q\ge\eta Q\ge3$ for $Q$ large, every $\chi\in\cF$ is nonprincipal of conductor $q$. The family is closed under $\chi\mapsto\overline\chi$ and $\omega_{\overline\chi}=\omega_\chi$. Define
+\begin{equation}\label{eq:HW}
+H:=\sum_{\chi\in\cF}\omega_\chi=\sum_q w(q/Q)\frac{q\varphi^*(q)}{\varphi(q)},\qquad W:=\sum_qw(q/Q)\varphi(q).
+\end{equation}
+By Lemma~\ref{lem:WH},
+\begin{equation}\label{eq:masses}
+H=\Ec\,Q^2\!\int_0^1uw(u)\dd u+O_w(Q^{3/2}),\qquad W=\frac6{\pi^2}Q^2\!\int_0^1uw(u)\dd u+O_w(Q\log Q),
+\end{equation}
+where $\Ec=\prod_p(1-p^{-2}-p^{-3})$,
+so that $W/H\to\CG:=6/(\pi^2\Ec)\approx1.2687739$, independently of $w$. (The proof, which is elementary, is given in \S\ref{ssec:lemmaA}; $\Ec$ is the mean value of $\varphi^*(q)/\varphi(q)$.)
+Numerically $\Ec=0.4791453444\ldots$, and $\Ec\in[0.47914533,0.47914535]$, $\CG<1.26877393$ are certified in interval arithmetic (Appendix~\ref{app:numerics}). The factor $q/\varphi(q)$ in \eqref{eq:omega} is chosen so that the Gauss-sum transfer of \S\ref{ssec:lemmaA} produces the smooth additive weights $w(q/Q)$; it also makes the Toeplitz measure of \S\ref{ssec:toeplitz} locally uniform for log-wide $w$. We note $\omega_\chi\le\wmax\,q/\varphi(q)\ll\wmax\log\log Q$ and $H\asymp_wQ^2$.
+
+\begin{remark}
+The weight $Q^2/(q\varphi(q))$ has, up to the factor $Q$, the shape $W(q/Q)/\varphi(q)$ of the weights of \cite{CLLR,Sono16}, with $W(u)=u^{-1}$. The identification is only formal: in \cite{CLLR} the function $W$ is supported in $(1,2)$, so the family there is dyadic, whereas the spreading of the weights over many dyadic ranges of conductors is essential here (\S\ref{sec:indiv}). Likewise $\Ec$ is the Euler product in the constant $A=\widehat W(1)\prod_p(1-p^{-2}-p^{-3})$ of \cite[(1.1)]{CLLR}.
+\end{remark}
+
+\subsection{Parameters}\label{sec:parameters}
+We fix, in this order: $0<a_0<A_0$; $\eta$ and an admissible $w$; the bandwidth $\lambda\in(0,2)$ and a margin $\eps_1>0$ with $\lambda(1+\eps_1)\le2-\eps_1$ (possible for every $\lambda<2$); $\theta\in(0,1/4)$; a real even window $\psi\in C_c^\infty((-\frac12,\frac12))$, $\psi\not\equiv0$; a flattening margin $\eps_3\in(0,1/4)$; the band parameter $\eps\in(0,\frac13)$ of Propositions~\ref{prop:TI} and~\ref{prop:TIsharp} and \S\ref{sec:assembly}; the constants $B_1=30$ and $B$ of \S\ref{sec:exterior}; and the auxiliary smooth cut-offs: $\Ups_0$ (\S\ref{sec:explicit}; it depends on $\eps_1$), the dyadic partition of unity $(\psi_j)$ with its derivative bounds $(c_i)$ (\S\ref{ssec:lemmaB}) and the localisation cut-off $\rho$ (Lemma~\ref{lem:M3}). All of these are fixed while $Q\to\infty$, and $T=T(Q)$ varies in $[\ell^{a_0},\ell^{A_0}]$; all $o(1)$ terms are uniform in $T$. Implied constants may depend on the fixed data.
+
+\emph{Order of limits.} This order is used throughout the paper. First $Q\to\infty$, with all the data above fixed; then $\theta,\eps,\eps_3\to0$; then $\lambda\to2$ (with $\eps_1=\eps_1(\lambda)\to0$) and $\psi$ tends to an optimiser; and only at the very end $\eta\to0$. In particular $\eta$ is always fixed before $Q\to\infty$: Theorems~\ref{thm:main} and~\ref{thm:gauss} bound $\liminf_{Q\to\infty}$ for each fixed small $\eta$, and Theorem~\ref{thm:fixed} is the case of a fixed $\eta$. The precise choices are made in the proof of Theorem~\ref{thm:conditional} (\S\ref{sec:assembly}); see also Remark~\ref{rem:orderlimits}. Put
+\[
+L=\lambda\ell,\quad X=e^L=Q^\lambda,\quad \Yc=X^{1+\eps_1}\le Q^{2-\eps_1},\quad I=(T,2T],\quad J=[(1+\theta)T,(2-\theta)T].
+\]
+
+\subsection{Window, lattice and the explicit formula}\label{sec:explicit}
+Let $\psi_L(u)=\psi(u/L)$, $v=\psi^2$, $a=\int v$, $b=\int v^2$, $\Jv(v)=\iint|s-s'|v(s)v(s')\dd s\dd s'$, and
+\[
+g:=\psi_L^2*\psi_L^2=L\,(v*v)(\cdot/L),\qquad \Phi:=\widehat{\psi_L^2},
+\]
+so that $\Phi^2=\widehat g$, $\int\Phi^2=2\pi bL$ and $\int|r|\Phi(r)^2\dd r=O_\psi(1)$.
+The function $g\ge0$ is smooth, even, supported in $(-L,L)$, with $\|g\|_\infty=g(0)=bL$. Let $\tau_k=\tau_0+2\pi k/L$ ($k\in\ZZ$, $\tau_0$ fixed), $\Kset=\{k:\tau_k\in J\}$, $d=\#\Kset=|J|L/(2\pi)+O(1)$, and
+\[
+p_k(z):=\widehat{\psi_L}(z-\tau_k)\qquad(z\in\CC).
+\]
+Each $p_k$ is entire; it is real and even about $\tau_k$ on $\RR$, and $\overline{p_k(z)}=p_k(\overline z)$.
+
+\begin{lemma}[Envelope]\label{lem:envelope}
+For every $A\ge0$ there is $C_A=C_A(\psi)$ such that for $r,\delta\in\RR$,
+\[
+|\widehat{\psi_L}(r-i\delta)|\le C_AL\,e^{L|\delta|/2}(1+L|r|)^{-A}.
+\]
+Consequently, if $A>\frac12$, then with $u(z):=(p_k(z))_{k\in\Kset}$ and $D:=L\operatorname{dist}(r,J)$, $\|u(r-i\delta)\|\,\|u(r+i\delta)\|\ll_AL^2e^{L|\delta|}(1+D)^{1-2A}$.
+\end{lemma}
+\begin{proof}
+$\widehat{\psi_L}(w)=L\int\psi(s)e^{iwLs}\dd s$ and $|e^{iwLs}|\le e^{L|\Im w|/2}$ for $|s|\le1/2$; integrate by parts $\lceil A\rceil$ times. For the second claim, the first gives $\|u(r\mp i\delta)\|^2\le C_A^2L^2e^{L|\delta|}\Sigma$ with $\Sigma:=\sum_{k\in\Kset}(1+L|r-\tau_k|)^{-2A}$. The points $L\tau_k$, $k\in\Kset$, lie in $LJ$ and are $2\pi$-spaced, and $L|r-\tau_k|\ge D$; so on each side of $Lr$ the $m$-th nearest of them ($m\ge0$) is at distance $\ge D+2\pi m$. As $2A>1$, comparison with an integral gives
+\[
+\Sigma\le2\sum_{m\ge0}(1+D+2\pi m)^{-2A}\le2(1+D)^{-2A}+\frac{(1+D)^{1-2A}}{\pi(2A-1)}\ll_A(1+D)^{1-2A}.
+\]
+(For $A\le\frac12$ this lattice bound fails: for $A=0$ and $r\in J$, $\Sigma=d\asymp TL$. The second claim is only used with $A>1$.)
+\end{proof}
+
+\begin{lemma}[Poisson--Gabor identity; cf.\ {\cite[Lemma~5.1]{HY26}}]\label{lem:gabor}
+For real $t,t'$, $\sum_{k\in\ZZ}p_k(t)p_k(t')=L\Phi(t-t')$. In particular $\sum_{k\in\ZZ}p_k(t)^2=aL^2$, and $\|u(t)\|^2\le aL^2$ for real $t$.
+\end{lemma}
+\begin{proof}
+For real $x$, $\widehat{\psi_L}(x)=\int\psi_L(u)\cos(xu)\dd u$ is real, since $\psi$ is real and even; so each $p_k(t)$ is real. As $\supp\psi_L\subset(-\frac L2,\frac L2)$, for real $t$
+\[
+p_k(t)=\int_{-L/2}^{L/2}\psi_L(u)e^{i(t-\tau_0)u}e^{-2\pi iku/L}\dd u=L\,c_k(f_t),\qquad f_t(u):=\psi_L(u)e^{i(t-\tau_0)u},
+\]
+where $c_k(f):=L^{-1}\int_{-L/2}^{L/2}f(u)e^{-2\pi iku/L}\dd u$ is the $k$-th Fourier coefficient on $\RR/L\ZZ$. With $\tilde f(u):=\overline{f_{t'}(-u)}$ one has $c_k(f_{t'})=\overline{c_k(\tilde f)}$, so by Parseval's identity
+\[
+\sum_{k\in\ZZ}p_k(t)p_k(t')=L^2\sum_kc_k(f_t)\overline{c_k(\tilde f)}=L\int_{-L/2}^{L/2}f_t(u)f_{t'}(-u)\dd u=L\int_\RR\psi_L^2(u)e^{i(t-t')u}\dd u,
+\]
+which is $L\Phi(t-t')$; we used $\psi_L(-u)=\psi_L(u)$. At $t'=t$ this is $L\Phi(0)=L\int\psi_L^2=aL^2$, and $\|u(t)\|^2=\sum_{k\in\Kset}p_k(t)^2\le aL^2$.
+\end{proof}
+
+For $\chi\in\cF$ let $\mathfrak a_\chi=(1-\chi(-1))/2$ and
+\begin{equation}\label{eq:mu}
+\mu_\chi(t)=\frac1{2\pi}\log\frac q\pi+\frac1{2\pi}\Re\frac{\Gamma'}{\Gamma}\Big(\frac{1/2+\mathfrak a_\chi+it}2\Big).
+\end{equation}
+Fix $\Ups_0\in C^\infty(\RR)$ with $0\le\Ups_0\le1$, $\Ups_0=1$ on $[0,1]$ and $\supp\Ups_0\cap[0,\infty)\subset[0,1+\eps_1]$, and put $\Ups(n)=\Ups_0(\log n/L)$,
+\begin{equation}\label{eq:an}
+a_n:=\frac{\Lambda(n)}{\sqrt n}\Ups(n),\qquad S_\chi[x](t):=\sum_nx_n\chi(n)n^{-it},\qquad P_\chi(t):=-\frac1{2\pi}\big(S_\chi[a](t)+\overline{S_\chi[a](t)}\big),
+\end{equation}
+and $\nu_\chi:=\mu_\chi+P_\chi$. Note that $a$ is supported on $n\le\Yc$.
+
+\begin{definition}[Gabor matrix]
+For $\chi\in\cF$ and $k,l\in\Kset$ let
+\begin{equation}\label{eq:Gdef}
+G_{\chi,kl}:=\sum_{\rho}m_\rho\,p_k(z_\rho)\,p_l(z_\rho),\qquad z_\rho:=\frac{\rho-1/2}{i}=\gamma-i\delta_\rho,\quad\delta_\rho=\beta-\tfrac12,
+\end{equation}
+the sum running over the nontrivial zeros of $L(s,\chi)$ with multiplicity $m_\rho$. Put $\hG_\chi:=G_\chi/(aL^2)$.
+\end{definition}
+
+The entries use the holomorphic product $p_k(z)p_l(z)$, as in \cite[(4.6)]{HY26}. Since $p_l(z)=\overline{p_l(\overline z)}$, a zero contributes $m_\rho\,u(z_\rho)u(\overline{z_\rho})^*$ to $G_\chi$. The series converges absolutely, even in trace norm, for each fixed $\chi$, by Lemma~\ref{lem:envelope} with $A=2$ (every zero has $|\delta_\rho|<\frac12$, so $e^{L|\delta_\rho|}\le e^{L/2}$) and the classical local zero count
+\begin{equation}\label{eq:localcount}
+\#\{\rho:|\gamma-t|\le1\}\ll\log(q(|t|+3))\qquad(t\in\RR)
+\end{equation}
+for primitive $\chi\bmod q$ \cite[Ch.~16]{Dav} (explicitly in \cite{BMOR21}).
+
+\begin{lemma}[Explicit formula on the test class; cf.\ {\cite[Prop.~4.1, Lemma~4.2]{HY26}}]\label{lem:explicit}
+For $\chi\in\cF$ and $k,l\in\Kset$,
+\[
+G_{\chi,kl}=\int_\RR p_k(t)p_l(t)\,\nu_\chi(t)\dd t .
+\]
+In particular $G_\chi$ is real symmetric. The value does not depend on the choice of $\Ups_0$ subject to $\Ups_0=1$ on $[0,1]$.
+\end{lemma}
+\begin{proof}
+This is the case $h=f_k*f_l$, $f_k(u):=\psi_L(u)e^{-i\tau_ku}$, of Weil's explicit formula (Proposition~\ref{prop:weil}), which is proved in Appendix~\ref{app:ported}; the details are given there. The inverse Fourier transform $h$ of $p_kp_l$ is supported in $\supp\psi_L+\supp\psi_L\Subset(-L,L)$, so the terms $n\ge X$ of the prime sum vanish; hence any cut-off equal to $1$ on $[2,X]$ gives the same value. The smooth cut-off $\Ups$ is used only to allow Poisson summation in Lemma~\ref{lem:B1}.
+\end{proof}
+
+\subsection{The second-moment kernels}\label{sec:kernels}
+Define the \emph{family Gram kernel} and the \emph{time kernel}
+\begin{equation}\label{eq:Delta}
+\Delta(n,m):=\sum_{\chi\in\cF}\omega_\chi\chi(n)\overline{\chi(m)},\qquad
+\cK(n,m):=\iint_{J^2}\Phi(t-t')^2n^{-it}m^{it'}\dd t\dd t'.
+\end{equation}
+Both are positive semidefinite: $\Delta=\sum_\chi\omega_\chi v_\chi v_\chi^*$ with $v_\chi=(\chi(n))_n$, and, writing $\Phi(t-t')^2=\int g(u)e^{i(t-t')u}\dd u$,
+\begin{equation}\label{eq:Kpsd}
+\sum_{n,m}x_n\overline{x_m}\cK(n,m)=\int_\RR g(u)\Big|\int_J\sum_nx_nn^{-it}e^{itu}\dd t\Big|^2\dd u\ \ge0 .
+\end{equation}
+Since $\cF$ is closed under conjugation with equal weights, $\Delta$ is real and symmetric. On the diagonal, $\Delta(n,n)=\sum_q\omega(q)\varphi^*(q)\one_{(n,q)=1}\le H$, and
+\begin{equation}\label{eq:Kdiag}
+\cK(n,n)=\int_\RR\Phi(r)^2n^{-ir}(|J|-|r|)_+\dd r=2\pi|J|\,g(\log n)+O_\psi(1).
+\end{equation}
+For $K\ge1$ let $\Lmult(K)$ be the supremum of $x^*\Delta x$ over unit vectors $x$ supported on an interval of at most $K$ consecutive positive integers (for instance $[1,\Yc]$, with $K=\Yc$). Since $\Delta(p,p)=H$ for primes $p>Q$, $\Lmult(K)\ge H$.
+
+%======================================================================
+\section{The positivity certificate}\label{sec:certificate}
+%======================================================================
+
+The certificate is a statement about a single character; the family enters only through the summation.
+
+\begin{lemma}[Block structure; cf.\ {\cite[\S8]{HY26}, \cite[Lemma~3.1, Prop.~4.1]{AF26}}]\label{lem:blocks}
+Let $\chi\in\cF$. The multiset of nontrivial zeros of $L(s,\chi)$ is invariant under $\rho\mapsto1-\overline\rho$, preserving multiplicity; in the coordinate $z_\rho$ this is $z\mapsto\overline z$. Consequently:
+\begin{enumerate}[label=(\alph*)]
+\item a zero $1/2+i\gamma$ of multiplicity $m$ contributes the positive semidefinite block $m\,u(\gamma)u(\gamma)^*$, of rank at most one and normalised trace $m\|u(\gamma)\|^2/(aL^2)\le m$;
+\item an off-line orbit $\{\rho,1-\overline\rho\}$ ($\rho\ne1-\overline\rho$) of common multiplicity $m$ contributes $m\,B\big(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\big)B^*$ with $B=[u(z_\rho)\ u(\overline{z_\rho})]$, which has at most one positive eigenvalue. Both points of the orbit have the same ordinate.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Let $\xi(s,\chi)=(q/\pi)^{(s+\mathfrak a_\chi)/2}\Gamma(\frac{s+\mathfrak a_\chi}2)L(s,\chi)$. The functional equation $\xi(s,\chi)=\epsilon(\chi)\xi(1-s,\overline\chi)$, $|\epsilon(\chi)|=1$ \cite[Ch.~9]{Dav}, maps a zero $\rho$ of $L(s,\chi)$ of multiplicity $m$ to the zero $1-\rho$ of $L(s,\overline\chi)$ of the same multiplicity, and $L(s,\overline\chi)=\overline{L(\overline s,\chi)}$ maps that to the zero $1-\overline\rho$ of $L(s,\chi)$, again of multiplicity $m$. In the coordinate $z_\rho=-i(\rho-\frac12)$ one has $z_{1-\overline\rho}=\overline{z_\rho}$, and both points have ordinate $\gamma$. Since $\overline{p_l(\overline z)}=p_l(z)$, a zero contributes $m_\rho u(z_\rho)u(\overline{z_\rho})^*$ to $G_\chi$. For $z_\rho=\gamma$ real this is $m_\rho u(\gamma)u(\gamma)^*$, and its normalised trace is at most $m_\rho$ by Lemma~\ref{lem:gabor}. For an off-line orbit the two contributions add up to $m\,(u(z)u(\overline z)^*+u(\overline z)u(z)^*)=m\,B\Pi B^*$, $\Pi=\big(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\big)$. If $B\Pi B^*$ were positive definite on a subspace $V$ of dimension $2$, then $B^*$ would be injective on $V$ and $\Pi$ positive definite on the $2$-dimensional space $B^*V$, which is impossible as $n_+(\Pi)=1$. Hence $n_+(B\Pi B^*)\le1$.
+\end{proof}
+
+\begin{lemma}[Rank--trace inequality; {\cite[Lemma~3.2]{AF26}, \cite[Lemma~8.2]{HY26}}]\label{lem:ranktrace}
+Let $P\succeq0$ be Hermitian of rank at most $r$ and $R$ Hermitian with $n_+(R)\le b$, of the same size. Then $\|P+R\|_\Fro^2\ge2\tr P-r+4\tr R-4b$.
+\end{lemma}
+The proof, which follows \cite{AF26,HY26}, is given in Appendix~\ref{app:ported}.
+
+For $\chi\in\cF$ let $A_\chi$ be the sum of the blocks of Lemma~\ref{lem:blocks} whose common ordinate lies in $I$, $E_\chi:=G_\chi-A_\chi$, and $\hA_\chi=A_\chi/(aL^2)$, $\hE_\chi=E_\chi/(aL^2)$.
+
+\begin{proposition}[Per-character certificate; cf.\ {\cite[Prop.~8.3]{HY26}}]\label{prop:perchi}
+For every $\chi\in\cF$, with $\mathcal M_\chi:=4\tr\hA_\chi-\|\hA_\chi\|_\Fro^2$,
+\[
+N^s_{0,\chi}\ge\mathcal M_\chi-2N_\chi,\qquad N^*_{0,\chi}\ge\mathcal M_\chi-2N_\chi,\qquad N_{d,\chi}\ge\tfrac12(\mathcal M_\chi-N_\chi).
+\]
+(The second inequality also follows from the first, since $N^*_{0,\chi}\ge N^s_{0,\chi}$.)
+\end{proposition}
+\begin{proof}
+Let $s_1$ be the number of simple zeros $\frac12+i\gamma$ with $\gamma\in I$, let $s_2$ be the number of distinct multiple zeros $\frac12+i\gamma$ with $\gamma\in I$, of multiplicities $m_1,\dots,m_{s_2}\ge2$, and let $p$ be the number of off-line orbits $\{\rho,1-\overline\rho\}$ with ordinate in $I$, of common multiplicities $n_1,\dots,n_p\ge1$. A point $\rho$ with $\rho=1-\overline\rho$ has $\Re\rho=\frac12$, so every off-line orbit consists of two distinct zeros, both with ordinate in $I$ (Lemma~\ref{lem:blocks}). Hence
+\[
+N_\chi=s_1+\sum_jm_j+2\sum_\ell n_\ell,\qquad N^s_{0,\chi}=s_1,\qquad N^*_{0,\chi}=s_1+s_2,\qquad N_{d,\chi}=s_1+s_2+2p .
+\]
+Let $P$ be the normalised sum of the blocks of the $s_1$ simple critical zeros, and $R:=\hA_\chi-P$. By Lemma~\ref{lem:blocks}(a), $P\succeq0$, $\rank P\le s_1$ and $\tr P\le s_1$. Each block in $R$ has at most one positive eigenvalue (Lemma~\ref{lem:blocks}), and $n_+$ is subadditive: if $n_+(R_i)\le b_i$, then $R_i\preceq0$ on a subspace of codimension $b_i$, so $R_1+R_2\preceq0$ on a subspace of codimension $\le b_1+b_2$, and $n_+(R_1+R_2)\le b_1+b_2$ by the min--max principle. Hence $n_+(R)\le s_2+p$, and Lemma~\ref{lem:ranktrace} gives
+\[
+\mathcal M_\chi=4\tr(P+R)-\|P+R\|_\Fro^2\le2\tr P+s_1+4(s_2+p)\le3s_1+4s_2+4p .
+\]
+Since $m_j\ge2$ and $n_\ell\ge1$,
+\begin{align*}
+N^s_{0,\chi}+2N_\chi&=3s_1+2\textstyle\sum_jm_j+4\sum_\ell n_\ell\ge3s_1+4s_2+4p,\\
+N^*_{0,\chi}+2N_\chi&=3s_1+s_2+2\textstyle\sum_jm_j+4\sum_\ell n_\ell\ge3s_1+4s_2+4p,\\
+2N_{d,\chi}+N_\chi&=3s_1+2s_2+4p+\textstyle\sum_jm_j+2\sum_\ell n_\ell\ge3s_1+4s_2+4p,
+\end{align*}
+and the three inequalities follow.
+\end{proof}
+
+\begin{remark}[Lamzouri's inequality]
+Lamzouri \cite[Prop.~2.1]{Lam26} gives a Hilbert-space form of the same mechanism: for a finite multiset $\mathcal Z\subset\CC$ invariant under conjugation and a kernel $K=\widehat{\mathfrak g^2}$ with $\mathfrak g\in L^2(\RR)$ real, even and compactly supported and $\widehat{\mathfrak g^2}(0)=1$, the number of simple real elements is at least $2|\mathcal Z|-\sum_{z,s\in\mathcal Z}K(z-s)^2$. Applied to $\mathcal Z_\chi=\{z_\rho:\gamma\in I\}$ for each $\chi$ and summed with the weights $\omega_\chi$, it reduces the problem to an upper bound for a weighted pair-correlation sum over complex zeros. We use the matrix form because the exterior zeros are then removed in trace norm (\S\ref{sec:exterior}) and the second moment is computed exactly from the explicit formula, with no weight $4/(4-(\rho-\rho')^2)$ to remove.
+\end{remark}
+
+\begin{remark}[Only an upper bound is needed]\label{rem:upper}
+The certificate enters through $-\sum_\chi\omega_\chi\|\hA_\chi\|_\Fro^2$. We therefore need the trace asymptotically and the second moment only from \emph{above}. By Lemma~\ref{lem:explicit} and the finite-centre reduction (Proposition~\ref{prop:finitecentre}), the second moment is, up to negligible errors, $(aL^2)^{-2}L^2\sum_\chi\omega_\chi\iint_{J^2}\Phi^2\nu_\chi\nu_\chi$. Its prime part is the quadratic form $x\mapsto\sum_{n,m}x_n\overline{x_m}\Delta(n,m)\cK(n,m)$, which is monotone in $\Delta$ for the positive semidefinite order (Schur product theorem). Any large sieve inequality valid on \emph{all} vectors supported on the relevant intervals, i.e.\ any form bound $\Delta\preceq C\,H$ there, therefore feeds directly into the certificate (Theorem~\ref{thm:conditional}). A bound that holds only on a subclass of vectors does not: the exact Toeplitz identity of \S\ref{ssec:toeplitz} holds only on sifted ($Q$-rough) vectors, and it enters through a positive semidefinite Toeplitz form $T^\natural$ that dominates the family form on those vectors and is defined and bounded on all vectors; the flattened coefficients are swapped into $T^\natural$ (Proposition~\ref{prop:TIsharp}). No positivity of a kernel at complex arguments, no lower bound for pair correlation, and no information on individual zeros is used.
+\end{remark}
+
+We summarise the reduction. Put
+\begin{equation}\label{eq:Mfrak}
+\mathfrak M:=\sum_{\chi\in\cF}\omega_\chi\|\hG_\chi\|_\Fro^2 .
+\end{equation}
+
+\begin{proposition}[Zero-side reduction]\label{prop:zero}
+For fixed data as in \S\ref{sec:parameters} and every $B>0$, uniformly for $\ell^{a_0}\le T\le\ell^{A_0}$,
+\begin{align*}
+N^s_0,\ N^*_0&\ \ge\ (2-8\theta)N-\mathfrak M-o(N)-O_B\big(\ell^{-B}(H\mathfrak M)^{1/2}\big),\\
+N_d&\ \ge\ \tfrac12\big((3-8\theta)N-\mathfrak M\big)-o(N)-O_B\big(\ell^{-B}(H\mathfrak M)^{1/2}\big).
+\end{align*}
+\end{proposition}
+The proof occupies \S\ref{sec:zero}. Combined with the upper bound $\mathfrak M\le(1-2\theta)\Qf_F(f_v)N+o(N)$ of \S\ref{sec:prime}, it gives $N^s_0\ge\big((1-2\theta)(4-\Qf_F(f_v))-2-o(1)\big)N$.
+
+%======================================================================
+\section{The zero side}\label{sec:zero}
+%======================================================================
+
+This section follows the zero-side analysis of \cite[\S\S3,5,6,9,10]{HY26} for one prime modulus, adapted to the weighted family; all proofs are given here or in Appendix~\ref{app:ported}. Two things change. The pointwise bound for $\sum_\chi\omega_\chi\nu_\chi(t)^2$ comes from the multiplicative large sieve instead of orthogonality modulo one prime, and exceptional characters are removed with Montgomery's zero-density theorem instead of the Hiary--Zhao estimate. Because $T\ge\ell^{a_0}\to\infty$, the finer inputs of \cite{HY26} needed near $T\asymp(\log\log q)^{1+\eta}/\log q$ (Selberg's averaged argument bound and Gevrey windows) are not needed.
+
+\subsection{Weighted Riemann--von Mangoldt}
+\begin{lemma}\label{lem:RvM}
+Uniformly for $\ell^{a_0}\le T\le\ell^{A_0}$,
+\[
+N=\frac{HT\ell}{2\pi}\Big(1+O\Big(\frac{\log T+\log(1/\eta)}{\ell}+\frac1T\Big)\Big).
+\]
+\end{lemma}
+\begin{proof}
+For primitive $\chi\bmod q$ and $t\ge2$ let $N^{\mathrm{sym}}(t,\chi)$ count the nontrivial zeros with $|\gamma|\le t$. Then $N^{\mathrm{sym}}(t,\chi)=\frac t\pi\log\frac{qt}{2\pi e}+O(\log q(t+2))$ \cite[Ch.~16]{Dav}, \cite[Thm.~1.1]{BMOR21}; the error term absorbs the jumps, so no endpoint convention is needed. Complex conjugation maps zeros of $L(s,\chi)$ with $\gamma\in[-2T,-T)$ bijectively (with multiplicity) to zeros of $L(s,\overline\chi)$ with $\gamma\in(T,2T]$. Since $\cF$ is closed under conjugation and $\omega_{\overline\chi}=\omega_\chi$,
+\[
+N=\frac12\sum_\chi\omega_\chi\big(N^{\mathrm{sym}}(2T,\chi)-N^{\mathrm{sym}}(T,\chi)\big)=\frac12\sum_\chi\omega_\chi\Big(\frac T\pi\log\frac{qT}{2\pi e}+\frac{2T\log2}\pi+O(\log qT)\Big),
+\]
+where the first equality is exact, since $N^{\mathrm{sym}}(2T,\chi)-N^{\mathrm{sym}}(T,\chi)$ counts the zeros with $T<|\gamma|\le2T$ (the symmetrisation follows \cite[Lemmas~3.1,~3.2]{HY26}). Since $\log q=\ell+O(\log(1/\eta))$ on $\cF$, the claim follows.
+\end{proof}
+
+\subsection{The family pointwise bound and finite centres}\label{sec:finitecentre}
+\begin{lemma}\label{lem:pointwise}
+Let $\mathfrak F(t)^2:=\sum_{\chi\in\cF}\omega_\chi\nu_\chi(t)^2$. Then $\mathfrak F(t)\ll_wH^{1/2}(\ell+\log(|t|+2))$ for all real $t$.
+\end{lemma}
+\begin{proof}
+By the digamma asymptotic, $|\mu_\chi(t)|\ll\ell+\log(|t|+2)$. Since $|P_\chi|\le|S_\chi[a]|/\pi$ and $\omega(q)\le\wmax q/\varphi(q)$, the multiplicative large sieve \cite{MV73}, \cite[Thm.~7.13]{IK04},
+\begin{equation}\label{eq:MVLS}
+\sum_{q\le Q}\frac q{\varphi(q)}\sumst_{\chi\bmod q}\Big|\sum_{M<n\le M+K}x_n\chi(n)\Big|^2\le(Q^2+K)\|x\|^2,
+\end{equation}
+gives $\sum_\chi\omega_\chi|P_\chi(t)|^2\le\pi^{-2}\wmax(Q^2+\Yc)\sum_na_n^2\ll\wmax Q^2L^2$, uniformly in $t$. As $H\asymp_wQ^2$, the claim follows.
+\end{proof}
+In particular $\sum_\chi\omega_\chi|\nu_\chi(t)\nu_\chi(t')|\le\mathfrak F(t)\mathfrak F(t')$ and $\sum_\chi\omega_\chi|\nu_\chi(t)|\le H^{1/2}\mathfrak F(t)$.
+
+We use the envelope $\varpi_A(x):=C_AL(1+L|x|)^{-A}$ of Lemma~\ref{lem:envelope} ($|p_k(t)|\le\varpi_A(t-\tau_k)$ for real $t$), and for measurable $U\subset\RR$ put $\Xi_k(U):=\int_U\varpi_A(t-\tau_k)\mathfrak F(t)\dd t$.
+
+\begin{lemma}[Endpoint tails; cf.\ {\cite[Lemma~5.3]{HY26}}]\label{lem:tails}
+Let $A>5/2$. Uniformly in $T$ and in the lattice offset $\tau_0$,
+\[
+\sum_{k\notin\Kset}\Xi_k(J)^2+\sum_{k\in\Kset}\big(\Xi_k(\RR)\Xi_k(J^c)+\Xi_k(J^c)^2\big)\ll_AH\ell^2,
+\]
+and, with $\mathcal L(t):=\ell+\log(|t|+2)$,
+$\int_J\sum_{k\notin\Kset}\varpi_A(t-\tau_k)^2\mathcal L(t)\dd t+\int_{J^c}\sum_{k\in\Kset}\varpi_A(t-\tau_k)^2\mathcal L(t)\dd t\ll_AL\ell$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:pointwise}, $\mathfrak F(t)\ll H^{1/2}\mathcal L(t)$. For $k\notin\Kset$ put $D_k:=L\operatorname{dist}(\tau_k,J)$, and for $k\in\Kset$ put $E_k:=L\operatorname{dist}(\tau_k,J^c)$, the scaled distance to the nearer endpoint of $J$. For $t\in J$ we have $\mathcal L(t)\ll\ell$ (as $T\le\ell^{A_0}$) and, if $k\notin\Kset$, $L|t-\tau_k|\ge D_k$; the substitution $x=L(t-\tau_k)$ gives
+$\Xi_k(J)\ll H^{1/2}\ell\int_{|x|\ge D_k}(1+|x|)^{-A}\dd x\ll H^{1/2}\ell(1+D_k)^{1-A}$. For $k\in\Kset$ we have $|\tau_k|\le2T$, so $\mathcal L(\tau_k+x/L)\le\ell+\log(2+2T+|x|)\ll\ell(1+|x|)^{1/2}$; hence $\Xi_k(\RR)\ll H^{1/2}\ell$ and, since $t\in J^c$ forces $L|t-\tau_k|\ge E_k$, $\Xi_k(J^c)\ll H^{1/2}\ell(1+E_k)^{3/2-A}$. The scaled centres $L\tau_k$ are $2\pi$-spaced, so on each side of each endpoint of $J$ the $m$-th nearest centre ($m\ge0$) is at scaled distance $\ge2\pi m$; hence for every $\sigma>1$
+\[
+\sum_{k\notin\Kset}(1+D_k)^{-\sigma}+\sum_{k\in\Kset}(1+E_k)^{-\sigma}\le4\sum_{m\ge0}(1+2\pi m)^{-\sigma}\ll_\sigma1 .
+\]
+The three sums in the first claim are therefore $\ll H\ell^2$ times sums of this form with $\sigma=2A-2$, $A-\frac32$ and $2A-3$, all $>1$ for $A>5/2$. The second claim follows in the same way from $\varpi_A^2\le C_A^2L^2(1+L|t-\tau_k|)^{-2A}$, with exponents $2A-1$ and $2A-\frac32$.
+\end{proof}
+
+\begin{proposition}[Finite-centre replacement; cf.\ {\cite[Props.~5.2, 5.4]{HY26}}]\label{prop:finitecentre}
+Uniformly in $T$,
+\begin{align}
+\sum_{\chi\in\cF}\omega_\chi\tr\hG_\chi&=\sum_{\chi\in\cF}\omega_\chi\int_J\nu_\chi(t)\dd t+O(H),\label{eq:fc1}\\
+\sum_{\chi\in\cF}\omega_\chi\tr\big((G_\chi/L)^2\big)&=\sum_{\chi\in\cF}\omega_\chi\iint_{J^2}\Phi(t-t')^2\nu_\chi(t)\nu_\chi(t')\dd t\dd t'+O(H\ell^2).\label{eq:fc2}
+\end{align}
+\end{proposition}
+\begin{proof}
+Take $A=3$ in Lemmas~\ref{lem:envelope} and~\ref{lem:tails}. By Lemma~\ref{lem:explicit}, $\tr G_\chi=\int(\sum_{k\in\Kset}p_k^2)\nu_\chi$ (a finite sum of absolutely convergent integrals). By Lemma~\ref{lem:gabor}, $\sum_{k\in\Kset}p_k(t)^2=aL^2\one_J(t)+e_J(t)$ with $e_J(t):=-\one_J(t)\sum_{k\notin\Kset}p_k(t)^2+\one_{J^c}(t)\sum_{k\in\Kset}p_k(t)^2$, and $|e_J(t)|$ is at most the integrand of the second claim of Lemma~\ref{lem:tails} divided by $\mathcal L(t)$. By Lemma~\ref{lem:pointwise} and Cauchy--Schwarz, $\sum_\chi\omega_\chi|\nu_\chi(t)|\le H^{1/2}\mathfrak F(t)\ll H\mathcal L(t)$. Hence $\sum_\chi\omega_\chi|\int e_J\nu_\chi|\ll HL\ell$, and \eqref{eq:fc1} follows after division by $aL^2$.
+
+For \eqref{eq:fc2}: $G_\chi$ is real symmetric, so, by finite-dimensional Fubini,
+\begin{gather*}
+\tr\big((G_\chi/L)^2\big)=L^{-2}\sum_{k,l\in\Kset}G_{\chi,kl}^2=L^{-2}\iint K_d(t,t')^2\nu_\chi(t)\nu_\chi(t')\dd t\dd t',\\
+K_d(t,t'):=\sum_{k\in\Kset}p_k(t)p_k(t').
+\end{gather*} Let $K_\infty(t,t'):=\sum_{k\in\ZZ}p_k(t)p_k(t')=L\Phi(t-t')$ (Lemma~\ref{lem:gabor}). By Cauchy--Schwarz and Lemma~\ref{lem:gabor}, $|K_d|,|K_\infty|\le aL^2$ on $\RR^2$. Hence on $J^2$
+\[
+|K_d^2-L^2\Phi(t-t')^2|=|K_\infty-K_d|\,|K_\infty+K_d|\le2aL^2\sum_{k\notin\Kset}\varpi_A(t-\tau_k)\varpi_A(t'-\tau_k),
+\]
+and off $J^2$, $K_d^2\le aL^2\sum_{k\in\Kset}\varpi_A(t-\tau_k)\varpi_A(t'-\tau_k)$. Multiply by $\sum_\chi\omega_\chi|\nu_\chi(t)\nu_\chi(t')|\le\mathfrak F(t)\mathfrak F(t')$ and integrate: since $\iint_{(J^2)^c}f(t)f(t')=\Xi_k(\RR)^2-\Xi_k(J)^2$ for $f=\varpi_A(\cdot-\tau_k)\mathfrak F$, the difference of the two sides of \eqref{eq:fc2} is at most
+\[
+2a\sum_{k\notin\Kset}\Xi_k(J)^2+a\sum_{k\in\Kset}\big(\Xi_k(\RR)^2-\Xi_k(J)^2\big)\le2a\sum_{k\notin\Kset}\Xi_k(J)^2+2a\sum_{k\in\Kset}\big(\Xi_k(\RR)\Xi_k(J^c)+\Xi_k(J^c)^2\big),
+\]
+which is $O(H\ell^2)$ by Lemma~\ref{lem:tails}.
+\end{proof}
+
+\subsection{The trace}
+\begin{lemma}[Family first moment]\label{lem:firstmoment}
+For $n\ge2$ let $\sigma_q(n):=\sumst_{\chi\bmod q}\chi(n)$. Then $\sum_q\omega(q)|\sigma_q(\pm n)|\ll\wmax Q\,\tau(n\mp1)$.
+\end{lemma}
+\begin{proof}
+We have $\sigma_q(n)=\one_{(n,q)=1}\sum_{d\mid(q,n-1)}\varphi(d)\mu(q/d)$ \cite[(3.9)]{IK04}. Hence
+$\sum_q\omega(q)|\sigma_q(n)|\le\wmax\sum_{d\mid n-1}\varphi(d)\sum_{e\le Q/d}\frac{de}{\varphi(de)}\le\wmax\sum_{d\mid n-1}d\sum_{e\le Q/d}\frac e{\varphi(e)}\ll\wmax Q\tau(n-1)$. For $-n$ replace $n-1$ by $n+1$.
+\end{proof}
+
+\begin{proposition}[Trace]\label{prop:trace}
+Uniformly in $T$, $\sum_{\chi\in\cF}\omega_\chi\tr\hG_\chi=(1-2\theta)N+o(N)$.
+\end{proposition}
+\begin{proof}
+By Stirling, $\mu_\chi(t)=\frac1{2\pi}\log\frac{qt}{2\pi}+O(1/t)$ for $t\ge1$, so $\sum_\chi\omega_\chi\int_J\mu_\chi=\frac{H|J|\ell}{2\pi}(1+O(\frac{\log T+\log(1/\eta)}\ell))$, which is $(1-2\theta)N(1+o(1))$ by Lemma~\ref{lem:RvM}. (The terms $\log T$ do not cancel between the trace and $N$; they are $o(\ell)$ because $\log T\le A_0\log\ell$. Equivalently, the effective bandwidth in units of the analytic conductor is $\lambda(1+o(1))$.) The prime part is $-\frac1{2\pi}\sum_na_n\sum_\chi\omega_\chi(\chi(n)\int_Jn^{-it}\dd t+\overline{\chi(n)}\int_Jn^{it}\dd t)$. Since $|\int_Jn^{\mp it}\dd t|\le2/\log n$, Lemma~\ref{lem:firstmoment} bounds it by
+\[
+\ll\wmax Q\sum_{2\le n\le\Yc}\frac{\Lambda(n)\,\tau(n-1)}{\sqrt n\log n}\ll\wmax Q\,\Yc^{1/2}\log\Yc,
+\]
+which is $O(N\cdot\Yc^{1/2}\log\Yc/(QT\ell))=o(N)$. Finally apply \eqref{eq:fc1}; its error $O(H)$ is $O(N/(T\ell))$.
+\end{proof}
+
+\subsection{Exterior zeros}\label{sec:exterior}
+Put $\delta_0:=B_1\log\ell/\ell$ with $B_1:=6(B_0+52)/13$, where $B_0$ is the absolute exponent in \eqref{eq:Montgomery} below. Call $\chi\in\cF$ \emph{bad} if $L(s,\chi)$ has a zero $\rho=1/2+\delta+i\gamma$ with $|\delta|\ge\delta_0$ and $|\gamma|\le Q^{|\delta|/2}$, and \emph{good} otherwise. The condition is invariant under $\rho\mapsto1-\overline\rho$, and it involves only $Q$: the set of bad characters in $\cF$ does not depend on $T$, nor on $\lambda,\theta,\psi,\eps,\eps_3$. A real exceptional zero makes its character bad.
+
+We use Montgomery's zero-density theorem for the family of all primitive characters of conductor at most $Q$ \cite[Thm.~1]{Mon69}: for $Q\ge1$, $T'\ge2$,
+\begin{equation}\label{eq:Montgomery}
+\sum_{q\le Q}\sumst_{\chi\bmod q}N(\sigma,T',\chi)\ll\begin{cases}(Q^2T')^{3(1-\sigma)/(2-\sigma)}(\log QT')^{B_0},&\tfrac12\le\sigma\le\tfrac45,\\[2pt](Q^2T')^{2(1-\sigma)/\sigma}(\log QT')^{B_0},&\tfrac45\le\sigma\le1,\end{cases}
+\end{equation}
+where $N(\sigma,T',\chi)$ counts the zeros of $L(s,\chi)$ with $\beta\ge\sigma$ and $|\gamma|\le T'$, and $B_0$ is an absolute constant (\cite{Mon69} gives explicit powers of $\log QT'$, which may differ in the two ranges; we take $B_0$ to be the larger, and its value plays no role). Only the uniform consequence \eqref{eq:Montuniform} is used; any bound $(Q^2T')^{1-c\delta}(\log QT')^{C_0}$ with $c>0$ would do after adjusting $B_1$ and replacing the height $Q^{|\delta|/2}$ in the definition of bad characters by $Q^{a|\delta|}$ with $0<a<2c$ (Proposition~\ref{prop:tail} only uses $e^{L|\delta|}<|\gamma|^{2/a}$ for good $\chi$). For $\sigma=\frac12+\delta$ both exponents are at most $1-\frac43\delta$: in the first range $3(\frac12-\delta)/(\frac32-\delta)=1-2\delta/(\frac32-\delta)\le1-\frac43\delta$, and in the second range ($\delta\ge\frac3{10}$) the inequality $(1-2\delta)/(\frac12+\delta)\le1-\frac43\delta$ is equivalent to $8\delta^2-14\delta+3\le0$, i.e.\ to $\frac14\le\delta\le\frac32$, which holds since $[\frac3{10},\frac12]\subset[\frac14,\frac32]$. Hence, uniformly for $0\le\delta\le\frac12$,
+\begin{equation}\label{eq:Montuniform}
+\sum_{q\le Q}\sumst_{\chi\bmod q}N(\tfrac12+\delta,T',\chi)\ll(Q^2T')^{1-4\delta/3}(\log QT')^{B_0}.
+\end{equation}
+
+\begin{lemma}[Exceptional characters]\label{lem:bad}
+$\#\{\chi\in\cF\text{ bad}\}\ll Q^2\ell^{-52}$, and $\sum_{\chi\ \mathrm{bad}}\omega_\chi\ll_w Q^2\ell^{-51}$.
+\end{lemma}
+\begin{proof}
+By the symmetry $\rho\mapsto1-\overline\rho$ we may take $\delta\ge\delta_0$. Put $\delta_j=\delta_0+j/\ell$ ($j\ge0$) and $T_j=Q^{\delta_{j+1}/2}\ge\ell^{B_1/2}\ge2$. A bad character with a witnessing zero with $\delta\in[\delta_j,\delta_{j+1})$ has a zero with $\beta\ge\frac12+\delta_j$ and $|\gamma|\le Q^{\delta/2}\le T_j$, so it is counted in $\sum_{q\le Q}\sumst_{\chi}N(\frac12+\delta_j,T_j,\chi)$. Only shells with $\delta_j<\frac12$ occur, since $\beta<1$ for every zero, so \eqref{eq:Montuniform} applies. Since $Q^2T_j=e^{1/2}Q^{2+\delta_j/2}$, $\log QT_j\le2\ell$ and $(2+\frac{\delta_j}2)(1-\frac43\delta_j)\le2-\frac{13}6\delta_j$, \eqref{eq:Montuniform} bounds this by $\ll Q^{2-13\delta_j/6}\ell^{B_0}$. Summing over $j\ge0$ gives $\ll Q^2\ell^{B_0}Q^{-13\delta_0/6}\sum_je^{-13j/6}\ll Q^2\ell^{B_0-13B_1/6}=Q^2\ell^{-52}$. The second claim follows from $\omega_\chi\ll\wmax\log\log Q$.
+\end{proof}
+
+\begin{proposition}[Exterior tail for good characters]\label{prop:tail}
+For every $B>0$, uniformly for good $\chi\in\cF$ and $\ell^{a_0}\le T\le\ell^{A_0}$, $\|\hE_\chi\|_1\ll_B\ell^{-B}$.
+\end{proposition}
+\begin{proof}
+Since $\|xy^*\|_1=\|x\|\|y\|$, we have $\|E_\chi\|_1\le\sum_{\gamma\notin I}m_\rho\|u(z_\rho)\|\|u(\overline{z_\rho})\|$, the sum running over all zeros of $L(s,\chi)$ with ordinate outside $I$. For a good $\chi$, a zero with $|\delta_\rho|<\delta_0$ has $e^{L|\delta_\rho|}\le Q^{2\delta_0}=\ell^{2B_1}$, and a zero with $|\delta_\rho|\ge\delta_0$ has $|\gamma|>Q^{|\delta_\rho|/2}$, so that $e^{L|\delta_\rho|}\le Q^{2|\delta_\rho|}<|\gamma|^4$. By Lemma~\ref{lem:envelope}, for any $A>\frac12$,
+\[
+\|\hE_\chi\|_1\ll_A\ell^{2B_1}\sum_{\gamma\notin I}m_\rho(1+|\gamma|)^4\big(1+L\operatorname{dist}(\gamma,J)\big)^{1-2A}.
+\]
+For $\gamma\notin I$ we have $\operatorname{dist}(\gamma,J)\ge\theta T$, and $\operatorname{dist}(\gamma,J)\ge|\gamma|/2$ if $|\gamma|>4T+1$. The zeros with $|\gamma|\le4T+1$ number $\ll T\ell$ and contribute $\ll\ell^{2B_1}T\ell\,T^4(\theta TL)^{1-2A}$. The zeros with $|\gamma|>4T+1$ contribute $\ll\ell^{2B_1}\sum_{n\ge4T}(\ell+\log(n+3))(n+1)^4(1+Ln/2)^{1-2A}$. Since $T\ge\ell^{a_0}$, both are $O(\ell^{-B})$ once $A=A(B,B_1,a_0)$ is large.
+\end{proof}
+
+\subsection{Deletion and assembly of the zero side}
+\begin{proof}[Proof of Proposition~\ref{prop:zero}]
+For every $\chi$ and every eigenvalue $x$ of the real symmetric matrix $\hG_\chi$, $4x-x^2\le4$; hence $4\tr\hG_\chi-\|\hG_\chi\|_\Fro^2\le4d$. For good $\chi$, write $\hA_\chi=\hG_\chi-\hE_\chi$. Then $|\tr\hA_\chi-\tr\hG_\chi|\le\|\hE_\chi\|_1$ and
+$\big|\|\hA_\chi\|_\Fro^2-\|\hG_\chi\|_\Fro^2\big|\le2\|\hG_\chi\|_\Fro\|\hE_\chi\|_1+\|\hE_\chi\|_1^2$.
+Using Proposition~\ref{prop:perchi} for good $\chi$ and $N^s_{0,\chi}\ge0$ for bad $\chi$,
+\begin{align*}
+N^s_0&\ge\sum_{\chi\ \mathrm{good}}\omega_\chi\big(4\tr\hA_\chi-\|\hA_\chi\|_\Fro^2-2N_\chi\big)\\
+&\ge\sum_{\chi\in\cF}\omega_\chi\big(4\tr\hG_\chi-\|\hG_\chi\|_\Fro^2-2N_\chi\big)-4d\!\!\sum_{\chi\ \mathrm{bad}}\!\!\omega_\chi-\!\!\sum_{\chi\ \mathrm{good}}\!\!\omega_\chi\big(4\|\hE_\chi\|_1+2\|\hG_\chi\|_\Fro\|\hE_\chi\|_1+\|\hE_\chi\|_1^2\big).
+\end{align*}
+By Lemma~\ref{lem:bad}, $4d\sum_{\mathrm{bad}}\omega_\chi\ll T\ell\cdot Q^2\ell^{-51}=o(N)$. By Proposition~\ref{prop:tail} and Cauchy--Schwarz, the last sum is $\ll\ell^{-B}(H+(H\mathfrak M)^{1/2})$. By Proposition~\ref{prop:trace} the first sum is $4(1-2\theta)N-\mathfrak M-2N+o(N)$. The same argument applies to $N^*_0$, and to $N_d$ with $\frac12(\mathcal M_\chi-N_\chi)$ and the cap $2d$.
+\end{proof}
+
+%======================================================================
+\section{The prime side}\label{sec:prime}
+%======================================================================
+
+\subsection{Decomposition}
+By \eqref{eq:fc2}, $\mathfrak M=(a^2L^2)^{-1}\big(\mathcal M+O(H\ell^2)\big)$ with $\mathcal M:=\sum_\chi\omega_\chi\iint_{J^2}\Phi(t-t')^2\nu_\chi(t)\nu_\chi(t')$. Expanding $\nu_\chi=\mu_\chi+P_\chi$ and $P_\chi P_\chi'$,
+\begin{equation}\label{eq:split}
+\mathcal M=M_{\mu\mu}+2M_{\mu\Lambda}+M_{\Lambda\Lambda}^{\mathrm{rat}}+M_{\Lambda\Lambda}^{\mathrm{ss}},
+\end{equation}
+where $M_{\mu\mu}=\sum\omega_\chi\iint\Phi^2\mu_\chi\mu_\chi'$, $M_{\mu\Lambda}=\sum\omega_\chi\iint\Phi^2\mu_\chi(t)P_\chi(t')$,
+\begin{equation}\label{eq:Mrat}\begin{gathered}
+M_{\Lambda\Lambda}^{\mathrm{rat}}=\frac1{2\pi^2}\sum_{n,m}a_na_m\Delta(n,m)\cK(n,m),\\
+M_{\Lambda\Lambda}^{\mathrm{ss}}=\frac1{2\pi^2}\Re\sum_\chi\omega_\chi\iint_{J^2}\Phi(t-t')^2S_\chi[a](t)S_\chi[a](t')\dd t\dd t'.
+\end{gathered}\end{equation}
+(The two ratio terms $S\overline{S'}$ and $\overline SS'$ are equal after $t\leftrightarrow t'$, since $\Phi^2$ is even.)
+
+\subsection{The archimedean term}
+\begin{lemma}\label{lem:mumu}
+$M_{\mu\mu}=\dfrac{H|J|bL\ell^2}{2\pi}\Big(1+O\Big(\dfrac{\log T+\log(1/\eta)}\ell\Big)\Big)+O(H\ell^2)$.
+\end{lemma}
+\begin{proof}
+On $J$, $\mu_\chi(t)=\ell/(2\pi)+O(\log T+\log(1/\eta))$ uniformly in $\chi\in\cF$, by the digamma asymptotic. Moreover
+\begin{multline*}
+\iint_{J^2}\Phi(t-t')^2\dd t\dd t'=\int_\RR\Phi(r)^2(|J|-|r|)_+\dd r\\=|J|\int\Phi^2-\int\Phi(r)^2\min(|r|,|J|)\dd r=2\pi bL|J|+O_\psi(1),
+\end{multline*}
+since $\int\Phi^2=2\pi\int\psi_L^4=2\pi bL$ and $\int|r|\Phi(r)^2\dd r=\int|s|\widehat v(s)^2\dd s$ (because $\Phi(r)=L\widehat v(Lr)$). As $\Phi^2\ge0$ and $\sum_\chi\omega_\chi=H$, the claim follows.
+\end{proof}
+
+\subsection{The mixed term}
+\begin{lemma}\label{lem:muLambda}
+$M_{\mu\Lambda}\ll\wmax\,QL\ell\,\Yc^{1/2}\log\Yc$. In particular $M_{\mu\Lambda}=O(H|J|L\ell^2\cdot Q^{-\eps_1/2})$.
+\end{lemma}
+\begin{proof}
+Write $\mu_\chi=A_q(t)+\chi(-1)B(t)$ with $A_q,B$ independent of the character modulo $q$; on $J$, $A_q\ll\ell$, $B\ll1$, $A_q',B'\ll1/T$. Then $\sum_{\chi\bmod q}^*\mu_\chi(t)\chi(n)=A_q(t)\sigma_q(n)+B(t)\sigma_q(-n)$. For $m_q(t'):=\int_J\Phi(t-t')^2A_q(t)\dd t$ we have $\sup|m_q|\ll L\ell$, and, after one integration by parts in $t$, $\int_J|m_q'|\ll L\ell$. Hence $|\int_Jm_q(t')n^{\mp it'}\dd t'|\ll L\ell/\log n$, and similarly for $B$. By Lemma~\ref{lem:firstmoment},
+\[
+|M_{\mu\Lambda}|\ll L\ell\sum_{2\le n\le\Yc}\frac{\Lambda(n)}{\sqrt n\log n}\sum_q\omega(q)\big(|\sigma_q(n)|+|\sigma_q(-n)|\big)\ll\wmax QL\ell\,\Yc^{1/2}\log\Yc.\qedhere
+\]
+\end{proof}
+
+\begin{remark}\label{rem:muP}
+The bound of Lemma~\ref{lem:muLambda} is $o(H|J|L\ell^2)$ as soon as $\Yc^{1/2}\log\Yc=o(QT\ell)$, which holds even for $\Yc=Q^2$ because $T\to\infty$. So the mixed term does \emph{not} force $\lambda<2$. The constraints that do are: (i) the interval length $K\le Q^{2-\eps}$ in the large sieve bounds of \S\ref{sec:constants} (it enters through the spoke count in Lemmas~\ref{lem:A} and~\ref{lem:C}, and in Lemma~\ref{lem:C} also through the isolated point); (ii) the length term of the large sieve, through $\Lmult(\Yc)\ll_wH$, which needs $\Yc\ll Q^2$ (for $\Yc>Q^2$ see Lemma~\ref{H:lem:M3prime} and Corollary~\ref{H:cor:tails}) and is used in Lemma~\ref{lem:pointwise} (hence in Proposition~\ref{prop:finitecentre}), in Lemma~\ref{lem:ss}, and for the tails of the localisation in Propositions~\ref{prop:TI} and~\ref{prop:TIsharp} and in the proof of Theorem~\ref{thm:conditional}. On intervals of length $K\gg Q^{2}$ the form $\Delta$ has eigenvalues $\gg_wK$, which is not $O(H)$ (\S\ref{sec:limits}). The condition $R\le N^{1/2-\eps_3}$ in Lemma~\ref{lem:B2} is automatic for $N\le2Q^2$; see also Remark~\ref{rem:bandwidth}.
+\end{remark}
+
+\subsection{Same-sign terms}
+\begin{lemma}\label{lem:ss}
+$M_{\Lambda\Lambda}^{\mathrm{ss}}\ll\wmax(Q^2+\Yc)L^2$. In particular $M_{\Lambda\Lambda}^{\mathrm{ss}}=O(H|J|L\ell^2/(T\ell))$.
+\end{lemma}
+\begin{proof}
+Substitute $t=t'+r$, let $J_r=J\cap(J-r)=[\alpha_r,\beta_r]$. For $nm\ge4$,
+\[
+\int_{J_r}(nm)^{-it'}\dd t'=\frac{(nm)^{-i\beta_r}-(nm)^{-i\alpha_r}}{-i\log nm},\qquad\frac1{\log nm}=\int_0^\infty(nm)^{-\sigma}\dd\sigma .
+\]
+Thus $\sum_\chi\omega_\chi\int_{J_r}S_\chi[a](t'+r)S_\chi[a](t')\dd t'$ is a difference of two terms $i\int_0^\infty\sum_\chi\omega_\chi\mathcal A_\chi(\sigma)\mathcal B_\chi(\sigma)\dd\sigma$, where $\mathcal A_\chi,\mathcal B_\chi$ are character sums with coefficients of modulus $a_nn^{-\sigma}$ on $[1,\Yc]$. By Cauchy--Schwarz and \eqref{eq:MVLS},
+\[
+\Big|\sum_\chi\omega_\chi\mathcal A_\chi\mathcal B_\chi\Big|\le\wmax(Q^2+\Yc)\sum_na_n^2n^{-2\sigma},
+\]
+and $\int_0^\infty\sum_na_n^2n^{-2\sigma}\dd\sigma=\sum_na_n^2/(2\log n)\le\log\Yc$. Integrating against $\Phi(r)^2$, with $\int\Phi^2=2\pi bL$, gives the claim.
+\end{proof}
+This is the only place where the same-sign terms enter; they carry no factor $T$, which is one of the reasons why $T\to\infty$ is used.
+
+\subsection{Ratio terms: the Schur product}\label{sec:schur}
+Since $\Delta\succeq0$ and $\cK\succeq0$, for every real vector $y$ supported on $[1,\Yc]$ the Schur product theorem gives
+\begin{equation}\label{eq:schur}
+\sum_{n,m}y_ny_m\Delta(n,m)\cK(n,m)\le\Lmult(\Yc)\sum_ny_n^2\cK(n,n).
+\end{equation}
+With $y=a$ and the crude bound $\Lmult(\Yc)\le\wmax(Q^2+\Yc)$ from \eqref{eq:MVLS}, this recovers $M^{\mathrm{rat}}_{\Lambda\Lambda}\ll H|J|L^3$, which is of the order of the main terms but with a poor constant and the density $\log n$ in place of $\log Q$. The rest of this section improves both.
+
+\subsection{Flattening and time localisation}\label{sec:flat}
+We subtract from $\Lambda$ a truncated divisor sum; such sums go back to Selberg \cite{Sel42} and were used by Goldston \cite{Gold92} and Goldston--Y{\i}ld{\i}r{\i}m \cite{GY03},
+\[
+\LamR(n)=\sum_{r\le R}\frac{\mu(r)}{\varphi(r)}c_r(n),
+\]
+with $c_r$ the Ramanujan sum, at a level $R=R_j\le N_j^{1-\eps_3}/(QT)$ that is fixed on each dyadic block $n\asymp N_j$. (The same truncation serves as the approximation to $\Lambda$ in Vaughan's work on moments of primes in arithmetic progressions \cite{Vau03a,Vau03b}.) Two facts make this useful. First, the subtracted vector $\ash$ is invisible to every character of $\cF$ at every height $|t|\le3T$ (Lemma~\ref{lem:B1}), because $n\mapsto c_r(n)\chi(n)$ has mean zero and period $[q,r]\le QR_j\le N_j^{1-\eps_3}/T$. Second, $b=a-\ash$ has mean square density at most $(1+o(1))\min(\alpha,1+2\eps_3)\ell$ at $n=Q^\alpha$, instead of $\alpha\ell$ for $a$ (Lemma~\ref{lem:B2}); the asymptotics for $\sum\LamR^2$ and $\sum\Lambda\LamR$ go back to Graham \cite{Gra78} and Goldston \cite{Gold92}. The consequence is that $a$ may be replaced by $b$ in $M^{\mathrm{rat}}_{\Lambda\Lambda}$ at the cost $O(Q^{-A})$; see \eqref{eqB:Mrat}.
+
+Time localisation rests on the factorisation $\cK(n,m)=\int g(u)\hJ(u-\log n)\overline{\hJ(u-\log m)}\dd u$ with $\hJ(\xi)=\int_Je^{it\xi}\dd t$ (Lemma~\ref{lem:M1}). Since $|\hJ(\xi)|\le2/|\xi|$, after integration in $u$ the $n$ with $|\log n-u|>T^{-1/2}$ contribute only a relative $O(T^{-1/4})$, so only large sieve constants for vectors supported on intervals of length $\le5T^{-1/2}e^u$ enter (Lemma~\ref{lem:M3}, Proposition~\ref{prop:TI}). For $K\le Q^{1-\eps}$ one has the trivial but decisive bound $\Lmult(K)\le(1+O(K\log K/Q))H$ (Lemma~\ref{lem:M2}), because $|\Delta(n,m)|\ll\wmax Q\tau(|n-m|)$ for $n\ne m$. The precise statements and proofs follow.
+
+\inputlemma{lemma-B-majorant}
+
+\subsection{Assembly of the prime side}\label{sec:primeassembly}
+\begin{proposition}[Second moment with a profile]\label{prop:second}
+Let $c:\RR\to[1,\infty)$ be smooth (only its values on $[-2,2]$ matter), and suppose that, uniformly in $T$,
+\begin{equation}\label{eq:profile}
+\sum_{n,m}b_nb_m\Delta(n,m)\cK(n,m)\le(1+o(1))\,H\sum_nb_n^2\,c\Big(\frac{\log n}\ell\Big)\cK(n,n)+o(H|J|L^2\ell).
+\end{equation}
+Put $F(\alpha)=c(\alpha)\min(\alpha,1+\eps_4)$ with $\eps_4$ as in Lemma~\ref{lem:B2}, and $f_v(x)=v(x/\lambda)/(\lambda a)$. Then, uniformly in $T$,
+\[
+\mathfrak M\le(1-2\theta)\,\Qf_F(f_v)\,N+o(N),\qquad\Qf_F(f):=\int f^2+\iint f(x)f(y)F(|x-y|)\dd x\dd y .
+\]
+\end{proposition}
+\begin{proof}
+By \eqref{eq:Kdiag}, $\cK(n,n)\le2\pi|J|g(\log n)+O(1)$, and $\sum_nb_n^2\ll L^2$. Apply Lemma~\ref{lem:B2} with the smooth function $h(y)=c(y/\ell)g(y)\ge0$, supported in $|y|<L$; it satisfies $\|h^{(i)}\|_\infty\ll_i\|h\|_\infty$, as Lemma~\ref{lem:B2} requires, because $g^{(i)}\ll_iL^{1-i}$ and $c$ is a fixed smooth function:
+\[
+\sum_nb_n^2c(\tfrac{\log n}\ell)\cK(n,n)\le2\pi|J|(1+o(1))\int_0^L\ell F_b(y/\ell)c(y/\ell)\,L(v*v)(y/L)\dd y+O(|J|L\ell+L^2).
+\]
+Substituting $y=Ls$ and using \eqref{eqB:Mrat},
+\[
+M^{\mathrm{rat}}_{\Lambda\Lambda}\le\frac{H|J|L^2\ell}{\pi}(1+o(1))\int_0^1F(\lambda s)(v*v)(s)\dd s+o(H|J|L^2\ell).
+\]
+Add Lemmas~\ref{lem:mumu}, \ref{lem:muLambda} and \ref{lem:ss}:
+\[
+\mathcal M\le\frac{H|J|L\ell^2}{2\pi}\Big(b+2\lambda\int_0^1F(\lambda s)(v*v)(s)\dd s\Big)+o(H|J|L\ell^2).
+\]
+Divide by $a^2L^2$ and use $L=\lambda\ell$, $|J|=(1-2\theta)T$ and $N=(1+o(1))HT\ell/(2\pi)$:
+$\mathfrak M\le(1-2\theta)N\,a^{-2}\big(b/\lambda+2\int_0^1F(\lambda s)(v*v)(s)\dd s\big)+o(N)$. Finally, $\int f_v^2=b/(\lambda a^2)$ and $\iint f_v(x)f_v(y)F(|x-y|)=a^{-2}\int(v*v)(r)F(\lambda|r|)\dd r=2a^{-2}\int_0^1(v*v)(s)F(\lambda s)\dd s$, since $v$ is even.
+\end{proof}
+
+\begin{remark}[Normalisation check]
+With $F(\alpha)=\alpha$ and $\lambda\le1$, $\Qf_F(f_v)=(b+\lambda^2\Jv(v))/(\lambda a^2)=:1/c_\lambda(v)$, because $\int_0^1s(v*v)(s)\dd s=\frac12\int_\RR|s|(v*v)(s)\dd s=\frac12\iint|x-y|v(x)v(y)\dd x\dd y=\Jv(v)/2$ ($v$ is even and $\supp v*v\subset(-1,1)$). This is exactly \cite[Prop.~7.2]{HY26} with $q$ replaced by $H$, and the optimisation of \cite[\S11]{HY26} returns $0.6725$.
+\end{remark}
+
+The hypothesis that isolates what the large sieve must supply is the following.
+
+\begin{hypothesis}[$\mathrm{LS}(C)$]\label{hyp:LS}
+For every $\eps>0$, uniformly in $K\le Q^{2-\eps}$, $\Lmult(K)\le(C+o(1))H$. (Necessarily $C\ge1$.)
+\end{hypothesis}
+
+\begin{theorem}[Conditional form]\label{thm:conditional}
+Let $w$ be admissible and suppose $\mathrm{LS}(C)$ holds for the family $\cF(Q,w)$. Then
+\[
+\liminf_{Q\to\infty}\inf_T\frac{N^s_0}N\ge\pC(C),\qquad\liminf_{Q\to\infty}\inf_T\frac{N^*_0}N\ge\pC(C),\qquad\liminf_{Q\to\infty}\inf_T\frac{N_d}N\ge\frac{1+\pC(C)}2 .
+\]
+\end{theorem}
+The proof is given in \S\ref{sec:assembly}. Theorem~\ref{thm:gauss} is the case $C=\CG\Rw$, which is unconditional by \S\ref{ssec:lemmaA}. Theorem~\ref{thm:main} does not go through $\mathrm{LS}(C)$ with $C\to1$; it uses the structured substitute of \S\ref{ssec:toeplitz}, which only concerns the vectors that actually occur.
+
+%======================================================================
+\section{The two large-sieve constants}\label{sec:constants}
+%======================================================================
+
+This section has two parts: the Gauss-sum transfer with a sharp Farey large sieve (\S\ref{ssec:lemmaA}), and the Toeplitz route (\S\ref{ssec:toeplitz}).
+
+\medskip\noindent\textbf{Overview of \S\ref{ssec:lemmaA}.} For a primitive character $\chi\bmod q$ the Gauss sum expresses $\chi(n)$ through the additive characters $e(bn/q)$. Summing over primitive $\chi$ and enlarging to all characters bounds the family form by the additive large sieve form of the weighted Farey measure $\sum_qw(q/Q)\sumst_{b\bmod q}\delta_{b/q}$ (Lemma~\ref{lem:gauss}). The factor $q/\varphi(q)$ in $\omega$ is chosen exactly so that the additive side carries the smooth weights $w(q/Q)$. The price is the ratio of masses $W/H\to\CG$: the transfer bounds the $\varphi^*(q)$ primitive characters by all $\varphi(q)$ reduced fractions with denominator $q$. The additive form is then bounded sharply on intervals of length $K\le Q^{2-\eps}$ by a Fej\'er majorant, duality and Schur's test, and an $\mathrm{SL}_2(\ZZ)$ lattice count along the spokes through each rational (in the spirit of Boca--Cobeli--Zaharescu \cite{BCZ01}); the constant is the essential supremum $\Rw$ of the Farey profile $\Pw$, a weighted form of the Davenport--Wolke $K\delta$ principle for Farey points (cf.\ \cite{Wol71,Bai06,Ram09,BZ05}; see also \cite{Ram26} for a recent arithmetic form of the weighted large sieve, obtained through Parseval's identity, and \S\ref{sec:priorLS} for the comparison). Numerically $\Rw$ is also the limit of the top eigenvalue of the additive form (Appendix~\ref{app:numerics}), but only the upper bound is used. For log-wide weights $\Rw\to1$ (Lemma~\ref{lem:Rwlog}).
+
+\inputlemma{lemma-A}
+
+\begin{proof}[Proof of Theorem~\ref{thm:gauss}, given Theorem~\ref{thm:conditional}]
+By Corollary~\ref{cor:LmultA} (Lemmas~\ref{lem:gauss}, \ref{lem:A} and~\ref{lem:WH}), $\mathrm{LS}(\CG\Rw)$ holds. Theorem~\ref{thm:conditional} gives the general statement. For the log-wide weights, $\CG R_w\to\CG$ as $\eta\to0$ by Lemma~\ref{lem:Rwlog}, and $\pC(\CG\Rw)\ge\pC(\CG)-\CG(\Rw-1)$ by Lemma~\ref{lem:pLip}. Finally $\CG<1.26877393\le1.2688$ (certified in interval arithmetic; Table~\ref{tab:constants}), so $\pC(\CG)\ge\pC(1.2688)\ge0.885912$ by monotonicity and Proposition~\ref{prop:cert}.
+\end{proof}
+
+\medskip\noindent\textbf{Overview of \S\ref{ssec:toeplitz}.} The Gauss transfer throws away cancellation: it replaces the $\varphi^*(q)$ primitive characters by all $\varphi(q)$ Farey points. For the vectors that occur in \eqref{eqB:Mrat} above $Q$, namely primes $p>Q$ (and prime powers, whose contribution is negligible), there is an exact alternative. If every prime factor of every $n\in\supp x$ exceeds $Q$, then $(nm,q)=1$ for all $q\le Q$, and the orthogonality relation $\sumst_{\chi\bmod q}\chi(n)\overline{\chi(m)}=\sum_{d\mid(q,n-m)}\varphi(d)\mu(q/d)$ turns the family form into a Toeplitz form. Expanding its kernel in Ramanujan sums identifies it with the additive large sieve form of a signed Farey measure $\muO$ of total mass exactly $H$. Adding to $\muO$ an explicit positive majorant of its negative part gives a positive measure $\mu^\natural\ge\mu_\Omega^+$ and a positive semidefinite Toeplitz majorant $T^\natural$, defined on \emph{all} vectors (Lemma~\ref{lem:S}); its constant on intervals of length $K\le Q^{2-\eps}$ is a supremum $\CTp(w)$ of explicit local densities near rationals (Lemma~\ref{lem:C}), and $\CTp(w)\to1$ for log-wide weights (Lemma~\ref{lem:CTlimit}).
+
+\inputlemma{lemma-toeplitz-C}
+
+Proposition~\ref{prop:TIsharp} is the form in which these statements enter: it replaces Hypothesis $\mathrm{LS}(C)$ in Proposition~\ref{prop:second} by the profile $\widetilde C_\eps$, which equals $1$ below $1-2\eps$, is at most $\max(C_{\rm band},\CTp(w))$ on a band of width $O(\eps)$ around $\alpha=1$, and equals $\CTp(w)$ above $1+2\eps$; here $C_{\rm band}$ is any $O(1)$ large sieve constant for intervals of length $Q^{1+2\eps}$, for instance the classical one. Three features of the argument should be noted. Invisibility (Lemma~\ref{lem:B1}) is applied to the whole vector before any localisation. The Toeplitz identity is only applied to vectors supported on $Q$-rough integers $n>Q^{1+\eps}/2$, so primes $p\le Q$ dividing a modulus never enter it. And the swap $a\to b$ takes place inside the positive semidefinite form $T^\natural$, which is defined on all vectors.
+
+%======================================================================
+\section{The variational problem and the certified constants}\label{sec:variational}
+%======================================================================
+
+\subsection{The extremal problem}
+For $C\ge1$ let $F_C$ be as in \eqref{eq:pC} and $\pC(C)=2-\inf_f\Qf_{F_C}(f)$ over even $f\ge0$ with $\supp f\subset[-1,1]$ and $\int f=1$. Evenness is needed because the window $\psi$ must be even (\S\ref{sec:explicit}). The functional is finite on $L^2([-1,1])$ and continuous in $L^1\cap L^2$, since $0\le F_C\le C$.
+
+\begin{lemma}\label{lem:pLip}
+$\pC$ is nonincreasing, and $\pC(C')\ge\pC(C)-(C'-C)$ for $C'\ge C\ge1$.
+\end{lemma}
+\begin{proof}
+$F_{C'}-F_C=(C'-C)\one_{(1,2]}$, so $\Qf_{F_{C'}}(f)-\Qf_{F_C}(f)=(C'-C)\iint_{|x-y|>1}f(x)f(y)\in[0,C'-C]$ when $f\ge0$ and $\int f=1$.
+\end{proof}
+
+\begin{lemma}[Realisation by windows]\label{lem:windows}
+Let $C\ge1$, let $f\ge0$ be even, supported in $[-1,1]$, with $f\in L^2$ and $\int f=1$, and let $\eta'>0$. There are $\lambda<2$ and a real even $\psi\in C_c^\infty((-\frac12,\frac12))$, $\psi\not\equiv0$, such that $\Qf_{F_C}(f_v)\le\Qf_{F_C}(f)+\eta'$, where $v=\psi^2$ and $f_v(x)=v(x/\lambda)/(\lambda\int v)$.
+\end{lemma}
+\begin{proof}
+For $0\le F\le 2C$ one has $|\Qf_F(f)-\Qf_F(g)|\le\|f-g\|_2(\|f\|_2+\|g\|_2)+2C\|f-g\|_1(\|f\|_1+\|g\|_1)$, so $\Qf_F$ is continuous on $L^1\cap L^2$. First rescale: $f_\lambda(x)=\frac2\lambda f(\frac{2x}\lambda)$ is supported in $[-\frac\lambda2,\frac\lambda2]$, and $\Qf_{F_C}(f_\lambda)=\frac2\lambda\int f^2+\iint f(s)f(s')F_C(\frac\lambda2|s-s'|)\to\Qf_{F_C}(f)$ as $\lambda\uparrow2$, by dominated convergence ($F_C(\frac\lambda2r)\to F_C(r)$ for $r\ne1$, and $\{|s-s'|=1\}$ is null). Next dilate $f_\lambda$ very slightly and mollify it, obtaining a smooth even $f_1\ge0$ with $\supp f_1\subset(-\frac\lambda2,\frac\lambda2)$, $\int f_1=1$ and $f_1$ close to $f_\lambda$ in $L^1\cap L^2$. Finally let $\zeta\in C_c^\infty((-\frac12,\frac12))$ be even with $0\le\zeta\le1$ and $\zeta=1$ on $\lambda^{-1}\supp f_1$, and put $\psi(s)=\zeta(s)\,(f_1(\lambda s)+\epsilon')^{1/2}$, which is smooth since $f_1+\epsilon'>0$. Then $v=\psi^2=\zeta^2(f_1(\lambda\cdot)+\epsilon')\to f_1(\lambda\cdot)$ in $L^1\cap L^2$ as $\epsilon'\to0$, hence $f_v\to f_1$. (This follows the approximation argument of \cite[\S11]{HY26}.)
+\end{proof}
+
+\subsection{Certified values}
+\begin{proposition}[Rational certificates]\label{prop:cert}
+Let $f_n^{(C)}$ be the explicit even step function on $n$ equal cells of $[-1,1]$ generated deterministically by the ancillary file \texttt{certify.py} (a floating-point solution of the discretised problem, symmetrised and rounded to integer heights; Appendix~\ref{app:numerics}). Evaluating $\Qf_{F_C}(f_n^{(C)})$ in exact rational arithmetic gives:
+\begin{center}\small
+\begin{tabular}{@{}lcccl@{}}
+\toprule
+$C$ & $n$ & $\pC(C)\ge$ & $(1+\pC(C))/2\ge$ & used in\\
+\midrule
+$1$ & $1600$ & $0.932282$ & $0.966141$ & Theorem~\ref{thm:main}\\
+$1.0434$ & $1600$ & $0.924182$ & $0.962091$ & Theorem~\ref{thm:fixed}(ii)\\
+$1.0911$ & $1600$ & $0.915550$ & $0.957775$ & Theorem~\ref{thm:fixed}(i)\\
+$1.2688\ (\ge\CG)$ & $400$ & $0.885912$ & $0.942956$ & Theorem~\ref{thm:gauss}\\
+$1.2890$ & $1600$ & $0.882798$ & $0.941399$ & Theorem~\ref{thm:fixed}(iii)\\
+$1.3055$ & $1600$ & $0.880293$ & $0.940146$ & Theorem~\ref{thm:fixed}(iii)\\
+$1.3448$ & $1600$ & $0.874467$ & $0.937233$ & Theorem~\ref{thm:fixed}(iii)\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{proposition}
+\begin{proof}
+For a step function $f$ with heights $f_i$ on cells of width $h=2/n$, $\Qf_{F_C}(f)=h\sum_if_i^2+\sum_{i,j}f_if_j\,\kappa_{i-j}$, where $\kappa_m=G(mh+h)-2G(mh)+G(mh-h)$ and $G$ is the even function with $G''=F_C(|\cdot|)$, $G(0)=G'(0)=0$, namely $G(x)=|x|^3/6$ for $|x|\le1$ and $G(x)=\frac16+\frac{|x|-1}2+\frac C2(|x|-1)^2$ for $1<|x|\le2$. The heights are integers divided by an exact normalising constant, so $\Qf_{F_C}(f)$ is an explicit rational number; the script computes it exactly and prints $\lfloor10^6(2-\Qf)\rfloor/10^6$. The step functions are positive (their minima are $0.29$, $0.27$, $0.25$ and $0.19$ in the first four rows). Any admissible $f$ gives $\pC(C)\ge2-\Qf_{F_C}(f)$.
+\end{proof}
+
+\begin{remark}[Optimality]\label{rem:optimal}
+For $C=1$ the functional is strictly convex on $\{\int f=1\}$: if $\int h=0$ and $\supp h\subset[-1,1]$, then, since $F_1(|x|)=1-(1-|x|)_+$ on $[-2,2]$,
+\[
+\Qf_{F_1}(h)=\int h^2-\iint h(x)h(y)(1-|x-y|)_+\dd x\dd y=\frac1{2\pi}\int|\widehat h(\xi)|^2\Big(1-\Big(\frac{\sin(\xi/2)}{\xi/2}\Big)^2\Big)\dd\xi>0
+\]
+for $h\ne0$. Since $f$ and $f(-\cdot)$ give the same value, convexity gives $\Qf_{F_1}(\frac12(f+f(-\cdot)))\le\Qf_{F_1}(f)$, so the restriction to even $f$ is immaterial for $C=1$; by strict convexity a minimiser over all admissible $f$, if it exists, is unique and hence even. The discretised values at $n=400,800,1600$ are $0.9322820$, $0.9322825$, $0.9322826$, so numerically $\pC(1)=0.932283$ to six decimals (only the lower bound is used). For $1<C\le1.6$ strict convexity on $\{\int h=0\}$ holds numerically for the discretised problem (so the symmetrisation argument applies there too): the smallest value of $\Qf_{F_C}(h)/\|h\|_2^2$ over $\int h=0$ is $0.4305$ at $C=1$, $0.2648$ at $C=1.2688$ and $0.0553$ at $C=1.603$ (Appendix~\ref{app:numerics}). So the displayed values are, to the stated accuracy, the best the method gives for these majorants. None of this is needed for the theorems.
+\end{remark}
+
+\subsection{Assembly and order of limits}\label{sec:assembly}
+\begin{proof}[Proof of Theorem~\ref{thm:conditional}]
+Fix $\eps\in(0,\frac13)$ and let $c_\eps:\RR\to[1,C]$ be smooth and nondecreasing with $c_\eps=1$ on $(-\infty,1-2\eps]$ and $c_\eps=C$ on $[1-\frac32\eps,\infty)$. We check \eqref{eq:profile} for $c=c_\eps$ by rerunning the proof of Proposition~\ref{prop:TI}, which uses Corollary~\ref{cor:LmultA} only through the bound $\Lmult(K)\le(\Cw+o(1))H$ for $K\le Q^{2-\eps_1}$; we use $\mathrm{LS}(C)$ there instead. By Lemma~\ref{lem:M1} the left side of \eqref{eq:profile} is $\int g(u)x_b(u)^*\Delta x_b(u)\dd u$; split each $x_b(u)$ as in Lemma~\ref{lem:M3} with $\delta=T^{-1/2}$, $\kappa=T^{-1/4}$. The tails contribute $O(T^{-1/4})$ relatively, as in Proposition~\ref{prop:TI}. The short part $x^s(u)$ lies in an interval of length $\le5\delta e^u$, which contains at most $5\delta e^u+1$ integers. If $u\le(1-\eps)\ell$ this number is $\le Q^{1-\eps/2}$ and Lemma~\ref{lem:M2} gives the constant $1+o(1)$; if $u>(1-\eps)\ell$ it is $\le5\delta X+1\le Q^{2-\eps_1}$ (as $e^u<X$ on $\supp g$) and $\mathrm{LS}(C)$ gives $C+o(1)$. Now if $(x^s(u))_n\ne0$ then $|u-\log n|<2\delta$. Hence, if $\log n/\ell<1-\frac32\eps$, then $u<(1-\eps)\ell$ for $Q$ large and only the constant $1+o(1)\le(1+o(1))c_\eps(\log n/\ell)$ occurs; otherwise the constant is at most $\max(1,C)+o(1)=(1+o(1))c_\eps(\log n/\ell)$. Lemma~\ref{lem:M3}(iii) then gives \eqref{eq:profile}. By Propositions~\ref{prop:second} and~\ref{prop:zero}, uniformly in $T$,
+\[
+N^s_0\ge\big(2-8\theta-(1-2\theta)\Qf_{F_\eps}(f_v)-o(1)\big)N,\qquad F_\eps=c_\eps\min(\cdot,1+\eps_4),
+\]
+where we used $\mathfrak M=O(N)$ to absorb $\ell^{-B}(H\mathfrak M)^{1/2}=o(N)$. Given $\eta'>0$, choose an even admissible $f$ with $2-\Qf_{F_C}(f)\ge\pC(C)-\eta'$. Then choose, in this order: $\lambda<2$ and $\psi$ by Lemma~\ref{lem:windows}, so that $\Qf_{F_C}(f_v)\le\Qf_{F_C}(f)+\eta'$; then $\eps_1$ with $\lambda(1+\eps_1)\le2-\eps_1$; then $\theta,\eps,\eps_3$ (hence $\eps_4$) so small that $8\theta+|\Qf_{F_\eps}(f_v)-\Qf_{F_C}(f_v)|\le\eta'$, which is possible by dominated convergence for the fixed $v$ since $F_\eps\to F_C$ off $\{1\}$ as $\eps,\eps_4\to0$ and $0\le F_\eps\le2C$. Letting $Q\to\infty$ and then $\eta'\to0$ proves the claim for $N^s_0$; the same choices give $N^*_0$ and $N_d$.
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $\eps>0$; here $\eps$ is the accuracy in the statement, and we write $\eps'$ for the band parameter of \S\ref{sec:parameters} and Proposition~\ref{prop:TIsharp}. By Lemma~\ref{lem:CTlimit}, $\CTp(w)\le1+O(1/\log(1/\eta))$ for $w\in\{\wsharp,\wsmooth\}$, with an explicit constant; choose $\eta_0$ with $\CTp(w)\le1+\eps/3$ for $\eta\le\eta_0$, and fix $\eta\le\eta_0$. Apply Proposition~\ref{prop:TIsharp} with the band constant $C_{\rm band}=2\wmax/(\Ec\WIw)$, which comes from the classical large sieve \eqref{eq:MVLS}; any bound $O(H)$ suffices on the band, since the band disappears as $\eps'\to0$. Run the proof of Theorem~\ref{thm:conditional} with Proposition~\ref{prop:TIsharp} in place of $\mathrm{LS}(C)$: hypothesis \eqref{eq:profile} holds with $c=\widetilde C_{\eps'}$ (the factor $(1+\vartheta^*_Q)(1+\kappa_T)^3$ is $1+o(1)$ uniformly in $T$, and $\mathcal E_{\rm TI}=o(H|J|L^2\ell)$), and $\Qf_{F_{\eps'}}(f_v)\to\Qf_{F_{\CTp(w)}}(f_v)$ as $\eps',\eps_4\to0$ by dominated convergence, since $\widetilde C_{\eps'}\min(\cdot,1+\eps_4)\to F_{\CTp(w)}$ off $\{1\}$ and is bounded by $2\max(C_{\rm band},\CTp(w))$. This gives $\liminf_Q\inf_TN^s_0/N\ge\pC(\CTp(w))\ge\pC(1)-\eps/3$ by Lemma~\ref{lem:pLip}, which applies since $\CTp(w)\ge1$ (Proposition~\ref{prop:sharpLS}); and $\pC(1)\ge0.932282$ by Proposition~\ref{prop:cert}. The same argument gives $N^*_0$ and $N_d$.
+
+This proof uses neither Lemma~\ref{lem:A} nor Lemma~\ref{lem:gauss} nor Corollary~\ref{cor:LmultA}: from \S\ref{ssec:lemmaA} it uses only the elementary Lemmas~\ref{lem:WH}, \ref{lem:dual}, \ref{lem:harm}, Proposition~\ref{prop:count}, and the layer-cake argument in the proof of Lemma~\ref{lem:Rwlog} (reused in Lemma~\ref{lem:CTlimit}), which enter through \S\ref{ssec:toeplitz}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:fixed}]
+For the fixed weight $w$, the proof of Theorem~\ref{thm:main} (with $\eta$ fixed; \S\ref{sec:parameters}) gives $\liminf_Q\inf_TN^s_0/N\ge\pC(\CTp(w))$, and likewise $\pC(\CG\Rw)$ by Theorem~\ref{thm:gauss}. The upper bounds for $\CTp(w)$ and $\Rw$ are the computer-assisted inputs, certified in interval arithmetic (Table~\ref{tab:CTfixed}, Table~\ref{tab:Rw}; ancillary files \texttt{ctplus\_arb.py} and \texttt{rw\_arb.py}, whose results are collected in \texttt{certify\_ctplus\_arb.log}, and Lemma~\ref{lem:Rwfar} for the far field of $\Pw$): $\CTp(w)\le1.090990$ ($\eta=10^{-3}$), $\CTp(w)\le1.043290$ ($\eta=10^{-4}$), $\Rw\le1.059816,\ 1.028831,\ 1.015859$, and $\CG<1.268774$ (\texttt{certify\_constants\_arb.log}). By monotonicity of $\pC$ and Proposition~\ref{prop:cert}, $\CTp(w)\le1.0911$ gives $\pC\ge0.915550$ and $\CTp(w)\le1.0434$ gives $\pC\ge0.924182$. For (iii): $\CG\Rw<1.268774\cdot1.0599<1.3448$, $1.268774\cdot1.0289<1.3055$ and $1.268774\cdot1.0159<1.2890$, and Proposition~\ref{prop:cert} gives $0.874467$, $0.880293$ and $0.882798$.
+\end{proof}
+
+%======================================================================
+\section{Remarks}\label{sec:remarks}
+%======================================================================
+
+\subsection{Limits of the method}\label{sec:limits}
+Given the certificate of \S\ref{sec:certificate} and a majorant of the shape $F_C$, the value $\pC(C)$ is extremal (Remark~\ref{rem:optimal}); improvements must come from the large sieve side. Two barriers remain. First, the bandwidth: all our large sieve bounds are for intervals of length $K\le Q^{2-\eps}$. For $K\gg Q^2$ the length term of the large sieve exceeds the family mass $H\asymp Q^2$: if $x$ is the indicator of the progression $n\equiv1\pmod{q_0}$ in an interval of length $K$, with $q_0\in[\eta Q,Q]$ and $w(q_0/Q)>0$, then the characters modulo $q_0$ alone give $x^*\Delta x\ge\omega(q_0)\varphi^*(q_0)(K/q_0)\|x\|^2(1+o(1))$, so $\Lmult(K)/H\gg_wK/Q^2$ is unbounded. Hence no worst-case majorant of the form $F\le C$ exists on $\alpha>2$; a bound there would have to use the structure of the prime vectors. This is the analogue, in the $q$-aspect, of the obstruction at $\alpha=1$ for $\zeta$. Second, the constant $\pC(1)$ is the value of the GUE form factor $\min(\alpha,1)$ on $[0,2]$, and the method cannot exceed it without information on $\alpha>2$. The reason is that under GRH the family form factor on $(1,2)$ is expected to equal $1$ (this is what the asymptotic of \cite{CLLR} gives for their dyadic family), so no majorant lying below $F_1$ on $(1,2)$ can be expected to hold. (Under GRH, \cite{CGdL} exceed $\pC(1)$ for the low-lying statistic with test functions that are not supported in $|\alpha|\le2$ but are nonpositive for $|\alpha|\ge2$, together with the nonnegativity of the family pair-correlation function; see \S\ref{sec:grhcomp}. We have not examined whether test functions of this kind can be used in the present certificate.)
+
+\subsection{Which ingredient gives what}\label{sec:fallbacks}
+The three devices of \S\ref{sec:method} enter separately, which is useful when checking the argument. All values below are exact rational certificates at bandwidth $\lambda\to2$ (ancillary files \texttt{certify\_tiers.py} and \texttt{tiers.log}).
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item \emph{Flattening, Lemma~\ref{lem:A}, no time localisation.} Using only the Schur product bound \eqref{eq:schur} with $\Lmult(\Yc)\le(\Cw+o(1))H$ and Lemma~\ref{lem:B2}, the majorant is $F=\Cw\min(\alpha,1)$, and for log-wide weights one gets $\liminf N^s_0/N\ge0.788171-\eps$ for $\eta\le\eta_0(\eps)$ (distinct $\ge0.894085-\eps$).
+\item \emph{Flattening and time localisation, only the classical large sieve.} With $w=\one_{[\eta,1]}$, \eqref{eq:MVLS} gives $\Lmult(K)\le(2/(\Ec(1-\eta^2))+o(1))H$ for $K\le Q^{2-\eps}$, which is $\le(4.175+o(1))H$ for $\eta\le0.01$; Theorem~\ref{thm:conditional} with $C=4.175$ then gives $\liminf N^s_0/N\ge0.738236$ (distinct $\ge0.869118$; even certificate with $300$ cells, \texttt{tiers.log}). This is a lower bound for the same constant $\pC(2;F_{4.175})$ as the entry $0.738253$ in the row $\kappa=0$ of the table after Theorem~\ref{thm:poly}; that entry comes from a finer step function with $400$ cells, which gives a slightly larger value. Neither Lemma~\ref{lem:A} nor \S\ref{ssec:toeplitz} is used.
+\item \emph{None of the three.} Bandwidth $\lambda<1$, where $\Delta$ is diagonally dominant, gives the Montgomery--Taylor value $0.6725$, as in \cite{HY26}.
+\end{enumerate}
+
+\subsection{The $\zeta$ barrier}\label{sec:zetabarrier}
+For $\zeta(s)$ the analogue of $\Delta$ is the mean value $\int_T^{2T}|\sum_{n\le N}x_nn^{-it}|^2\dd t=(T+O(N))\|x\|^2$ of Montgomery--Vaughan \cite{MV74}; its length term dominates as soon as $N\gg T$, i.e.\ $\alpha>1$ in units of $\log T$. The family replaces the $T$ harmonics of one $L$-function by the $\asymp Q^2$ harmonics $\chi$, while the height $T$ stays polylogarithmic; this is why bandwidth $2$ becomes available. Nothing in this paper improves the constant $0.6725$ for $\zeta$ (for which Wang \cite{Wang26} has recently obtained an improvement by $6.66\cdot10^{-8}$, by refining the inequality of \cite{Lam26}; see \cite{Wang26b} for short intervals $(T,T+T^\theta]$) or for a single modulus: in \cite{HY26} the family modulo one prime $q$ has only $q$ harmonics, and the same barrier appears at $\alpha=1$. For the weight-$2$ newforms of prime level $N$, \cite{Fab26} identifies the analogous obstruction: beyond bandwidth $1$ the Kloosterman terms with modulus $N$ produce main terms, whose evaluation would require strong information on primes in progressions to modulus $N$. In our family it is the average over the moduli $q\le Q$ that gives bandwidth $2$; we make no claim about newforms.
+
+\subsection{Individual $L$-functions and the weights}\label{sec:indiv}
+The certificate is summed with nonnegative weights, so the theorem is a statement about a weighted average. Passing to an unweighted average over $\eta Q\le q\le Q$ multiplies the bound for the proportion of uncertified zeros by $\max\omega/\min\omega$, which is $\asymp\eta^{-2}\log\log Q$ for $\wsharp$ (because of the factor $q/\varphi(q)$), so it is useless even for fixed $\eta$. The weights are essential to the constants: for the dyadic weight $w=u^{-2}\one_{[1/2,1]}$ one has $\Rw=\pi^2/(6\log2)\approx2.37$, so the Gauss route gives $\Cw\approx3.0$ and a much weaker certificate (for $w=\one_{[1/2,1]}$ it is worse: $\Rw=4\pi^2/9\approx4.39$); the constants approach $1$ only when the weights spread over many logarithmic scales. Nothing is said about individual characters; a positive proportion of characters with few simple critical zeros is not excluded.
+
+\subsection{Higher zeros}\label{sec:higherzeros}
+Heights polynomial in $Q$ are treated in \S\ref{sec:poly}: uniformly for $\ell^{a_0}\le T\le Q^{\kappa_1}$ the proportion is at least $\pC(\bet_T;F_1)-\eps$, where $\bet_T=(2+\kappa)/(1+\kappa)$ at $T=Q^\kappa$ (Theorem~\ref{thm:poly}). A time localisation at scale $T^{-1/2}$, as in \S\ref{sec:flat}, with the tails bounded through $\Lmult(\Yc)\le2\wmax Q^2$, would reach only the support $(2+\kappa/2)/(1+\kappa)$; the scale $T^{-1+\eps_5}$ with the tail bound of Lemma~\ref{H:lem:M3prime} reaches the ceiling $\bet_T<2$, which is the limit of worst-case bounds (Proposition~\ref{H:prop:ceiling}). So the polylogarithmic range is indeed the most favourable one for this method.
+
+\subsection{Relation to \cite[Remark~7.2]{AF26}}\label{rem:AF72}
+The announcement \cite[Remark~7.2]{AF26} of the proportion $0.811$ for primitive $\chi\bmod q$, $q\le Q$, with smooth weights $(1-q/Q)^2$ at bandwidth $3/2$, using a weighted large sieve constant $1.263$, gives no details. With the weights and method of this paper the corresponding computation gives a different constant: for the weight $(1-q/Q)^2$ per primitive character (without the factor $q/\varphi(q)$ of \eqref{eq:omega}), the analogue of the signed Toeplitz constant $\CT(w)=\sup_{S,t}R_S$ of Definition~\ref{def:RS} is $\approx2.03$ (Table~\ref{tab:otherw}), and Theorem~\ref{thm:conditional} with $C=2.03$ would give $\pC(2.03)\approx0.805$. Both are floating-point values, not certified ($2.03$ is not a value of $\CTp$, and no matching lower bound is proved), and neither is used in any proof. They refer to bandwidth $2$ and to our normalisations, whereas the figure of \cite{AF26} refers to bandwidth $3/2$, so the two are not directly comparable; we do not pursue the comparison further.
+
+\subsection{Is $93\%$ plausible?}
+An unconditional $93\%$ for a Dirichlet family is far above the unconditional proportions obtained by Levinson's method with mollifiers \cite{CIS13,Sono25} ($0.56$ and $0.6044$ simple critical zeros, in slightly different families and normalisations; $1/3$ for the twists of a fixed $\mathrm{GL}_2$ form \cite{CKLT26}). There is no conflict. The methods differ: Levinson's method bounds critical zeros through mollified moments, whereas the certificate bounds simple critical zeros through a pair-correlation functional; in families the pair-correlation method has always given much larger proportions, but previously only under GRH \cite{Ozl96,CLLR,Sono16,CGdL}. Within the certificate itself, GRH was needed only to read the zero side as a positive sum over real ordinates (in \cite{CLLR} it is also used on the prime side; see \S\ref{sec:grhcomp}); the inertia argument of \cite{AF26} (Lemma~\ref{lem:blocks}) removes that need character by character, and off-line zeros simply fail to be certified. The prime side needs only upper bounds, which the large sieve supplies. Finally, the theorem allows a small weighted proportion of characters (for example those with exceptional zeros, or with many off-line zeros) to be arbitrary.
+
+\subsection{Comparison with the GRH results}\label{sec:grhcomp}
+Under GRH, \cite{CLLR} compute the family form factor asymptotically for $|\alpha|<2$, and \cite{Sono16} optimises the test function among those supported in $|\alpha|\le2$ to reach $0.9322$. Chirre, Gon\c calves and de Laat \cite[Theorem~5]{CGdL} go further under GRH: for the weighted statistic of low-lying zeros of \cite{CLLR,Sono16} (with $\Phi$ and $\widehat\Phi(i\,\cdot)$ nonnegative) they obtain $0.9350$, using test functions that are not supported in $|\alpha|\le2$ but are nonpositive for $|\alpha|\ge2$, so that the nonnegativity of the family pair-correlation function controls the range $|\alpha|>2$, and optimising over them by semidefinite programming. So $0.9322$ is not the best known GRH constant for that statistic. The present method recovers Sono's constant because only the upper half of the form factor enters the certificate, and that upper half is supplied unconditionally by flattening, time localisation and a large sieve with constant tending to $1$. The prime-side GRH input of \cite{CLLR} (bounds for prime sums twisted by characters of small conductor) is not needed here: the family has conductors $\ge\eta Q$ only, and on sifted vectors the Toeplitz identity of \S\ref{ssec:toeplitz} expresses the family form exactly through a signed Farey measure, whose negative part is not evaluated but majorised by an explicit positive measure (Lemma~\ref{lem:S}).
+
+\inputlemma{polyheight}
+
+%======================================================================
+\section*{AI-use statement}
+%======================================================================
+This paper was produced with substantial use of AI. The mathematical arguments, the numerical computations and the text were generated by instances of Claude Opus 5.5 (Anthropic) working as coordinated agents: one set of agents developed the arguments (building on \cite{AF26,HY26}), separate agents acted as independent hostile referees of each component, and the referees' requested repairs were incorporated. The numerical certificates were computed by AI-written scripts that are included as supplementary material and can be rerun, and the Lean formalisation described in \S\ref{ssec:checked} was also written by Claude agents. The extension to polynomial height in \S\ref{sec:poly} was produced in the same way: two agents ported the zero side and the prime side of the argument, and three further agents acted as independent hostile referees of the two ports and of the standalone draft from which \S\ref{sec:poly} was ported; their requested repairs were incorporated. The Lean formalisation of Theorem~\ref{thm:poly}(a) described in \S\ref{ssec:checked} was also written by Claude agents. [A statement of human verification and responsibility will be added before submission.] No human has yet checked every step. Section~\ref{sec:scope} states precisely what is claimed, and \S\ref{ssec:checked} lists what has been checked by machine and what rests on the written proofs alone.
+
+\appendix
+
+%======================================================================
+\section{Numerical computations}\label{app:numerics}
+%======================================================================
+This appendix lists the computations behind the numerical constants. It is separate from the proofs. The numerical facts used in the proofs of Theorems~\ref{thm:main} and~\ref{thm:gauss} are the exact rational evaluations of Proposition~\ref{prop:cert}, the upper bound $\CG\le1.2688$ (the margin is $2.6\cdot10^{-5}$), and the elementary inequalities of Table~\ref{tab:constants} (for instance $\sigma_0^-<1$, used in Lemma~\ref{lem:Omega}(d),(e)); all of them are CERTIFIED. Theorem~\ref{thm:fixed} additionally uses computer-assisted upper bounds for $\Rw$ and $\CTp(w)$, and $\CG<1.268774$. Theorem~\ref{thm:poly} and Corollary~\ref{cor:dyadic} use the exact rational evaluations of Proposition~\ref{H:prop:cert} and the certified bound $\Ec\ge0.47914533$ of Table~\ref{tab:numerics}. We label numerical statements as follows: \emph{PROVED} means established in the text (a closed form or a proved inequality); \emph{CERTIFIED} means established by a computation in exact rational or interval arithmetic, so that no rounding error is involved; \emph{COMPUTED} means evaluated in floating point, with truncation errors bounded analytically where stated but with rounding errors not controlled. Only PROVED and CERTIFIED statements are used in proofs.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{5.2cm}@{}}
+\toprule
+Quantity & Value & Status / source\\
+\midrule
+$\Ec=\prod_p(1-p^{-2}-p^{-3})$ & $0.4791453444$ & certified $\Ec\in[0.47914533,0.47914535]$ (interval arithmetic); two independent evaluations\\
+$\CG=6/(\pi^2\Ec)$ & $1.2687739$ & certified $\CG<1.26877393$ (interval arithmetic); finite-$Q$ check $W/H=1.26877$ at $Q=2\cdot10^5$\\
+$\pC(1)$ & $\ge0.932282$ ($\approx0.9322826$) & exact rational certificate; ODE and FEM agree\\
+$\pC(\CG)$ & $\ge0.885912$ ($\approx0.8859177$) & exact rational certificate at $C=1.2688\ge\CG$\\
+$\Rw$, $\Cw$ for log-wide weights & Table~\ref{tab:Rw} & computed (essential suprema); certified upper bounds for the log-smooth weight at $\eta=10^{-3},10^{-4},10^{-5}$\\
+$\CTp(w)$ for fixed $\eta$ & Table~\ref{tab:CTfixed} & upper bounds certified (interval arithmetic) via Proposition~\ref{prop:CTfixed}\\
+\bottomrule
+\end{tabular}
+\caption{Numerical constants used or quoted in the text; see also Table~\ref{tab:constants}.}\label{tab:numerics}
+\end{table}
+
+\subsection{Certificates}
+The ancillary file \texttt{certify.py} solves the discretised problem for $\Qf_{F_C}$ in floating point (the discretised shape-$F_C$ functional is numerically convex for $C\le1.6$, see below, so the KKT system is solved directly and the positivity of the solution is checked), symmetrises, rounds the step heights to integers, renormalises exactly, and evaluates $\Qf_{F_C}$ in rational arithmetic. Output: \texttt{certify.log} for $n=400,800,1600$. The minimum over $\int h=0$ of $\Qf_{F_C}(h)/\|h\|^2$ is computed in \texttt{convexity.py} (\texttt{convexity.log}): $0.4305$ ($C=1$), $0.4040$ ($1.0434$), $0.3748$ ($1.0911$), $0.2648$ ($1.2688$), $0.2173$ ($1.3448$), $0.0553$ ($1.603$), $-0.0689$ ($1.8$). An independent Euler--Lagrange solution and an independent finite-element solution give $\pC(\CG)=0.8859177$ and $\pC(1)=0.9322826$ (sanity checks only; these scripts are not included in the ancillary files, and nothing in the proofs depends on them). For Theorem~\ref{thm:poly} the ancillary files \texttt{certify\_hybrid.py} and \texttt{certify\_dyadic.py} do the same at the support $\bet(\kappa)$, $\kappa\in\{0,\frac14,\frac12,1,2,3,5,10\}$ (Proposition~\ref{H:prop:cert}; the table after Theorem~\ref{thm:poly} uses $n=400$, logs \texttt{certify\_hybrid\_n400\_rerun.log} and \texttt{certify\_hybrid\_dyadic\_n400.log}; the log \texttt{certify\_hybrid\_n800.log} records the finer step functions with $n=800$); \texttt{classical\_constant\_check.py} checks $\Ccl(\one_{[\eta,1]})\le4.175$ for $\eta\le0.0146$ and $8/(3\Ec)\le5.5657$ exactly, and \texttt{kappa\_curve.py} computes the (uncertified) curve $\kappa\mapsto\pC(\bet(\kappa);F_C)$ quoted in \S\ref{H:sec:remarks}.
+
+\subsection{Farey and Toeplitz constants}
+$\Rw$ is the essential supremum of the explicit function $\Pw$ of \eqref{eqA:Pw}, evaluated exactly on the open intervals between breakpoints (Remark~\ref{rem:essup}). $\CT(w)=\sup_{S,t}R_S(t)$ is the supremum of the explicit local density of the Toeplitz measure near rationals $u/v$ with $\{p\mid v\}=S$; for the weights with $A(q)=q/\varphi(q)$ the supremum is attained at $S=\emptyset$ in all tested cases, including non-primorial $S$. As a sanity check (the scripts are not included in the ancillary files, and no proof depends on it): for weights where finite-$Q$ effects are small, the top eigenvalue of the finite Toeplitz matrix agrees with the predicted supremum to $4$--$6$ digits and its eigenvector concentrates at the predicted rational and scale (e.g.\ $(1-u)^2$ with $q/\varphi(q)$: $1.56528$ at $Q=10^4$ against $1.5653$ predicted; an independent reimplementation obtains $1.565240$, $1.565259$ at $Q=10^3,2\cdot10^3$). The log-wide weights with small $\eta$ cannot be tested directly at feasible $Q$ because the isolated-point term is $O(Q^{\alpha-2}\eta^{-2})$. For fixed $\eta$, Proposition~\ref{prop:CTfixed} reduces $\CTp(w)$ to a finite computation over the $64$ sets $S_1\subset\{2,\dots,13\}$, a far-field bound and an explicit slack; its evaluation (Table~\ref{tab:CTfixed}) bounds every truncation, interpolation and far-field error by the proved inequalities of Proposition~\ref{prop:CTfixed} and Lemma~\ref{lem:fS}, and evaluates all finite sums in ball arithmetic (Arb, through python-flint, at $64$-bit precision), with every maximum and comparison taken on exact rational endpoints (ancillary file \texttt{ctplus\_arb.py}; its \texttt{README.md} lists the steps). The same method bounds $\Rw$ (ancillary file \texttt{rw\_arb.py}), with the far-field bound of Lemma~\ref{lem:Rwfar} (Remark~\ref{rem:Rwnum}). Hence the fixed-$\eta$ upper bounds for $\CTp(w)$ and $\Rw$ used in Theorem~\ref{thm:fixed} are CERTIFIED: for the log-smooth weight $\CTp(w)\le1.090990$ ($\eta=10^{-3}$) and $\CTp(w)\le1.043290$ ($\eta=10^{-4}$), and $\Rw\le1.059816,\,1.028831,\,1.015859$ ($\eta=10^{-3},10^{-4},10^{-5}$). The suprema themselves are enclosed to within $3\cdot10^{-7}$; for instance at $\eta=10^{-4}$, $\sup_tR_\emptyset(t)\in[1.0432587,1.0432589]$, and the slack $\frac12\delta_{P_0}M_w\le3.1\cdot10^{-5}$ accounts for almost all of the gap to the certified bound. An independent implementation that shares no code (ancillary files \texttt{xcheck\_*.py}) reproduces all six maxima to ten digits. The whole computation takes about two minutes on six cores.
+
+\subsection{Sanity checks of the prime side}
+At moderate $Q$ (weights $(1-u)^2q/\varphi(q)$, $Q=1000$--$3000$) the Gauss-transfer inequality holds in every run, and the additive top eigenvalue reproduces $\Rw=1.2633$. On short intervals the multiplicative constant is $1.0000$, $1.0008$, $1.025$, $1.10$, $1.21$ for $K=Q^{0.3},Q^{0.5},Q^{0.7},Q^{0.85},Q^{1.0}$ ($Q=1000$ and $2000$), illustrating Lemma~\ref{lem:M2}. The Rayleigh quotients of actual flattened prime vectors, $F(b)/(H\|b\|^2)$, lie between $0.57$ and $0.94$ at all tested sizes (up to $Q=3\cdot10^5$) and increase towards $1$ from below; the invisibility defect of $\ash$ is below $10^{-4}$. These checks are consistent with, but not used in, the proofs; their scripts are not included in the ancillary files.
+
+\subsection{What has been checked by machine}\label{ssec:checked}
+Three kinds of evidence are distinct: numerical certificates, a formal proof in Lean, and the written proofs of this paper. Theorem~\ref{thm:main} is supported by all three, and so is Theorem~\ref{thm:poly}(a). Theorems~\ref{thm:gauss} and~\ref{thm:fixed} rest on the written proofs and the numerical certificates, and so do Theorem~\ref{thm:poly}(b), (c) and Corollary~\ref{cor:dyadic}.
+
+\emph{Numerical statements.} Every numerical statement used in a proof is CERTIFIED by a script in the ancillary files, whose output log is shipped with it: Proposition~\ref{prop:cert} (\texttt{certify.py}), the fixed-$\eta$ constants of Theorem~\ref{thm:fixed} (\texttt{ctplus\_arb.py}, \texttt{rw\_arb.py}, \texttt{certify\_ctplus\_arb.py}) and the arithmetic constants of Table~\ref{tab:constants} (\texttt{certify\_constants\_arb.py}), and Proposition~\ref{H:prop:cert} (\texttt{certify\_hybrid.py}, \texttt{certify\_dyadic.py}). The maxima behind $\CTp(w)$ were also reproduced by an independent implementation that shares no code with these scripts (\texttt{xcheck\_*.py}).
+
+\emph{Formal proof of Theorem~\ref{thm:main}.} The ancillary directory \texttt{lean/} contains a Lean~4 project (toolchain \texttt{v4.33.0-rc2}) built on Mathlib and on the Lean formalisation of \cite{AF26} (project \texttt{zeta23} of \url{https://github.com/anthropics/formal-math}); the exact revisions are pinned in \texttt{lean/lake-manifest.json}. From the latter it uses Weil's explicit formula (Proposition~\ref{prop:weil}), zero-counting estimates for Dirichlet $L$-functions, Stirling-type bounds for $\Gamma'/\Gamma$, a prime number theorem with error term, and the linear algebra behind Lemma~\ref{lem:ranktrace}. The Lean theorem \texttt{Families.thmMain} proves \texttt{Families.thmMain\_Statement}, the Lean statement of Theorem~\ref{thm:main}, including the bound $\pC(1)\ge0.932282$ (the row $C=1$ of Proposition~\ref{prop:cert}, evaluated by the Lean kernel). It has no hypotheses, and \texttt{\#print axioms Families.thmMain} reports only Lean's standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}; in particular nothing it depends on uses \texttt{sorry} or \texttt{native\_decide}. The formal proof follows the written one and assumes none of its steps. Where it deviates, it uses weaker inputs; for instance, it uses the large sieve \eqref{eq:MVLS} with a larger absolute constant, and a zero-density estimate of the form \eqref{eq:Montuniform} with a smaller exponent $c$, proved in Lean for heights $T'\le Q$, the only range used in the proof of Lemma~\ref{lem:bad}. The script \texttt{lean/scripts/audit.sh} repeats these checks: it scans every declaration of the project for axioms and \texttt{sorry}, and it requires that \texttt{Families.thmMain} have no hypotheses, have type \texttt{thmMain\_Statement}, and depend only on the three standard axioms.
+
+\emph{What the formal proof does not show.} The machine checks the Lean statement, not Theorem~\ref{thm:main} as displayed in \S\ref{sec:intro}. That the two agree is a correspondence of definitions: the family and the weights \eqref{eq:omega}, \eqref{eq:logwide}; the zero counts, with multiplicity, and the conditions ``simple'' and $\beta=1/2$; the constant \eqref{eq:pC}; the heights $\ell^{a_0}\le T\le\ell^{A_0}$; and the order of the quantifiers and limits. The file \texttt{lean/STATEMENTS.md} sets out this correspondence, definition by definition, for a human reader. In the Lean statement the $\liminf$ is written without division by $N$: for every $\delta>0$ and all $Q\ge Q_0(\delta)$, $N^s_0\ge(\pC(1)-\eps-\delta)N$, and similarly for $N^*_0$; for $N_d$ the Lean bound is $N_d\ge((1+\pC(1))/2-\eps/2-\delta)N$, slightly stronger than the displayed $-\eps$.
+
+\emph{Formal proof of Theorem~\ref{thm:poly}(a).} The Lean project in the ancillary directory \texttt{lean/} contains a second library, \texttt{FamiliesH}, next to the library \texttt{Families} of Theorem~\ref{thm:main}; it imports \texttt{Families} without modifying it, with the same toolchain and pinned revisions. The Lean theorem \texttt{Families.Hybrid.thmH} proves \texttt{Families.Hybrid.thmH\_Statement}, the Lean statement of Theorem~\ref{thm:poly}(a), including the lower bounds in column (a) of the table after Theorem~\ref{thm:poly} for $\kappa=1,2,3,5,10$ (evaluated by the Lean kernel on the step functions with $400$ cells). It has no hypotheses, and \texttt{\#print axioms Families.Hybrid.thmH} reports only \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}; in particular nothing it depends on uses \texttt{sorry} or \texttt{native\_decide}. The formal proof follows \S\ref{sec:poly} and assumes none of its steps. Where it deviates, it uses weaker inputs or another route for a single estimate; for instance, it uses the large sieve \eqref{eq:MVLS} with a larger absolute constant, as for Theorem~\ref{thm:main}, a direct bound for the prime part of the trace in Proposition~\ref{H:prop:trace} that does not use Proposition~\ref{H:prop:fc}, and a bound for the mixed term of Lemma~\ref{H:lem:arch}(b) that holds under the hypothesis \eqref{H:eq:profile} of Proposition~\ref{H:prop:second}, which is where that lemma is used. The project also proves that its statement implies \texttt{Families.thmMain\_Statement}. The script \texttt{lean/scripts/audit.sh} repeats these checks for both headlines, \texttt{Families.thmMain} and \texttt{Families.Hybrid.thmH}.
+
+\emph{What this formal proof does not show.} As for Theorem~\ref{thm:main}, the machine checks the Lean statement, not Theorem~\ref{thm:poly}(a) as displayed in \S\ref{sec:intro}. That the two agree is again a correspondence of definitions, now also for the heights $\ell^{a_0}\le T\le Q^{\kappa_1}$, the support $\bet_T$ of \eqref{eq:bet}, the constant $\pC(\bet;F_1)$ of \eqref{eq:pbeta}, and the order of the quantifiers ($\eta_0$ does not depend on $a_0$ and $\kappa_1$). The file \texttt{lean/STATEMENTS-H.md} sets out this correspondence, definition by definition. In the Lean statement the target is evaluated at each height: for every $\delta>0$ and all $Q\ge Q_0(\delta)$, $N^s_0\ge(\pC(\bet_T;F_1)-\eps-\delta)N$ for all $\ell^{a_0}\le T\le Q^{\kappa_1}$, and similarly for $N^*_0$; for $N_d$ the Lean bound is $N_d\ge((1+\pC(\bet_T;F_1))/2-\eps/2-\delta)N$, slightly stronger than the displayed $-\eps$ (as for Theorem~\ref{thm:main}).
+
+\emph{Not formalised.} Theorems~\ref{thm:gauss}, \ref{thm:fixed} and~\ref{thm:conditional} are stated in the Lean project (as propositions) but not proved there, and \texttt{Families.thmMain} does not depend on them. Also not formalised are Lemma~\ref{lem:A}, Corollary~\ref{cor:LmultA}, Lemmas~\ref{lem:harm}, \ref{lem:Rwlog} and~\ref{lem:Rwfar}, and Propositions~\ref{prop:TI} and~\ref{prop:CTfixed}; the formal proof of Theorem~\ref{thm:main} does not use them. These results rest on the written proofs, on the cited literature and, for Theorem~\ref{thm:fixed}, on the certified numerics. Some ingredients of Theorem~\ref{thm:gauss} are proved in Lean: Lemma~\ref{lem:gauss}, the row $C=1.2688$ of Proposition~\ref{prop:cert}, and $\Ec\ge0.47914$, hence $\CG\le1.2688$. The file \texttt{lean/STATUS.md} lists the status of each result in the Lean project. Theorem~\ref{thm:poly}(b), (c), Corollary~\ref{cor:dyadic}, Theorem~\ref{H:thm:cond} for general $C$, and the results of \S\ref{H:sec:SH} (which the proofs do not use) are not stated in the Lean project; they rest on the written proofs and, for the columns (b), (c) and the dyadic column of the table after Theorem~\ref{thm:poly}, on the certified numerics.
+
+\inputlemma{constants}
+
+\clearpage % print the tables of Appendix A before Appendix B starts
+%======================================================================
+\section{Proofs of the ported lemmas}\label{app:ported}
+%======================================================================
+This appendix proves two auxiliary statements whose arguments follow \cite{AF26,HY26} and which are used in \S\S2--4: Weil's explicit formula on the test class (Lemma~\ref{lem:explicit}) and the rank--trace inequality (Lemma~\ref{lem:ranktrace}). The other statements adapted from \cite{HY26} (Lemmas~\ref{lem:gabor}, \ref{lem:blocks}, \ref{lem:RvM}, \ref{lem:tails}, Propositions~\ref{prop:perchi}, \ref{prop:finitecentre}) are proved where they are stated. Apart from the classical facts about Dirichlet $L$-functions quoted from \cite{Dav}, the arguments are self-contained.
+
+\subsection{The explicit formula}
+For a primitive character $\chi$ modulo $q\ge3$ with parity $\mathfrak a=\mathfrak a_\chi$ let $\xi(s,\chi):=(q/\pi)^{(s+\mathfrak a)/2}\Gamma(\frac{s+\mathfrak a}2)L(s,\chi)$. This is an entire function whose zeros are exactly the nontrivial zeros of $L(s,\chi)$, with multiplicity, all in $0<\Re s<1$; and $\xi(s,\chi)=\epsilon(\chi)\xi(1-s,\overline\chi)$ with $|\epsilon(\chi)|=1$, where $\overline\chi$ has the same parity \cite[Chs.~9, 12]{Dav}. Writing $\psi_\Gamma=\Gamma'/\Gamma$, we get
+\begin{equation}\label{eqB:logder}
+\frac{\xi'}\xi(s,\chi)=\frac12\log\frac q\pi+\frac12\psi_\Gamma\Big(\frac{s+\mathfrak a}2\Big)+\frac{L'}L(s,\chi),\qquad\frac{\xi'}\xi(s,\chi)=-\frac{\xi'}\xi(1-s,\overline\chi).
+\end{equation}
+
+\begin{proposition}[Weil's explicit formula; cf.\ {\cite[Thm.~5.12]{IK04}, \cite[Prop.~4.1]{HY26}}]\label{prop:weil}
+Let $\chi$ be a primitive character modulo $q\ge3$, let $h\in C_c^\infty(\RR)$ be complex valued, and put $H(z):=\int_\RR h(u)e^{izu}\dd u$ ($z\in\CC$). Then
+\[
+\sum_\rho m_\rho\,H\Big(\frac{\rho-1/2}i\Big)=\int_\RR H(t)\mu_\chi(t)\dd t-\sum_{n\ge2}\frac{\Lambda(n)}{\sqrt n}\big(\chi(n)h(\log n)+\overline\chi(n)h(-\log n)\big),
+\]
+where $\rho$ runs over the nontrivial zeros of $L(s,\chi)$ with multiplicities $m_\rho$ and $\mu_\chi$ is as in \eqref{eq:mu}. The zero sum and the integral converge absolutely, and the prime sum is finite.
+\end{proposition}
+
+\begin{proof}
+Let $\supp h\subset[-U,U]$. Integrating by parts $k$ times,
+\begin{equation}\label{eqB:Hdecay}
+|H(x+iy)|\le\|h^{(k)}\|_1\,e^{U|y|}\,|x+iy|^{-k}\qquad(k\ge0),
+\end{equation}
+so $H$ is entire and decays faster than any power of $|x|$, uniformly in every horizontal strip. Put $\widetilde H(s):=H((s-\frac12)/i)$. For $s=\sigma+i\tau$ we have $(s-\frac12)/i=\tau-i(\sigma-\frac12)$, so $\widetilde H$ decays faster than any power of $|\tau|$ uniformly for $-\frac12\le\sigma\le\frac32$. By \eqref{eq:localcount} and \eqref{eqB:Hdecay}, $\sum_\rho m_\rho|\widetilde H(\rho)|<\infty$.
+
+\emph{Contour.} For $-1\le\sigma\le2$ and $|t|\ge2$, $\frac{L'}L(s,\chi)=\sum_{|\gamma-t|<1}(s-\rho)^{-1}+O(\log(q|t|))$ \cite[Ch.~16]{Dav}. By \eqref{eq:localcount}, at most $O(\log(qV))$ zeros have $|\gamma|\in[V-1,V+2]$, so for every $V\ge2$ there is $V'\in[V,V+1]$ with $\big|V'-|\gamma|\big|\gg1/\log(qV)$ for all zeros; then $\frac{L'}L(\sigma\pm iV',\chi)\ll\log^2(qV)$ for $-\frac12\le\sigma\le\frac32$ (this is the standard choice of height in the proof of the explicit formula for $\psi(x,\chi)$, \cite[Ch.~19]{Dav}). Since also $\psi_\Gamma(w)\ll\log(2+|w|)$ for $|\Im w|\ge1$, \eqref{eqB:logder} gives $\frac{\xi'}\xi(\sigma\pm iV',\chi)\ll\log^2(qV)$ there. Integrate $\widetilde H(s)\frac{\xi'}\xi(s,\chi)$ over the positively oriented boundary of the rectangle with vertices $-\frac12\pm iV'$, $\frac32\pm iV'$. No zero lies on the boundary, and the residue theorem gives $2\pi i\sum_{|\gamma|<V'}m_\rho\widetilde H(\rho)$. By \eqref{eqB:Hdecay} with $k=2$, the horizontal sides contribute $O(V^{-2}\log^2(qV))$. Letting $V\to\infty$,
+\begin{equation}\label{eqB:IpIm}
+\sum_\rho m_\rho\widetilde H(\rho)=I_+-I_-,\qquad I_\pm:=\frac1{2\pi i}\int_{(c_\pm)}\widetilde H(s)\frac{\xi'}\xi(s,\chi)\dd s,\quad c_+=\tfrac32,\ c_-=-\tfrac12,
+\end{equation}
+where both integrals converge absolutely, since $\frac{\xi'}\xi(c_\pm+i\tau,\chi)\ll\log(q(2+|\tau|))$ on these lines by \eqref{eqB:logder}.
+
+\emph{Prime terms.} On $\Re s=\frac32$, $-\frac{L'}L(s,\chi)=\sum_n\Lambda(n)\chi(n)n^{-s}$ converges absolutely, and by \eqref{eqB:logder} on $\Re s=-\frac12$, $\frac{\xi'}\xi(s,\chi)=-\frac12\log\frac q\pi-\frac12\psi_\Gamma(\frac{1-s+\mathfrak a}2)+\sum_n\Lambda(n)\overline\chi(n)n^{s-1}$. For $n\ge2$ substitute $s=\frac12+iz$: on $\Re s=\frac32$ the variable $z$ runs over $\Im z=-1$ from left to right, and $\dd s=i\dd z$; moving the line to $\Im z=0$ is allowed by \eqref{eqB:Hdecay}, because $|n^{-iz}|=n^{\Im z}\le1$ for $-1\le\Im z\le0$. On $\Re s=-\frac12$ the variable $z$ runs over $\Im z=+1$, and we move it to $\Im z=0$ using $|n^{iz}|=n^{-\Im z}\le1$ for $0\le\Im z\le1$. By Fourier inversion,
+\begin{gather*}
+\frac1{2\pi i}\int_{(3/2)}\widetilde H(s)n^{-s}\dd s=\frac{n^{-1/2}}{2\pi}\int_\RR H(t)e^{-it\log n}\dd t=\frac{h(\log n)}{\sqrt n},\\
+\frac1{2\pi i}\int_{(-1/2)}\widetilde H(s)n^{s-1}\dd s=\frac{n^{-1/2}}{2\pi}\int_\RR H(t)e^{it\log n}\dd t=\frac{h(-\log n)}{\sqrt n}.
+\end{gather*}
+Interchanging sum and integral, the prime parts of $I_+$ and of $-I_-$ are
+\[
+-\sum_n\Lambda(n)\chi(n)n^{-1/2}h(\log n)\quad\text{and}\quad-\sum_n\Lambda(n)\overline\chi(n)n^{-1/2}h(-\log n).
+\]
+Only $n\le e^U$ contribute.
+
+\emph{Gamma terms.} The function $\psi_\Gamma(\frac{s+\mathfrak a}2)$ is holomorphic for $\Re s>0$, and $\psi_\Gamma(\frac{1-s+\mathfrak a}2)$ for $\Re s<1$ (their poles are real); for $|\tau|\ge1$ both are $\ll\log(2+|\tau|)$ in the strip $-\frac12\le\sigma\le\frac32$. By \eqref{eqB:Hdecay} we may move the remaining parts of $I_+$ and of $-I_-$ to the line $\Re s=\frac12$, where $s=\frac12+it$, $\widetilde H(s)=H(t)$ and $\dd s=i\dd t$:
+\begin{multline*}
+\frac1{2\pi}\int_\RR H(t)\Big(\frac12\log\frac q\pi+\frac12\psi_\Gamma\Big(\frac{\frac12+\mathfrak a+it}2\Big)\Big)\dd t\\
++\frac1{2\pi}\int_\RR H(t)\Big(\frac12\log\frac q\pi+\frac12\psi_\Gamma\Big(\frac{\frac12+\mathfrak a-it}2\Big)\Big)\dd t=\int_\RR H(t)\mu_\chi(t)\dd t,
+\end{multline*}
+because $\psi_\Gamma(\overline w)=\overline{\psi_\Gamma(w)}$. This integral converges absolutely since $\mu_\chi(t)\ll\log(q(2+|t|))$. Inserting the prime and gamma terms in \eqref{eqB:IpIm}, and noting $\widetilde H(\rho)=H((\rho-\frac12)/i)$, proves the proposition.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:explicit}]
+Let $f_k(u):=\psi_L(u)e^{-i\tau_ku}$ and $h:=f_k*f_l\in C_c^\infty(\RR)$. Then $\supp h\subset\supp\psi_L+\supp\psi_L$, a compact subset of $(-L,L)$, and $H(z)=\int h(u)e^{izu}\dd u=\widehat{\psi_L}(z-\tau_k)\widehat{\psi_L}(z-\tau_l)=p_k(z)p_l(z)$. The zero side of Proposition~\ref{prop:weil} is $G_{\chi,kl}$ by \eqref{eq:Gdef}. Since $h(\pm\log n)=0$ for $n\ge X=e^L$ and $\Ups(n)=1$ for $n\le X$, the prime side is $-\sum_na_n(\chi(n)h(\log n)+\overline\chi(n)h(-\log n))$. As $2\pi h(\pm\log n)=\int H(t)n^{\mp it}\dd t$ and $a_n$ is real, this equals $-\frac1{2\pi}\int H(t)\big(S_\chi[a](t)+\overline{S_\chi[a](t)}\big)\dd t=\int H(t)P_\chi(t)\dd t$ (a finite sum). Hence $G_{\chi,kl}=\int p_kp_l(\mu_\chi+P_\chi)$. The right side is symmetric in $k,l$ and real, because $p_k$ is real on $\RR$ (Lemma~\ref{lem:gabor}) and $\mu_\chi$, $P_\chi$ are real. Only $n<X$ enter, so the value does not depend on $\Ups_0$.
+\end{proof}
+
+\subsection{The rank--trace inequality}
+\begin{proof}[Proof of Lemma~\ref{lem:ranktrace}]
+We follow \cite[Lemma~8.2]{HY26}; see \cite[Lemma~3.2]{AF26} for a proof via von Neumann's trace inequality. Let $d$ be the size of the matrices, $r_0:=\rank P\le r$ and $b_0:=n_+(R)\le b$. Since the right side decreases in $r$ and $b$, it suffices to prove the inequality with $(r_0,b_0)$. Let $p_1\ge\dots\ge p_{r_0}>0$ be the nonzero eigenvalues of $P$, with orthonormal eigenvectors $e_1,\dots,e_{r_0}$, and let $q_1\le\dots\le q_d$ be the eigenvalues of $R$, with orthonormal eigenvectors $f_1,\dots,f_d$.
+
+\emph{Ky Fan step.} Fix $k\le r_0$ and put $\alpha_j:=\sum_{i\le k}|\langle e_i,f_j\rangle|^2$. These are the diagonal entries, in the basis $(f_j)$, of the orthogonal projection onto $\operatorname{span}(e_1,\dots,e_k)$, so $0\le\alpha_j\le1$ and $\sum_j\alpha_j=k$. As $(q_j)$ is nondecreasing,
+\begin{multline*}
+S_k:=\sum_{i\le k}\langle Re_i,e_i\rangle=\sum_jq_j\alpha_j=\sum_{j\le k}q_j+\sum_{j\le k}q_j(\alpha_j-1)+\sum_{j>k}q_j\alpha_j\\
+\ge\sum_{j\le k}q_j+q_k\Big(\sum_j\alpha_j-k\Big)=\sum_{j\le k}q_j .
+\end{multline*}
+\emph{Abel summation.} With $p_{r_0+1}:=0$,
+\[
+\tr(PR)=\sum_{i\le r_0}p_i\langle Re_i,e_i\rangle=\sum_{k\le r_0}(p_k-p_{k+1})S_k\ge\sum_{k\le r_0}(p_k-p_{k+1})\sum_{j\le k}q_j=\sum_{i\le r_0}p_iq_i .
+\]
+\emph{Pairing.} Using $\|P+R\|_\Fro^2=\sum_ip_i^2+2\tr(PR)+\sum_jq_j^2$, $\tr P=\sum_ip_i$, $\tr R=\sum_jq_j$ and $b_0=\#\{j:q_j>0\}$,
+\[
+\|P+R\|_\Fro^2-\big(2\tr P-r_0+4\tr R-4b_0\big)\ge\sum_{i\le r_0}\phi(p_i,q_i)+\sum_{j>r_0}\big(q_j^2-4q_j+4\cdot\one_{q_j>0}\big),
+\]
+where $\phi(p,q):=p^2+2pq-2p+1+q^2-4q+4\cdot\one_{q>0}$. Each unpaired term is $\ge0$: it is $q^2-4q\ge0$ if $q\le0$ and $(q-2)^2$ if $q>0$. For $p>0$ and $q=-x\le0$, $\phi(p,q)=(p-1)^2+x^2+(4-2p)x$, which is $\ge0$ if $p\le2$, while for $p>2$ its minimum over $x\ge0$ is $(p-1)^2-(p-2)^2=2p-3>0$. For $q>0$, with $\sigma:=p+q$, $\phi(p,q)=\sigma^2-2p-4q+5\ge\sigma^2-4\sigma+5>0$. Hence the left side is $\ge0$.
+\end{proof}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}

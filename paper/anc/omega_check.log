@@ -1,0 +1,12 @@
+Q=1000000 kind=lsmooth eta=0.01: W(=H check)=1.103273e+12  violations of Omega^- <= m(e/Q): 0 (worst excess 0.000e+00)
+  neg mass/W=0.02722   majorant mass sum m(e/Q)phi(e)/W=0.05245   largest e with Omega<0: e/(eta Q)=2.020   max Omega^-/m=0.9331 at e/(etaQ)=0.337
+  neg-mass fraction by band e/(eta Q): [0,.5) 0.024 [.5,1) 0.335 [1,1.5) 0.492 [1.5,2) 0.149 [2,2.5) 0.000 [2.5,3) 0.000 [3,inf) 0.000
+Q=1000000 kind=lsmooth eta=0.001: W(=H check)=1.654910e+12  violations of Omega^- <= m(e/Q): 0 (worst excess 0.000e+00)
+  neg mass/W=0.00960   majorant mass sum m(e/Q)phi(e)/W=0.02076   largest e with Omega<0: e/(eta Q)=2.231   max Omega^-/m=0.8755 at e/(etaQ)=0.324
+  neg-mass fraction by band e/(eta Q): [0,.5) 0.021 [.5,1) 0.293 [1,1.5) 0.470 [1.5,2) 0.200 [2,2.5) 0.016 [2.5,3) 0.000 [3,inf) 0.000
+Q=1000000 kind=sharp eta=0.01: W(=H check)=2.206585e+12  violations of Omega^- <= m(e/Q): 0 (worst excess 0.000e+00)
+  neg mass/W=0.04658   majorant mass sum m(e/Q)phi(e)/W=0.07249   largest e with Omega<0: e/(eta Q)=1.000   max Omega^-/m=0.9840 at e/(etaQ)=0.498
+  neg-mass fraction by band e/(eta Q): [0,.5) 0.132 [.5,1) 0.868 [1,1.5) 0.000 [1.5,2) 0.000 [2,2.5) 0.000 [2.5,3) 0.000 [3,inf) 0.000
+Q=1000000 kind=sharp eta=0.001: W(=H check)=3.310053e+12  violations of Omega^- <= m(e/Q): 0 (worst excess 0.000e+00)
+  neg mass/W=0.03105   majorant mass sum m(e/Q)phi(e)/W=0.04833   largest e with Omega<0: e/(eta Q)=0.999   max Omega^-/m=0.9839 at e/(etaQ)=0.482
+  neg-mass fraction by band e/(eta Q): [0,.5) 0.132 [.5,1) 0.868 [1,1.5) 0.000 [1.5,2) 0.000 [2,2.5) 0.000 [2.5,3) 0.000 [3,inf) 0.000

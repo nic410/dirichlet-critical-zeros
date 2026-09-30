@@ -1,0 +1,133 @@
+%% =====================================================================
+%% constants.tex -- numerical constants used in the lemma files, with
+%%   provenance and status.  Input in Appendix A of main.tex.
+%% Labels DEFINED: tab:constants, tab:Rw, tab:CTfixed, tab:otherw
+%% Labels USED: lem:WH, lem:harm, lem:Rwlog, rem:essup (lemma-A.tex);
+%%   lem:Omega, lem:fS, lem:CTlimit, prop:CTfixed (lemma-toeplitz-C.tex);
+%%   thm:main, thm:gauss, thm:fixed (main.tex).
+%% Scripts/logs: the ancillary files (anc/).
+%% Status labels: PROVED (a closed form or a proved inequality), COMPUTED
+%%   (floating point; truncation errors bounded analytically where stated),
+%%   CERTIFIED (exact rational or interval arithmetic).
+%% =====================================================================
+\providecommand{\Ec}{\mathcal{E}}
+\providecommand{\CG}{C_{\mathrm G}}
+\providecommand{\CT}{C_{\mathrm T}}
+\providecommand{\CTp}{C^{+}_{\mathrm T}}
+\providecommand{\Rw}{R_w}
+\providecommand{\Cw}{C_w}
+
+\subsection{Numerical constants}
+
+Table~\ref{tab:constants} lists the arithmetic constants that occur in the proofs; Table~\ref{tab:Rw} the Gauss-transfer
+constants $\Rw$, $\Cw=\CG\Rw$ (Lemma~\ref{lem:A}); Table~\ref{tab:CTfixed} the sharp constants $\CTp(w)$ at fixed $\eta$
+(Proposition~\ref{prop:CTfixed}) with the certified values of $p(C)$; Table~\ref{tab:otherw} other weights, for comparison.
+All suprema in $t$ are \emph{essential} suprema (Remark~\ref{rem:essup}). For step weights they are evaluated exactly on the
+open intervals between consecutive breakpoints $t\in\{\eta/n,1/n\}$; for the log-smooth weight on a grid in $\log(1/t)$, plus a
+proved interpolation allowance (in the certified computation, a second-order bound using that $R_S'$ is Lipschitz between grid points;
+see the ancillary \texttt{README.md}).
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l l >{\raggedright}p{3.9cm} >{\raggedright\arraybackslash}p{3.1cm}@{}}
+\hline
+constant & value & where used & status / source\\
+\hline
+$\Ec=\prod_p(1-p^{-2}-p^{-3})$ & $0.4791453\ldots$ & $H$, $\CG$, $R_S$ & CERTIFIED, $\in[0.47914533,$ $0.47914535]$\\
+$\CG=6/(\pi^2\Ec)$ & $\approx1.2687739$ & $W/H\to\CG$ (Lemma~\ref{lem:WH}) & CERTIFIED, $<1.26877393$\\
+$c_\varphi=\gamma-\zeta'(2)/\zeta(2)$ & $1.1471767\ldots$ & Lemma~\ref{lem:harm} & closed form; CERTIFIED\\
+$B_\varphi=\zeta(3/2)/\zeta(3)$ & $2.17325\ldots$ & $|E_\varphi(y)|\le2B_\varphi y^{-1/2}$ & closed form; PROVED bound\\
+$4B_\varphi\pi^2/6$ & $14.2994\ldots$ & $\Rw\le1+14.31/I_h$ (Lemma~\ref{lem:Rwlog}) & PROVED; CERTIFIED $\le14.31$\\
+$\zeta(2)\zeta(3)/\zeta(6)=\sum_d\mu^2(d)/(d\varphi(d))$ & $1.943596\ldots$ & tail bounds, $\sum_{r\le x}1/\varphi(r)$ & closed form; CERTIFIED $\le1.95$\\
+$\sum_r\mu^2(r)/(r^2\varphi(r))$ & $1.33978\ldots$ & Lemma~\ref{lem:Omega}(a) & CERTIFIED, $<1.34$\\
+$\sigma_0^-=\sum_{\mu(r)=-1}1/(r^2\varphi(r))$ & $0.32114\ldots$ & Lemma~\ref{lem:Omega}(d) & CERTIFIED, $<0.33$\\
+$\sigma_1^-=\sum_{\mu(r)=-1}\log r/(r^2\varphi(r))$ & $0.26313\ldots$ & Lemma~\ref{lem:Omega}(e), Lemma~\ref{lem:CTlimit} & CERTIFIED, $<0.27$\\
+$c_\emptyset=\gamma+\sum_p\frac{(p^{-2}+p^{-3})\log p}{1-p^{-2}-p^{-3}}$ & $1.4107008\ldots$ & first-order excess, Lemma~\ref{lem:fS}(iii) & CERTIFIED, $<1.411$\\
+$\max_S(c_\emptyset-c_S)=\sum_p\frac{\log p}{p^3(p-1)(1-p^{-2}-p^{-3})}$ & $0.16722\ldots$ & Lemma~\ref{lem:fS}(iii) & CERTIFIED, $<0.168$\\
+$B=\prod_p\big(1+\frac{p^{-1/2}}{p-1}+\frac{p^{-1}}{p(p-1)}\big)$ & $3.7254\ldots$ & $|E_S(s)|\le2Be^{-s/2}$, all $S$ & CERTIFIED, $<3.73$; PROVED bound\\
+$c_\emptyset+4B/\Ec$ & $<32.6$ & $\sup_SR_S\le1+32.6/I_w$ & PROVED (from the rows above)\\
+$\delta_{P_0}=\prod_{p>13}(1+\frac2{p^3(p-1)})-1$ & $5.824\cdot10^{-5}$ & reduction to $S_1\subset\{2,\dots,13\}$ & CERTIFIED, $<5.83\cdot10^{-5}$\\
+\hline
+\end{tabular}
+\caption{Arithmetic constants. CERTIFIED entries are enclosed in interval arithmetic with explicit tail bounds (ancillary file
+\texttt{certify\_constants\_arb.py}, output \texttt{certify\_constants\_arb.log}); $\Ec$, $c_\emptyset$, $B$, $\delta_{P_0}$ and $\sigma_0^-$ are also enclosed by
+\texttt{ctplus\_arb.py}, and $\Ec\ge0.47914$ (hence $\CG\le1.2688$) is also checked in the Lean formalisation (Section~\ref{ssec:checked}).}\label{tab:constants}
+\end{table}
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccccc@{}}
+\hline
+weight & $\eta$ & $\Rw$ (ess sup) & pointwise sup & $\Cw=\CG\Rw$ & $p(\Cw)$\\
+\hline
+sharp $u^{-2}\mathbf 1_{[\eta,1]}$ & $10^{-1}$ & $1.480065$ & $1.508641$ & $1.8779$ & --\\
+ & $10^{-2}$ & $1.247814$ & $1.249243$ & $1.5832$ & --\\
+ & $10^{-3}$ & $1.166030$ & $1.166125$ & $1.4794$ & --\\
+ & $10^{-4}$ & $1.124548$ & $1.124555$ & $1.4268$ & --\\
+ & $10^{-5}$ & $1.099642$ & $1.099643$ & $1.3952$ & $\approx0.867$\\
+log-smooth $u^{-2}\sin^2(\pi\frac{\log u}{\log\eta})\mathbf 1_{[\eta,1]}$ & $10^{-3}$ & $\le1.059816$ & -- & $\le1.3447$ & $\ge0.874482$\\
+ & $10^{-4}$ & $\le1.028831$ & -- & $\le1.3054$ & $\ge0.880308$\\
+ & $10^{-5}$ & $\le1.015859$ & -- & $\le1.2889$ & $\ge0.882814$\\
+$(1-u)^2$ & -- & $1.2633$ & -- & $1.603$ & $\ge0.841248$\\
+$(1-u)^6$ & -- & $1.1720$ & -- & $1.487$ & $\approx0.855$\\
+any log-wide, $\eta\to0$ & -- & $\to1$ (Lemma~\ref{lem:Rwlog}) & -- & $\to\CG$ & $\ge0.885912$\\
+\hline
+\end{tabular}
+\caption{Gauss-transfer constants. Sharp and $(1-u)^k$ rows: COMPUTED (ancillary file \texttt{rw\_ess.log}; the $(1-u)^k$ rows from
+independent computations that are not included). The limit $\Rw\to1$ is PROVED. Log-smooth rows: CERTIFIED upper bounds in interval
+arithmetic (ancillary files \texttt{rw\_arb.py}, \texttt{rw\_arb\_lsmooth\_*.log}; far field by Lemma~\ref{lem:Rwfar}); the enclosures are
+$\Rw\in[1.0598154,1.0598156]$, $[1.0288302,1.0288304]$, $[1.0158583,1.0158585]$, and $\CG\Rw\le1.344667$, $1.305354$, $1.288895$, so the
+bounds $\Rw\le1.0599,1.0289,1.0159$ of Theorem~\ref{thm:fixed}(iii) hold.
+$p$-values marked $\ge$ are CERTIFIED by exact rational evaluation of an explicit even step window at the tabulated value of $C$
+(a certified upper bound in the log-smooth rows, \texttt{certify\_ctplus\_arb.log}; other rows: \texttt{certify.log}); those marked $\approx$ are interpolated
+($dp/dC\approx-0.16$).}
+\label{tab:Rw}
+\end{table}
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccccc@{}}
+\hline
+weight & $\eta$ & $\operatorname{ess\,sup}_tR_\emptyset\in$ & $\sup R^+$ over $\mu^-$ region $\le$ & $\CTp(w)\le$ & $p(\CTp)\ge$ & distinct $\ge$\\
+\hline
+sharp & $10^{-2}$ & $[1.304866,1.304867]$ & $1.149557$ & $1.30491$ & $0.880382$ & $0.940191$\\
+ & $10^{-3}$ & $[1.204189,1.204190]$ & $1.099476$ & $1.20423$ & $0.896219$ & $0.948109$\\
+ & $10^{-4}$ & $[1.153159,1.153160]$ & $1.074595$ & $1.15320$ & $0.904739$ & $0.952369$\\
+log-smooth & $10^{-2}$ & $[1.236095,1.236097]$ & $1.136613$ & $1.23614$ & $0.891060$ & $0.945530$\\
+ & $10^{-3}$ & $[1.090957,1.090958]$ & $1.045532$ & $1.09099$ & $0.915569$ & $0.957784$\\
+ & $10^{-4}$ & $[1.043258,1.043259]$ & $1.028502$ & $1.04329$ & $0.924202$ & $0.962101$\\
+either, $\eta\to0$ & -- & $\to1$ & -- & $\to1$ (Lemma~\ref{lem:CTlimit}) & $0.932282$ & $0.966141$\\
+\hline
+\end{tabular}
+\caption{The sharp constant $\CTp(w)$ at fixed $\eta$ (Proposition~\ref{prop:CTfixed}); every entry is CERTIFIED in interval
+(ball) arithmetic (ancillary files \texttt{ctplus\_arb.py}, \texttt{ctplus\_arb\_*.log}, \texttt{certify\_ctplus\_arb.log}).
+Column 3: an enclosure of $\operatorname{ess\,sup}_tR_\emptyset(t)$; the maximum over $S_1$ is at $S_1=\emptyset$ in every case
+(sharp: at $t\to\eta^+$; log-smooth: at $t/\eta=5.81,8.21,9.84$). Column 4: an upper bound for $\max_{S_1}\sup(R_{S_1}+R^m)$ over
+$t<\eta$ (sharp) resp.\ $t<3\eta$ (log-smooth), where the majorant $R^m$ lives; it is below column 3, so the positive part does not
+change the constant. Column 5 is the reduction of Proposition~\ref{prop:CTfixed} over all $64$ sets $S_1\subset\{2,3,5,7,11,13\}$,
+with both far-field bounds and the slack $\frac12\delta_{P_0}M_w\le3.9\cdot10^{-5}$, rounded up to five decimals. Columns 6--7:
+exact rational lower bounds for $p(C)$ at the value in column 5 ($n=1600$ cells). The last row is PROVED (Lemma~\ref{lem:CTlimit})
+with $p(1)\ge0.932282$ CERTIFIED. An earlier double-precision evaluation (ancillary file \texttt{ctplus.py}) gave the same
+column 5 for the sharp weight, and $1.23617,1.09101,1.04331$ for the log-smooth weight.}
+\label{tab:CTfixed}
+\end{table}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lcc}
+\hline
+weight (per-character $\omega(q)$) & $\sup_{S,t}R_S$ & $p$\\
+\hline
+$(1-u)^2\,q/\varphi(q)$ & $1.5653$ & $\approx0.846$\\
+$(1-u)^6\,q/\varphi(q)$ & $1.3757$ & $\approx0.870$\\
+$(1-u)^2$ (no $q/\varphi(q)$; $A\equiv1$) & $2.028$ ($S\to$ primorials) & $\approx0.805$\\
+\hline
+\end{tabular}
+\caption{Other weights, for comparison only. Column 2: the signed constant $\sup_{S,t}R_S$, COMPUTED in floating point and
+compared with top eigenvalues of the finite Toeplitz matrices to 5--6 digits; the positive part was not examined for these narrow
+weights, where $\mu^-$ is large, so these are \emph{not} values of $\CTp$, and they are not certified. Column 3: $p$ at the value in
+column 2, from a floating-point solution of the discretised problem \eqref{eq:pC} (bandwidth $2$; for the last row two solvers
+give $0.8048$ and $0.8050$). The last row, with weight $(1-q/Q)^2$ per primitive character, is discussed in \S\ref{rem:AF72}. These
+computations are not included in the ancillary files, and no proof depends on them.}
+\label{tab:otherw}
+\end{table}

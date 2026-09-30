@@ -1,0 +1,33 @@
+Certified upper bounds C_T^+(w) <= Cbar (prop:CTfixed, all 64 S1, far field, slack), Arb interval arithmetic:
+weight       eta  sup_t R_empty(t) in (cert.)  mu^- region <=  C_T^+ <= Cbar       C5      C4  slack        time
+sharp    1/100   [1.30486623, 1.30486628]        1.149557    1.304904406  1.30491  1.3050  3.813e-05  32.6s
+sharp    1/1000  [1.20418914, 1.20418919]        1.099476    1.204224259  1.20423  1.2043  3.508e-05  32.4s
+sharp    1/10000 [1.15315973, 1.15315977]        1.074595    1.153193351  1.15320  1.1532  3.358e-05  30.6s
+lsmooth  1/100   [1.23609593, 1.23609620]        1.136613    1.236132195  1.23614  1.2362  3.600e-05  88.4s
+lsmooth  1/1000  [1.09095738, 1.09095752]        1.045532    1.090989281  1.09099  1.0910  3.177e-05  93.7s
+lsmooth  1/10000 [1.04325871, 1.04325881]        1.028502    1.043289188  1.04329  1.0433  3.038e-05  88.3s
+  (mu^- region: max over S1 of sup (R_S1 + R^m) over t < eta (sharp) resp. t < 3 eta (log-smooth); the maximiser of sup_t R_S1 is S1 = {} in every case)
+
+Exact rational p(C) certificates at the rounded-up bounds (certify.py, n = 1600):
+[sharp eta=1/100, C5] C=130491/100000 (=1.304910) n=1600: float p=0.8803825; EXACT p >= 0.880382465 (certified >= 0.880382); distinct >= 0.940191232 (certified >= 0.940191); min f = 0.1692
+[sharp eta=1/100, C4] C=261/200 (=1.305000) n=1600: float p=0.8803689; EXACT p >= 0.880368889 (certified >= 0.880368); distinct >= 0.940184444 (certified >= 0.940184); min f = 0.1692
+[sharp eta=1/1000, C5] C=120423/100000 (=1.204230) n=1600: float p=0.8962198; EXACT p >= 0.896219806 (certified >= 0.896219); distinct >= 0.948109903 (certified >= 0.948109); min f = 0.2098
+[sharp eta=1/1000, C4] C=12043/10000 (=1.204300) n=1600: float p=0.8962083; EXACT p >= 0.896208346 (certified >= 0.896208); distinct >= 0.948104173 (certified >= 0.948104); min f = 0.2098
+[sharp eta=1/10000, C5] C=2883/2500 (=1.153200) n=1600: float p=0.9047396; EXACT p >= 0.904739561 (certified >= 0.904739); distinct >= 0.952369780 (certified >= 0.952369); min f = 0.2299
+[sharp eta=1/10000, C4] C=2883/2500 (=1.153200) n=1600: float p=0.9047396; EXACT p >= 0.904739561 (certified >= 0.904739); distinct >= 0.952369780 (certified >= 0.952369); min f = 0.2299
+[lsmooth eta=1/100, C5] C=61807/50000 (=1.236140) n=1600: float p=0.8910601; EXACT p >= 0.891060076 (certified >= 0.891060); distinct >= 0.945530038 (certified >= 0.945530); min f = 0.1971
+[lsmooth eta=1/100, C4] C=6181/5000 (=1.236200) n=1600: float p=0.8910505; EXACT p >= 0.891050496 (certified >= 0.891050); distinct >= 0.945525248 (certified >= 0.945525); min f = 0.1971
+[lsmooth eta=1/1000, C5] C=109099/100000 (=1.090990) n=1600: float p=0.9155699; EXACT p >= 0.915569866 (certified >= 0.915569); distinct >= 0.957784933 (certified >= 0.957784); min f = 0.2539
+[lsmooth eta=1/1000, C4] C=1091/1000 (=1.091000) n=1600: float p=0.9155681; EXACT p >= 0.915568086 (certified >= 0.915568); distinct >= 0.957784043 (certified >= 0.957784); min f = 0.2539
+[lsmooth eta=1/10000, C5] C=104329/100000 (=1.043290) n=1600: float p=0.9242025; EXACT p >= 0.924202515 (certified >= 0.924202); distinct >= 0.962101257 (certified >= 0.962101); min f = 0.2720
+[lsmooth eta=1/10000, C4] C=10433/10000 (=1.043300) n=1600: float p=0.9242007; EXACT p >= 0.924200676 (certified >= 0.924200); distinct >= 0.962100338 (certified >= 0.962100); min f = 0.2720
+
+Certified upper bounds for R_w (log-smooth weight; rw_arb.py) and C_w = C_G R_w:
+     eta  R_w >= (cert.)   R_w <= Rbar   C_G R_w <=      C4  hypothesis in the text
+  1/1000         1.0598154   1.059815501  1.344666271  1.3447  R_w <= 1.0599, C_G R_w <= 1.3448: holds
+  1/10000        1.0288302   1.028830331  1.305353095  1.3054  R_w <= 1.0289, C_G R_w <= 1.3055: holds
+  1/100000       1.0158583   1.015858435  1.288894692  1.2889  R_w <= 1.0159, C_G R_w <= 1.2890: holds
+[Gauss route, lsmooth eta=1/1000, C_G R_w <= C4] C=13447/10000 (=1.344700) n=1600: float p=0.8744824; EXACT p >= 0.874482402 (certified >= 0.874482); distinct >= 0.937241201 (certified >= 0.937241); min f = 0.1528
+[Gauss route, lsmooth eta=1/10000, C_G R_w <= C4] C=6527/5000 (=1.305400) n=1600: float p=0.8803086; EXACT p >= 0.880308564 (certified >= 0.880308); distinct >= 0.940154282 (certified >= 0.940154); min f = 0.1690
+[Gauss route, lsmooth eta=1/100000, C_G R_w <= C4] C=12889/10000 (=1.288900) n=1600: float p=0.8828141; EXACT p >= 0.882814079 (certified >= 0.882814); distinct >= 0.941407039 (certified >= 0.941407); min f = 0.1757
+# total time 11s

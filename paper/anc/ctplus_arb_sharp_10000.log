@@ -1,0 +1,79 @@
+[    0.0s] ctplus_arb sharp_10000: NS=1000000 T1=100 T2=1000000 Pc=10000000 R0=1000000 prec=64 dgrid=1/1000 dbin=1/1000
+[    0.0s] environment: python 3.10.12, python-flint 0.9.0 (FLINT 3.6.0), numpy 2.2.6, x86_64 Linux
+[    0.3s] sieve to 1000010 done
+[    5.8s] E in [0.4791453312696, 0.4791453472412]  c_empty in [1.4107008037, 1.4107025157]  B <= 3.727631  delta_P0 <= 5.824231e-05  sigma_0^- <= G = 0.321141397542  s_half <= 0.490349185  c_phi = 1.147176658..  B_phi = 2.173254313..  C_G = 6/(pi^2 E) <= 1.2687739234
+[    5.8s] L = [9.21034037197618274 +/- 5.60e-18]  I_w = [9.21034037197618274 +/- 5.60e-18]  E I_w in [4.413091588637, 4.413091735740]
+[    6.7s] a_n^empty and signatures done
+[    6.7s] 28023 checkpoints
+[   11.5s] sharp R^m: U(A) done; max_(A<T1) U = 0.072770, max_(T1<=A<T2) U = 0.036770; I_m <= 0.26313516
+[   11.5s] far field (b), t < eta/T2: R^m <= 0.042120   [(6/pi^2)I_m/EI = 0.036248, V'-term/EI = 0.005871]
+[   11.9s]    self-check S=[]: F(N0-1) exact rational inside ball: OK
+[   11.9s] S=[]: sup_near(R_S+R^m) <= 1.1531598 | sup_near R_S in [1.1531597, 1.1531598] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1531598 [near]  (0s)
+[   12.2s]    self-check S=[2]: F(N0-1) exact rational inside ball: OK
+[   12.2s] S=[2]: sup_near(R_S+R^m) <= 1.1381042 | sup_near R_S in [1.1381042, 1.1381042] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1381042 [near]  (1s)
+[   12.5s] S=[3]: sup_near(R_S+R^m) <= 1.1505679 | sup_near R_S in [1.1505679, 1.1505679] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1505679 [near]  (1s)
+[   12.8s] S=[5]: sup_near(R_S+R^m) <= 1.1527924 | sup_near R_S in [1.1527923, 1.1527924] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1527924 [near]  (1s)
+[   13.1s] S=[7]: sup_near(R_S+R^m) <= 1.1530548 | sup_near R_S in [1.1530547, 1.1530548] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1530548 [near]  (2s)
+[   13.4s] S=[11]: sup_near(R_S+R^m) <= 1.1531400 | sup_near R_S in [1.1531399, 1.1531400] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1531400 [near]  (2s)
+[   13.8s]    self-check S=[13]: F(N0-1) exact rational inside ball: OK
+[   13.8s] S=[13]: sup_near(R_S+R^m) <= 1.1531492 | sup_near R_S in [1.1531491, 1.1531492] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1531492 [near]  (2s)
+[   14.0s] S=[2, 3]: sup_near(R_S+R^m) <= 1.1355119 | sup_near R_S in [1.1355119, 1.1355119] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1355119 [near]  (3s)
+[   14.3s] S=[2, 5]: sup_near(R_S+R^m) <= 1.1377366 | sup_near R_S in [1.1377365, 1.1377366] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1377366 [near]  (3s)
+[   14.6s] S=[2, 7]: sup_near(R_S+R^m) <= 1.1379993 | sup_near R_S in [1.1379992, 1.1379993] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1379993 [near]  (3s)
+[   14.9s] S=[2, 11]: sup_near(R_S+R^m) <= 1.1380844 | sup_near R_S in [1.1380844, 1.1380844] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1380844 [near]  (3s)
+[   15.2s] S=[2, 13]: sup_near(R_S+R^m) <= 1.1380936 | sup_near R_S in [1.1380936, 1.1380936] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1380936 [near]  (4s)
+[   15.5s] S=[3, 5]: sup_near(R_S+R^m) <= 1.1502005 | sup_near R_S in [1.1502005, 1.1502005] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1502005 [near]  (4s)
+[   15.8s] S=[3, 7]: sup_near(R_S+R^m) <= 1.1504629 | sup_near R_S in [1.1504629, 1.1504629] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1504629 [near]  (4s)
+[   16.1s] S=[3, 11]: sup_near(R_S+R^m) <= 1.1505482 | sup_near R_S in [1.1505481, 1.1505482] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1505482 [near]  (5s)
+[   16.4s] S=[3, 13]: sup_near(R_S+R^m) <= 1.1505573 | sup_near R_S in [1.1505573, 1.1505573] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1505573 [near]  (5s)
+[   16.6s] S=[5, 7]: sup_near(R_S+R^m) <= 1.1526874 | sup_near R_S in [1.1526873, 1.1526874] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1526874 [near]  (5s)
+[   17.0s] S=[5, 11]: sup_near(R_S+R^m) <= 1.1527726 | sup_near R_S in [1.1527725, 1.1527726] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1527726 [near]  (5s)
+[   17.3s] S=[5, 13]: sup_near(R_S+R^m) <= 1.1527818 | sup_near R_S in [1.1527817, 1.1527818] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1527818 [near]  (6s)
+[   17.6s] S=[7, 11]: sup_near(R_S+R^m) <= 1.1530350 | sup_near R_S in [1.1530349, 1.1530350] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1530350 [near]  (6s)
+[   17.9s] S=[7, 13]: sup_near(R_S+R^m) <= 1.1530442 | sup_near R_S in [1.1530442, 1.1530442] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1530442 [near]  (6s)
+[   18.1s] S=[11, 13]: sup_near(R_S+R^m) <= 1.1531294 | sup_near R_S in [1.1531293, 1.1531294] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1531294 [near]  (7s)
+[   18.4s] S=[2, 3, 5]: sup_near(R_S+R^m) <= 1.1351443 | sup_near R_S in [1.1351442, 1.1351443] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1351443 [near]  (7s)
+[   18.7s] S=[2, 3, 7]: sup_near(R_S+R^m) <= 1.1354069 | sup_near R_S in [1.1354069, 1.1354069] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1354069 [near]  (7s)
+[   19.0s] S=[2, 3, 11]: sup_near(R_S+R^m) <= 1.1354921 | sup_near R_S in [1.1354921, 1.1354921] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1354921 [near]  (7s)
+[   19.3s] S=[2, 3, 13]: sup_near(R_S+R^m) <= 1.1355013 | sup_near R_S in [1.1355013, 1.1355013] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1355013 [near]  (8s)
+[   19.6s] S=[2, 5, 7]: sup_near(R_S+R^m) <= 1.1376316 | sup_near R_S in [1.1376316, 1.1376316] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1376316 [near]  (8s)
+[   19.9s] S=[2, 5, 11]: sup_near(R_S+R^m) <= 1.1377168 | sup_near R_S in [1.1377167, 1.1377168] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1377168 [near]  (8s)
+[   20.2s] S=[2, 5, 13]: sup_near(R_S+R^m) <= 1.1377260 | sup_near R_S in [1.1377259, 1.1377260] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1377260 [near]  (9s)
+[   20.5s] S=[2, 7, 11]: sup_near(R_S+R^m) <= 1.1379794 | sup_near R_S in [1.1379794, 1.1379794] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1379794 [near]  (9s)
+[   20.8s] S=[2, 7, 13]: sup_near(R_S+R^m) <= 1.1379887 | sup_near R_S in [1.1379886, 1.1379887] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1379887 [near]  (9s)
+[   21.1s] S=[2, 11, 13]: sup_near(R_S+R^m) <= 1.1380738 | sup_near R_S in [1.1380738, 1.1380738] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1380738 [near]  (10s)
+[   21.4s] S=[3, 5, 7]: sup_near(R_S+R^m) <= 1.1500955 | sup_near R_S in [1.1500955, 1.1500955] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1500955 [near]  (10s)
+[   21.7s] S=[3, 5, 11]: sup_near(R_S+R^m) <= 1.1501807 | sup_near R_S in [1.1501807, 1.1501807] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1501807 [near]  (10s)
+[   22.0s] S=[3, 5, 13]: sup_near(R_S+R^m) <= 1.1501899 | sup_near R_S in [1.1501899, 1.1501899] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1501899 [near]  (10s)
+[   22.3s] S=[3, 7, 11]: sup_near(R_S+R^m) <= 1.1504432 | sup_near R_S in [1.1504431, 1.1504432] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1504432 [near]  (11s)
+[   22.6s] S=[3, 7, 13]: sup_near(R_S+R^m) <= 1.1504523 | sup_near R_S in [1.1504523, 1.1504523] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1504523 [near]  (11s)
+[   22.9s] S=[3, 11, 13]: sup_near(R_S+R^m) <= 1.1505376 | sup_near R_S in [1.1505375, 1.1505376] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1505376 [near]  (11s)
+[   23.2s] S=[5, 7, 11]: sup_near(R_S+R^m) <= 1.1526676 | sup_near R_S in [1.1526676, 1.1526676] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1526676 [near]  (12s)
+[   23.5s] S=[5, 7, 13]: sup_near(R_S+R^m) <= 1.1526768 | sup_near R_S in [1.1526768, 1.1526768] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1526768 [near]  (12s)
+[   23.8s] S=[5, 11, 13]: sup_near(R_S+R^m) <= 1.1527620 | sup_near R_S in [1.1527619, 1.1527620] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1527620 [near]  (12s)
+[   24.1s] S=[7, 11, 13]: sup_near(R_S+R^m) <= 1.1530244 | sup_near R_S in [1.1530244, 1.1530244] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1530244 [near]  (13s)
+[   24.4s] S=[2, 3, 5, 7]: sup_near(R_S+R^m) <= 1.1350393 | sup_near R_S in [1.1350392, 1.1350393] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1350393 [near]  (13s)
+[   24.6s] S=[2, 3, 5, 11]: sup_near(R_S+R^m) <= 1.1351245 | sup_near R_S in [1.1351244, 1.1351245] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1351245 [near]  (13s)
+[   24.9s] S=[2, 3, 5, 13]: sup_near(R_S+R^m) <= 1.1351336 | sup_near R_S in [1.1351336, 1.1351336] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1351336 [near]  (13s)
+[   25.2s] S=[2, 3, 7, 11]: sup_near(R_S+R^m) <= 1.1353871 | sup_near R_S in [1.1353871, 1.1353871] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1353871 [near]  (14s)
+[   25.5s] S=[2, 3, 7, 13]: sup_near(R_S+R^m) <= 1.1353963 | sup_near R_S in [1.1353963, 1.1353963] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1353963 [near]  (14s)
+[   25.8s] S=[2, 3, 11, 13]: sup_near(R_S+R^m) <= 1.1354815 | sup_near R_S in [1.1354815, 1.1354815] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1354815 [near]  (14s)
+[   26.1s] S=[2, 5, 7, 11]: sup_near(R_S+R^m) <= 1.1376118 | sup_near R_S in [1.1376118, 1.1376118] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1376118 [near]  (15s)
+[   26.4s] S=[2, 5, 7, 13]: sup_near(R_S+R^m) <= 1.1376210 | sup_near R_S in [1.1376210, 1.1376210] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1376210 [near]  (15s)
+[   26.7s] S=[2, 5, 11, 13]: sup_near(R_S+R^m) <= 1.1377062 | sup_near R_S in [1.1377061, 1.1377062] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1377062 [near]  (15s)
+[   27.0s] S=[2, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1379689 | sup_near R_S in [1.1379688, 1.1379689] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1379689 [near]  (15s)
+[   27.3s] S=[3, 5, 7, 11]: sup_near(R_S+R^m) <= 1.1500757 | sup_near R_S in [1.1500757, 1.1500757] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1500757 [near]  (16s)
+[   27.6s] S=[3, 5, 7, 13]: sup_near(R_S+R^m) <= 1.1500849 | sup_near R_S in [1.1500849, 1.1500849] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1500849 [near]  (16s)
+[   27.9s] S=[3, 5, 11, 13]: sup_near(R_S+R^m) <= 1.1501701 | sup_near R_S in [1.1501701, 1.1501701] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1501701 [near]  (16s)
+[   28.2s] S=[3, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1504326 | sup_near R_S in [1.1504325, 1.1504326] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1504326 [near]  (17s)
+[   28.5s] S=[5, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1526570 | sup_near R_S in [1.1526570, 1.1526570] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1526570 [near]  (17s)
+[   28.8s] S=[2, 3, 5, 7, 11]: sup_near(R_S+R^m) <= 1.1350195 | sup_near R_S in [1.1350194, 1.1350195] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1350195 [near]  (17s)
+[   29.1s] S=[2, 3, 5, 7, 13]: sup_near(R_S+R^m) <= 1.1350287 | sup_near R_S in [1.1350286, 1.1350287] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1350287 [near]  (18s)
+[   29.4s] S=[2, 3, 5, 11, 13]: sup_near(R_S+R^m) <= 1.1351138 | sup_near R_S in [1.1351138, 1.1351138] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1351138 [near]  (18s)
+[   29.7s] S=[2, 3, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1353765 | sup_near R_S in [1.1353765, 1.1353765] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1353765 [near]  (18s)
+[   29.9s] S=[2, 5, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1376012 | sup_near R_S in [1.1376012, 1.1376012] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1376012 [near]  (18s)
+[   30.2s] S=[3, 5, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1500651 | sup_near R_S in [1.1500651, 1.1500651] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1500651 [near]  (19s)
+[   30.6s]    self-check S=[2, 3, 5, 7, 11, 13]: F(N0-1) exact rational inside ball: OK
+[   30.6s] S=[2, 3, 5, 7, 11, 13]: sup_near(R_S+R^m) <= 1.1350089 | sup_near R_S in [1.1350088, 1.1350089] | sup|E_S| <= 7.460e-03 far R_S <= 1.003381 | mid <= 1.040151 far <= 1.045501 | total <= 1.1350089 [near]  (19s)
+[   30.6s] SUMMARY sharp_10000: max_(S1) sup(R_S1+R^m) <= 1.153159769 (S1=[], near); M_w <= 1.1531824; slack (1/2)M_w delta_P0 <= 3.3582e-05; CERTIFIED  C_T^+ <= 1.153193351   (certified lower bound for sup_(S1,t) R_S1: 1.1531597); max_(S1) sup (R_S1+R^m) over t < eta (mu^- region) <= 1.074594
+[   30.6s] total time 31s, peak memory 478 MB

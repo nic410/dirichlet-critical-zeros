@@ -15,6 +15,21 @@ agents acting as hostile referees. The independent checks included a review of t
 statement by OpenAI's Astra.
 **No human mathematician has yet checked the proofs line by line.**
 
+## Video explainer
+
+[![Simple zeros, on average: 8-minute video explainer](docs/video-thumbnail.png)](https://github.com/nic410/dirichlet-critical-zeros/releases/download/v1.0.1/simple-zeros-on-average-explainer.mp4)
+
+An 8-minute narrated overview of the paper
+([download, 41 MB](https://github.com/nic410/dirichlet-critical-zeros/releases/download/v1.0.1/simple-zeros-on-average-explainer.mp4)).
+It starts from the Riemann zeta function and the critical line, reviews the earlier work this paper builds on
+(pair correlation, the Montgomery–Taylor constant, the Alpöge–Furman positivity certificate, family results),
+explains what is new here (bandwidth 2 for the family, the Toeplitz identity and Farey spokes behind the sharp
+large sieve, the extremal problem behind 0.9322), and ends with how the results were verified and what they do not show.
+
+Every number on screen comes from the paper or its certificate logs; panels that are illustrative rather than
+computed are marked "schematic". The animations and narration were produced with AI tools (Claude agents and a
+synthetic voice).
+
 ## What the result says, in plain language
 
 The **Riemann zeta function** ζ(s) encodes the distribution of the prime numbers. Its "nontrivial zeros" are complex
@@ -110,6 +125,7 @@ including errors found and corrected along the way, is in [`docs/VERIFICATION.md
 | `docs/READING-GUIDE.md` | guided tour of the paper for a technical reviewer, with page numbers and the known weak points |
 | `docs/VERIFICATION.md` | what was checked, how, by whom, with what result, and what was not checked |
 | `docs/REFERENCES.md` | the key literature, with links, and how each work relates to this paper |
+| `docs/video-thumbnail.png` | thumbnail for the video explainer (the video itself is a release asset of v1.0.1) |
 | `docs/review-records/` | cleaned copies of the most important independent review and audit reports (records 01–08 and 02b, with a `README.md`) |
 | `.github/workflows/lean.yml` | continuous integration: builds the Lean project and runs the audit |
 | `.gitignore` | ignores build products (`.lake/`, LaTeX auxiliary files, `paper/build/`) |

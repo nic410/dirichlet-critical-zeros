@@ -151,6 +151,8 @@ paper records that the argument there is due to Claude) and its adaptation to Di
 formalisation of Alpöge–Furman (`zeta23` in <https://github.com/anthropics/formal-math>). See
 [`docs/REFERENCES.md`](docs/REFERENCES.md).
 
+OpenAI's mathematics release of 6 October 2026 ([openai/math](https://github.com/openai/math), commit `adc7f12`) contains AI-generated preprints, not peer-reviewed, that claim a [zero-free half-plane Re s > 7/8](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf) for ζ and every Dirichlet L-function and a [uniform exclusion of Landau–Siegel zeros](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Uniform-exclusion-of-Landau-Siegel-zeros-October-1-2026/paper.pdf); the authors report Lean formalisations of both statements. Theorem 1.1 uses no zero-free region and no hypothesis on exceptional zeros, and those claims concern zeros off the critical line, so the results here neither depend on them nor are changed by them.
+
 ## How to cite
 
 ```bibtex

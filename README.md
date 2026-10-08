@@ -172,9 +172,15 @@ The DOI above is the concept DOI, which always resolves to the latest archived v
 own version DOI on [Zenodo](https://doi.org/10.5281/zenodo.23070759). GitHub's "Cite this repository" button (generated from [`CITATION.cff`](CITATION.cff)) gives the same reference in
 other formats.
 
-## Related repository
+## Related repositories
 
-[nic410/zeta-positive-solutions](https://github.com/nic410/zeta-positive-solutions) (DOI [10.5281/zenodo.23197915](https://doi.org/10.5281/zenodo.23197915)) is a later paper by the same author, produced the same way: it studies all positive solutions of Weil's explicit formula with the archimedean data of ζ (duality, uniqueness near ζ's support, computer-assisted near-criticality). The two papers are independent; neither uses the other's results.
+Two later papers by the same author, produced the same way, form a separate series. This paper is independent of
+both: neither uses the other's results.
+
+- [nic410/zeta-positive-solutions](https://github.com/nic410/zeta-positive-solutions) (DOI [10.5281/zenodo.23197915](https://doi.org/10.5281/zenodo.23197915)), Part I: all positive solutions of Weil's explicit formula with the archimedean data of ζ (duality,
+  uniqueness near ζ's support, computer-assisted near-criticality).
+- [nic410/zeta-sharpness-uniqueness](https://github.com/nic410/zeta-sharpness-uniqueness) (DOI [10.5281/zenodo.23238100](https://doi.org/10.5281/zenodo.23238100)), Part II: proofs of Part I's Conjectures S and U, that is, the sharpness of the explicit-formula method for
+  ζ and the uniqueness of positive solutions (not yet checked by a human expert).
 
 ## Contact
 
